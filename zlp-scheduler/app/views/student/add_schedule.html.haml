@@ -1,0 +1,18 @@
+
+%div{:class => "add_sched_info"}
+    %label{:for => "sched_name"} Schedule Name:
+    %input{:type => "text", :id => "sched_name"}
+    %p Dept. &ensp; Course Num. &ensp; Section &ensp; Mandatory
+    %select{:name => "dept", :class => "sched_drop_down"}
+        %option ECEN
+        %option CSCE
+        %option ENGR
+    %select{:name => "course_num", :class => "sched_drop_down"}
+        %option 460
+        %option 300
+        %option 101
+    %select{:name => "section", :class => "sched_drop_down"}
+        %option 180
+        %option 200
+        %option 404
+    %input{:type => "checkbox"}

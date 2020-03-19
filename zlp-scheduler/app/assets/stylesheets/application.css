@@ -54,7 +54,22 @@
 .term_frame ul, .term_frame li, label {
     line-height: 40px;
     margin: 0;
-    padding: 0 2em;
+    padding: 0 1em;
     list-style: none;
+}
+
+.add_sched_link {
+    margin-left: 80%;
+}
+
+/*stylers for add_schedule page*/
+
+.add_sched_info {
+    margin: auto;
+    text-align: center;
+}
+
+.sched_drop_down {
+    width: 5%;
 }
 
