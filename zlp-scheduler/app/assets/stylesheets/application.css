@@ -26,10 +26,26 @@
      padding-left: 2%;
  }
  
+ .title {
+     font-size: 50px;
+     color: white;
+     text-decoration: none;
+ }
+ 
 .spacer
 {
     width: 100%;
-    height: 80px;
+    height: 70px;
+}
+
+.button_link {
+    color: green;
+    text-decoration: none;
+    margin: 15px;
+}
+
+.button_link:hover {
+    text-decoration: underline;
 }
 
 /*CSS for drop-down terms on students and admin page */
@@ -39,16 +55,16 @@
     margin: auto;
 }
 
-.term_schedule ul, .term_schedule input[type="checkbox"] {
+.custom_drop_down ul, .custom_drop_down input[type="checkbox"] {
     display: none;
 }
 
-.term_schedule input:checked ~ ul {
+.custom_drop_down input:checked ~ ul {
     display: block;
 }
 
-.term_schedule {
-    background-image: radial-gradient(white,grey);
+.custom_drop_down {
+    background-image: linear-gradient(#DFEFCA, white);
 }
 
 .term_frame ul, .term_frame li, label {
@@ -56,10 +72,6 @@
     margin: 0;
     padding: 0 1em;
     list-style: none;
-}
-
-.add_sched_link {
-    margin-left: 80%;
 }
 
 /*stylers for add_schedule page*/
@@ -70,6 +82,19 @@
 }
 
 .sched_drop_down {
-    width: 5%;
+    width: 90%;
 }
 
+.sched_table {
+    width: 40%;
+    border: 1;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.cohort_table {
+    width: 40%;
+    border: 1;
+    margin: auto;
+    text-align: center;
+}

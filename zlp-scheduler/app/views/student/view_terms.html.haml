@@ -1,17 +1,19 @@
 %h2 Howdy, [student name]!
 
 %div{:class => "term_frame"}
-    %div{:class => "term_schedule"}
+    %div{:class => "custom_drop_down"}
         %input{:type => "checkbox", :id => "1"}
         %label{:for => "1"} Semester 1
-        = link_to 'Add Schedule', add_schedule_path, :class => 'add_sched_link'
+        = link_to 'Add Schedule', add_schedule_path, :class => 'button_link'
             
         %ul{:class => "schedules"}
             %li
                 &#9776; &emsp; Schedule 1
+                = link_to 'Delete', "", :class => 'button_link'
             %li
                 &#9776; &emsp; Schedule 2
-    %div{:class => "term_schedule"}
+                = link_to 'Delete', "", :class => 'button_link'
+    %div{:class => "custom_drop_down"}
         %input{:type => "checkbox", :id => "2"}
         %label{:for => "2"} Semester 2
             
@@ -20,7 +22,7 @@
                 &#9776; &emsp; Schedule 1
             %li
                 &#9776; &emsp; Schedule 2
-    %div{:class => "term_schedule"}
+    %div{:class => "custom_drop_down"}
         %input{:type => "checkbox", :id => "3"}
         %label{:for => "3"} Semester 3
             
@@ -30,7 +32,7 @@
             %li
                 &#9776; &emsp; Schedule 2
                     
-    %div{:class => "term_schedule"}
+    %div{:class => "custom_drop_down"}
         %input{:type => "checkbox", :id => "4"}
         %label{:for => "4"} Semester 4
             
@@ -40,7 +42,7 @@
             %li
                 &#9776; &emsp; Schedule 2
                     
-    %div{:class => "term_schedule"}
+    %div{:class => "custom_drop_down"}
         %input{:type => "checkbox", :id => "5"}
         %label{:for => "5"} Semester 5
             

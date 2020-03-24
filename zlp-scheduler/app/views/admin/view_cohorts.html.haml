@@ -1,0 +1,68 @@
+%h2 Howdy, [admin name]!
+
+%div{:class => "term_frame"}
+    %div{:class => "custom_drop_down"}
+        %input{:type => "checkbox", :id => "1"}
+        %label{:for => "1"} Cohort 1
+        = link_to 'Edit Cohort', edit_cohort_path, :class => 'button_link'
+            
+        %ul{:class => "cohort_semesters"}
+            %li
+                = link_to "Semester 1", view_cohort_semester_path, :class => 'button_link'
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 2
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 3
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 4
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 5
+                = link_to 'Open', "", :class => 'button_link'
+    %div{:class => "custom_drop_down"}
+        %input{:type => "checkbox", :id => "2"}
+        %label{:for => "2"} Cohort 2
+        = link_to 'Edit Cohort', "", :class => 'button_link'
+            
+        %ul{:class => "cohort_semesters"}
+            %li
+                &emsp; Semester 1
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 2
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 3
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 4
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 5
+                = link_to 'Open', "", :class => 'button_link'
+    %div{:class => "custom_drop_down"}
+        %input{:type => "checkbox", :id => "3"}
+        %label{:for => "3"} Cohort 3
+        = link_to 'Edit Cohort', "", :class => 'button_link'
+            
+        %ul{:class => "cohort_semesters"}
+            %li
+                &emsp; Semester 1
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 2
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 3
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 4
+                = link_to 'Open', "", :class => 'button_link'
+            %li
+                &emsp; Semester 5
+                = link_to 'Open', "", :class => 'button_link'
+
+= link_to "Add Cohort", add_cohort_path, :class => 'button_link'
