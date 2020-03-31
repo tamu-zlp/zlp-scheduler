@@ -8,6 +8,7 @@ class CreateCoursesAndTerms < ActiveRecord::Migration[5.0]
     create_table :courses do |t|
       t.string :full_subject
       t.string :abbreviated_subject
+      t.string :course_name
       t.integer :course_number
       t.integer :section_number
       t.datetime :meetingtime_start
