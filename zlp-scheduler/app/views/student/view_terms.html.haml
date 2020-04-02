@@ -1,54 +1,14 @@
 %h2 Howdy, [student name]!
 
 %div{:class => "term_frame"}
-    %div{:class => "custom_drop_down"}
-        %input{:type => "checkbox", :id => "1"}
-        %label{:for => "1"} Semester 1
-        = link_to 'Add Schedule', add_schedule_path, :class => 'button_link'
+    %div{:class => "header_div"}
+        %h2{:class => 'term_header'} Fall 2020
             
-        %ul{:class => "schedules"}
-            %li
-                &#9776; &emsp; Schedule 1
-                = link_to 'Delete', "", :class => 'button_link'
-            %li
-                &#9776; &emsp; Schedule 2
-                = link_to 'Delete', "", :class => 'button_link'
-    %div{:class => "custom_drop_down"}
-        %input{:type => "checkbox", :id => "2"}
-        %label{:for => "2"} Semester 2
-            
-        %ul{:class => "schedules"}
-            %li
-                &#9776; &emsp; Schedule 1
-            %li
-                &#9776; &emsp; Schedule 2
-    %div{:class => "custom_drop_down"}
-        %input{:type => "checkbox", :id => "3"}
-        %label{:for => "3"} Semester 3
-            
-        %ul{:class => "schedules"}
-            %li
-                &#9776; &emsp; Schedule 1
-            %li
-                &#9776; &emsp; Schedule 2
-                    
-    %div{:class => "custom_drop_down"}
-        %input{:type => "checkbox", :id => "4"}
-        %label{:for => "4"} Semester 4
-            
-        %ul{:class => "schedules"}
-            %li
-                &#9776; &emsp; Schedule 1
-            %li
-                &#9776; &emsp; Schedule 2
-                    
-    %div{:class => "custom_drop_down"}
-        %input{:type => "checkbox", :id => "5"}
-        %label{:for => "5"} Semester 5
-            
-        %ul{:class => "schedules"}
-            %li
-                &#9776; &emsp; Schedule 1
-            %li
-                &#9776; &emsp; Schedule 2
-                    
+    %ul{:class => "schedules"}
+        %li
+            &#9776; &emsp; Schedule 1
+            = link_to 'Delete', "", :class => 'right_button_link'
+        %li
+            &#9776; &emsp; Schedule 2
+            = link_to 'Delete', "", confirm: "Are you sure?", :class => 'right_button_link'
+    = link_to 'Add Schedule', add_schedule_path, :class => 'button_link'

@@ -1,10 +1,20 @@
 class AdminController < ApplicationController
-  def view_cohorts
+  def view_term_admin
+  end
+  
+  def open_semester
+  end
+  
+  def new_term
+  end
+  
+  def manage_cohorts 
   end
   
   def add_cohort
   end
   
-  def edit_cohort
+  def manage_administrators
   end
+  
 end

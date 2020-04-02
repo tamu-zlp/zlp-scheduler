@@ -8,8 +8,10 @@
                 %th Dept.
                 %th Course Num.
                 %th Section
-                %th Mandatory 
-            - 5.times do
+                %th{:class => 'tooltip'} 
+                    Mandatory
+                    %span{:class => 'tooltiptext'}Check if you MUST take the course THIS semester to be on track for graduation.
+            - 7.times do
                 %tr{:class => "sched_table_row"}
                     %td
                         %select{:name => "dept", :class => "sched_drop_down"}
@@ -28,8 +30,8 @@
                             %option 404
                     %td
                         %input{:type => "checkbox"}
-        = link_to "Add Class", "", :class => 'button_link'
-        //****Change later
-        = link_to "Save Schedule", view_terms_path, :class => 'button_link'
+%div{:class => 'centered_links'}   
+    //****Change later
+    = link_to "Save Schedule", view_terms_path, :class => 'button_link'
         
     
