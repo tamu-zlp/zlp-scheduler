@@ -13,3 +13,95 @@
  *= require_tree .
  *= require_self
  */
+body{
+	background-color: #500000;
+}
+.Sign_Form{
+	text-align: center;
+	margin:auto;
+	margin-top:5px;	
+	width:400px;
+	background-color: rgba(255,255,255, 1);
+	padding-bottom:20px;
+	padding-top:2px;
+	padding-right: 15px;
+	padding-left: 15px;
+	border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+    /*position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    */
+}
+
+.header{
+  float: left;
+  width: 350px;
+  height: 90px;
+}
+
+.linktotextcolor { color: #fff; }
+
+.topright{float: right;
+	font-size: large; 
+}
+
+.header h1 {
+  position: relative;
+  top: 18px;
+  left: 10px;
+}
+
+
+.Register_Form{
+	text-align: center;
+	margin:auto;
+	margin-top:50px;	
+	width:450px;
+	background-color: rgba(255,255,255, 1);
+	padding-bottom:20px;
+	padding-top:2px;
+	padding-left: 6px;
+	border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+    /*position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    */
+}
+
+.Input_Large{
+    font-size: large;
+}
+
+.Input_Medium{
+    font-size: medium;
+}
+
+.Input_XLarge{
+	/*font-size: xx-small;
+	font-size: x-small;
+	font-size: small;
+	font-size: medium;
+	font-size: large;*/
+	/*font-size: x-large;*/
+	font-size: xx-large;
+	/*font-size: xxx-large;*/
+}
+
+#number {
+  width: 9em;
+}
+
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
+
+
+
+
