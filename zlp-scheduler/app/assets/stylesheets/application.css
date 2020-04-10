@@ -16,6 +16,173 @@
 body{
 	background-color: #500000;
 }
+
+.top_bar {
+     position: fixed;
+     top: 0;
+     width: 100%;
+     background: green;
+     color: white;
+     z-index: 11000000;
+     transform: translateX(-50%);
+     left: 50%;
+     padding-left: 2%;
+ }
+ 
+ .title {
+     font-size: 50px;
+     color: white;
+     text-decoration: none;
+ }
+ 
+.spacer
+{
+    width: 100%;
+    height: 70px;
+}
+
+.button_link {
+    color: green;
+    text-decoration: none;
+    padding: 0 1em;
+    text-align: center;
+}
+
+.button_link:hover, .right_button_link:hover {
+    text-decoration: underline;
+}
+
+.right_button_link {
+    color: green;
+    text-decoration: none;
+    line-height: 40px;
+    float: right;
+    margin-right: 2%;
+}
+
+.centered_links {
+    margin: auto;
+    width: 40%;
+    text-align: center;
+    margin-top: 5%;
+}
+
+label, input {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/*Tooltip setup*/
+
+.tooltip{
+  position:relative;
+  text-decoration: underline;
+  color: #667761;
+}
+
+
+.tooltiptext{
+  display:none;
+  position:absolute; 
+  z-index:10;
+  border:1px;
+  border-style:solid;
+  border-width:1px;
+  padding:3px;
+  top: -5px;
+  left: 105%;
+  width: 80%;
+}
+
+.tooltip:hover span.tooltiptext{
+  display:block;
+}
+
+/*CSS for drop-down terms on students and admin page */
+
+.term_frame {
+    width:70%;
+    margin: auto;
+    background-image: linear-gradient(#DFEFCA, white);
+    vertical-align: middle;
+    height: 500px;
+}
+
+.cohort_frame{
+    width:70%;
+    margin: auto;
+    vertical-align: middle;
+}
+
+.header_div {
+    padding: 0 1em;
+}
+
+.term_header {
+    display: inline-block;
+}
+
+.term_frame ul, .term_frame li, .cohort_frame label {
+    line-height: 40px;
+    margin: 0;
+    padding: 0 1em;
+    list-style: none;
+}
+
+.cohort_frame label{
+    font-size: 20px;
+}
+
+.term_frame ul {
+    margin-bottom: 15px;
+}
+
+.custom_drop_down table, .custom_drop_down input[type="checkbox"] {
+    display: none;
+}
+
+.custom_drop_down input:checked ~ table {
+    display: table;
+}
+
+.custom_drop_down{
+    background-image: linear-gradient(#DFEFCA, white);
+    line-height: 40px;
+}
+
+/*stylers for add_schedule page*/
+
+.add_sched_info {
+    margin: auto;
+    text-align: center;
+}
+
+.sched_drop_down {
+    width: 90%;
+}
+
+.sched_table {
+    width: 40%;
+    border: 1;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.cohort_table {
+    width: 40%;
+    border: 1;
+    margin: auto;
+    text-align: center;
+}
+
+.student_table{
+    width: 90%;
+    line-height: 150%;
+    text-align: left;
+    margin-left: 5%;
+    margin-bottom: 5%;
+}
+
 .Sign_Form{
 	text-align: center;
 	margin:auto;
@@ -101,7 +268,3 @@ body{
 .alignright {
 	float: right;
 }
-
-
-
-

@@ -1,0 +1,23 @@
+!!! 5
+%html
+  %head
+    %title ZLP Class Scheduler
+    = stylesheet_link_tag 'application', 'media' => 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+    %body
+      %div.container
+        %div{:class => "top_bar"}
+          = link_to "ZLP Class Scheduler", root_path, :class => "title"
+        %div{:class => "spacer"}
+          &nbsp;
+        #main
+          - if flash[:notice]
+            %div.alert.alert-danger
+              #notice.message= flash[:notice]
+          - elsif flash[:warning]
+            %div.alert.alert-danger
+              #warning.message= flash[:warning]
+
+          = yield
