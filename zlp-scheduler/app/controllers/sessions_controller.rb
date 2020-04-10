@@ -4,8 +4,7 @@ class SessionsController < ApplicationController
         user= User.find_by(email:login_params[:email])
         if user && user.authenticate(login_params[:password])
             session[:user_id] = user.id
-            flash[:notice] ='Welcome to View terms page'
-            redirect_to '/dashboard'
+            redirect_to '/student/view_terms'
         else
             flash[:login_errors]= ['invalid credentials']
             redirect_to '/'
