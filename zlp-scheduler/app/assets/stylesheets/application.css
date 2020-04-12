@@ -13,3 +13,254 @@
  *= require_tree .
  *= require_self
  */
+ 
+body{
+	background-color: #500000;
+}
+
+.header{
+  width: 350px;
+  height: 90px;
+}
+
+.header_div {
+    padding: 0 1em;
+}
+
+.header h1 {
+  position: relative;
+  top: 18px;
+  left: 10px;
+}
+
+h1 {
+    color: white;
+    margin-left: 2%;
+}
+
+.button_link {
+    color: #500000;
+    text-decoration: none;
+    padding: 0 1em;
+    text-align: center;
+}
+
+.button_link:hover, .right_button_link:hover {
+    text-decoration: underline;
+}
+
+.right_button_link {
+    color: #500000;
+    text-decoration: none;
+    line-height: 40px;
+    float: right;
+    margin-right: 2%;
+}
+
+.centered_links {
+    margin: auto;
+    width: 40%;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.centered_links .button_link {
+    color: white;
+}
+
+/*Tooltip setup*/
+
+.tooltip{
+  position:relative;
+  text-decoration: underline;
+  color: #500000;
+}
+
+
+.tooltiptext{
+  display:none;
+  position:absolute; 
+  z-index:10;
+  border:1px;
+  border-style:solid;
+  border-width:1px;
+  padding:3px;
+  top: -5px;
+  left: 105%;
+  width: 80%;
+}
+
+.tooltip:hover span.tooltiptext{
+  display:block;
+}
+
+/*CSS for drop-down terms on students and admin page */
+
+.term_frame {
+    width:70%;
+    margin: auto;
+    background-image: linear-gradient(#FFD5C2, white);
+    vertical-align: middle;
+    height: 500px;
+    border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+}
+
+.cohort_frame{
+    width:70%;
+    margin: auto;
+    vertical-align: middle;
+}
+
+.term_header {
+    display: inline-block;
+}
+
+.term_frame ul, .term_frame li, .cohort_frame label {
+    line-height: 40px;
+    margin: 0;
+    padding: 0 1em;
+    list-style: none;
+}
+
+.cohort_frame label{
+    font-size: 20px;
+}
+
+.term_frame ul {
+    margin-bottom: 15px;
+}
+
+.custom_drop_down table, .custom_drop_down input[type="checkbox"] {
+    display: none;
+}
+
+.custom_drop_down input:checked ~ table {
+    display: table;
+}
+
+.custom_drop_down{
+    background-image: linear-gradient(#FFD5C2, white);
+    line-height: 40px;
+}
+
+/*stylers for add_schedule page*/
+
+.add_sched_info {
+    height: 500px;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+	background-image: linear-gradient(#FFD5C2, white);
+}
+
+label, input[type ='text'] {
+    margin-top: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.sched_drop_down {
+    width: 90%;
+}
+
+.sched_table {
+    width: 60%;
+    border: 1;
+    margin: auto;
+    margin-bottom: 10px;
+    line-height: 30px;
+}
+
+.cohort_table {
+    width: 40%;
+    border: 1;
+    margin: auto;
+    text-align: center;
+}
+
+.student_table{
+    width: 90%;
+    line-height: 150%;
+    text-align: left;
+    margin-left: 5%;
+    margin-bottom: 5%;
+}
+
+.Sign_Form{
+	text-align: center;
+	margin:auto;
+	margin-top:5px;	
+	width:400px;
+	background-color: rgba(255,255,255, 1);
+	padding-bottom:20px;
+	padding-top:2px;
+	padding-right: 15px;
+	padding-left: 15px;
+	border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+    /*position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    */
+}
+
+.linktotextcolor { color: #fff; }
+
+.topright{float: right;
+	font-size: large; 
+}
+
+
+
+
+.Register_Form{
+	text-align: center;
+	margin:auto;
+	margin-top:50px;	
+	width:450px;
+	background-color: rgba(255,255,255, 1);
+	padding-bottom:20px;
+	padding-top:2px;
+	padding-left: 6px;
+	border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+    /*position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    */
+}
+
+.Input_Large{
+    font-size: large;
+}
+
+.Input_Medium{
+    font-size: medium;
+}
+
+.Input_XLarge{
+	/*font-size: xx-small;
+	font-size: x-small;
+	font-size: small;
+	font-size: medium;
+	font-size: large;*/
+	/*font-size: x-large;*/
+	font-size: xx-large;
+	/*font-size: xxx-large;*/
+}
+
+#number {
+  width: 9em;
+}
+
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}

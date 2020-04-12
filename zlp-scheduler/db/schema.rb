@@ -40,4 +40,17 @@ ActiveRecord::Schema.define(version: 20200330202835) do
   end
 
   add_foreign_key "courses", "terms"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "uin"
+    t.string   "lastname"
+    t.string   "firstname"
+    t.string   "password_reset_token"
+    t.datetime "password_expires_after"
+  end
+  
 end
