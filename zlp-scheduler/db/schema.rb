@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20200331035806) do
   create_table "courses", force: :cascade do |t|
     t.string   "full_subject"
     t.string   "abbreviated_subject"
+    t.string   "course_name"
     t.integer  "course_number"
     t.integer  "section_number"
     t.datetime "meetingtime_start"
