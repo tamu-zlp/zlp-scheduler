@@ -12,9 +12,9 @@ class SchedulesController
         @schedules = schedules
     end
 
-    # private
+    # private (determine what to set private and what to set public in actual controller)
 
-    # uses n^m size string for indexing. also has recursive solution with backtracking
+    # uses n^m size N-ary string for indexing 
     def optimize
         optimal_index = [0, 0]
         optimal_combo = @schedules[0]
@@ -28,7 +28,8 @@ class SchedulesController
         index = ""
 
         for i in 0...total_num_combos
-            index = i.to_s(@schedules.length) # convert to base N
+            # convert to base N (where N is schedules.length / number of schedules)
+            index = i.to_s(@schedules.length)
             combo = get_combination(@schedules, index)
             sum_matrix = self.element_wise_sum(combo)
             index, val = self.sliding_window(sum_matrix)
@@ -42,6 +43,14 @@ class SchedulesController
         
         return optimal_combo, optimal_index, optimal_val
     end
+
+    def optimize2
+        # consider implementing a recursive backtracking solution like:
+        # https://leetcode.com/problems/expression-add-operators/
+        # or
+        # https://leetcode.com/problems/target-sum/solution/
+    end
+
 
     # extract a single combination from the schedule using the specified index
     # index is a string 
