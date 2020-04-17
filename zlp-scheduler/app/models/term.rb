@@ -1,7 +1,8 @@
 class Term < ApplicationRecord
   has_many :courses
+  has_many :subjects
 
-  def self.RefreshTermList
+  def self.ImportTermList!
     json_terms = CourseScraper.get_terms
     json_terms.each do |json_term|
       term = Term.new
