@@ -18,7 +18,8 @@ class SchedulesController
     def optimize
         optimal_index = [0, 0]
         optimal_combo = @schedules[0]
-        optimal_val = Integer::MAX
+        # want to minimize val, therefore use largest possible int. shouldnt ever get close to this num
+        optimal_val = Integer::MAX 
 
         rows = @schedules.length
         cols = @schedules[0].length
@@ -55,10 +56,36 @@ class SchedulesController
     end 
 
 
-    def get_conflicts(schedule, time_slot)
-        # return the students who have a conflict with the optimal time-slot
-        # should just be an O(n) time algorithm that checks which student has the same conflicting time
-        # in their schedule as the time slots 
+    # return the students who have a conflict with the optimal time-slot 
+    # need to check that time_slot[0] corresponds to the time and time_slot[1] corresponds to the student
+    def get_conflicts(schedules, time_slot)
+        conflicts = Array.new
+        students = Array.new
+
+        student_iter = 0
+
+        schedules.each do |schedule|
+            if schedule[time_slot[0]][time_slot[1]] > 0
+                conflicts.push(schedule)
+                students.push(student_iter)
+
+            elsif schedule[time_slot[0] + 1][time_slot[1]] > 0
+                conflicts.push(schedule)
+                students.push(student_iter)
+
+            elsif schedule[time_slot[0] + 2][time_slot[1]] > 0
+                conflicts.push(schedule)
+                students.push(student_iter)
+
+            elsif schedule[time_slot[0] + 3][time_slot[1]] > 0
+                conflicts.push(schedule)
+                students.push(student_iter)
+            end
+
+            student_iter += 1
+        end
+
+        return conflicts
     end
 
     # input is an array of schedules
