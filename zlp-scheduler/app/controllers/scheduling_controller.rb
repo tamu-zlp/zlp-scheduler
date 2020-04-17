@@ -1,4 +1,4 @@
-class Scheduler
+class SchedulingController < ApplicationContoller
     def initialize(schedules)
         # @combinations = self.get_combinations(schedules)
     end
@@ -7,7 +7,7 @@ class Scheduler
     def optimize
         optimal_index = [0,0]
         optimal_combo = self.schedules[optimal_index]
-        optimal_val = Integer::MAX
+        optimal_val = inf # how to get largest integer ?? 
         
         @combinations.each do |combo|
             sum_matrix = self.element_wise_sum(combo)
@@ -21,15 +21,15 @@ class Scheduler
         end
         
         return optimal_combo, optimal_index, optimal_val
-    end    
-
-    private # (change to instance methods after testing, remove self.___)
-
-    # old method for getting all possible combinations 
-    def get_combinations(schedules)
-        return schedules[0]
     end
     
+
+    private
+    
+    def get_combinations(schedules)
+        # temporarily just return the first row of schedules for testing
+        return schedules
+    end 
 
     # input is an array of schedules
     def element_wise_sum(input)
@@ -75,43 +75,3 @@ class Scheduler
         return min_index, min
     end
 end
-
-
-
-m3 = [[0,0,0,1,0],
-[1,1,0,1,0],
-[1,1,0,0,0],
-[1,1,1,0,0],
-[0,1,0,0,1],
-[1,0,0,0,0],
-[0,0,0,1,1]]
-
-m4 = [[0,0,1,1,1],
-[0,1,1,0,1],
-[1,0,0,0,0],
-[1,0,1,0,0],
-[0,0,0,0,1],
-[1,0,0,0,0],
-[0,0,0,1,0]]
-
-m5 = [[1,0,0,1,1],
-[1,0,0,0,1],
-[1,0,0,0,1],
-[1,0,1,1,0],
-[0,1,0,1,1],
-[1,1,0,1,0],
-[0,1,0,1,0]]
-
-m = [m3, m4, m5]
-
-s = Scheduler.new(m)
-a = s.element_wise_sum(m)
-min_index, min = s.sliding_window(a)
-
-
-require 'matrix'
-m1 = Matrix[a]
-print(m1)
-
-puts min
-puts min_index

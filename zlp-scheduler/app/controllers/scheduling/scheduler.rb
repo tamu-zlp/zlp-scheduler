@@ -1,3 +1,11 @@
+# taken from https://gist.github.com/pithyless/9738125 to get "max" integer
+class Integer
+    N_BYTES = [42].pack('i').size
+    N_BITS = N_BYTES * 16
+    MAX = 2 ** (N_BITS - 2) - 1
+    MIN = -MAX - 1
+end
+
 class SchedulesController
     def initialize(schedules)
         # probably do something
@@ -16,7 +24,7 @@ class SchedulesController
         cols = @schedules[0].length
 
         total_num_combos = rows ** cols
-        index = ''
+        index = ""
 
         for i in 0...total_num_combos
             index = i.to_s(@schedules.length) # convert to base N
