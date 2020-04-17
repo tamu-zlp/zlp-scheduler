@@ -4,7 +4,12 @@ class SessionsController < ApplicationController
         user= User.find_by(email:login_params[:email])
         if user && user.authenticate(login_params[:password])
             session[:user_id] = user.id
-            redirect_to '/student/view_terms'
+            @term = Term.find_by active: 1
+            if DateTime.current >= @term.opendate && DateTime.current < @term.closedate
+                redirect_to '/student/view_terms'
+            else
+                redirect_to '/student/closed'
+            end
         else
             flash[:login_errors]= ['invalid credentials']
             redirect_to '/'
