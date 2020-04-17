@@ -6,7 +6,7 @@ class Integer
     MIN = -MAX - 1
 end
 
-class SchedulesController
+class Scheduler
     def initialize(schedules)
         # probably do something
         @schedules = schedules
@@ -198,7 +198,7 @@ m = [[m1, m2, m3], [m4, m5, m6]]
 
 
 '''
-scheduler = SchedulesController.new
+scheduler = Scheduler.new
 
 index = "010"
 x = scheduler.get_combination(m, index)
@@ -216,7 +216,7 @@ print
 print(x)
 '''
 
-s = SchedulesController.new(m)
+s = Scheduler.new(m)
 optimal_combo, optimal_index, optimal_val = s.optimize
 print(optimal_combo)
 print(optimal_index)
