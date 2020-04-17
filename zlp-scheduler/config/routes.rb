@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   
   get 'admin/new_term', to: 'admin#new_term', as: 'new_term'
   
+  patch '/terms', to: 'admin#update_term', as: 'term'
+  
   get 'admin/manage_cohorts', to: 'admin#manage_cohorts', as: 'manage_cohorts'
   
   get 'admin/manage_administrators', to: 'admin#manage_administrators', as: 'manage_administrators'

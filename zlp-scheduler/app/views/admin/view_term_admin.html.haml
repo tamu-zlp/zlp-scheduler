@@ -2,7 +2,7 @@
 
 %div{:class => "term_frame"}
     %div{:class => "header_div"}
-        %h2{:class => "term_header"} Fall 2020 &emsp;
+        %h2{:class => "term_header"} #{(Term.find_by active: 1).name} &emsp;
         = link_to 'Open', open_semester_path, :class => 'button_link'
         = link_to "Edit Restrictions", "", :class => 'button_link'
         = link_to "New Term", new_term_path, :class => 'button_link'
