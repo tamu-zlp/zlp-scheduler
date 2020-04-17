@@ -19,6 +19,7 @@ require "uri"
   # term: nil
 class Course < ApplicationRecord
   belongs_to :term
+  belongs_to :subject
   
   def ==(comparison_object)
     self.attributes == comparison_object.attributes
