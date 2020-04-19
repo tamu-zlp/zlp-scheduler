@@ -5,7 +5,7 @@ class Parser
         @courses = YAML.load_file(yaml)        
     end
 
-    # attr_accessor :courses
+    attr_accessor :courses
 
     def generate_schedule
         schedule = Array.new
@@ -19,11 +19,12 @@ class Parser
         end
     end
 
-    private
+    # private
 
     # return the index corresponding to the the time in the yaml file
     def parse_time(time)
-        # e.g. convert 08:00:00 to 0 and 09:15:00 to 5
+        puts time.hour
+        puts time.min
         return time # change later
     end
 
@@ -52,5 +53,20 @@ class Parser
 
 end
 
-parser = Parser.new('course.yml')
-puts parser.courses["one"]["meetingtime_start"]
+parser = Parser.new('files/course.yml')
+course = parser.courses["one"]
+
+# puts parser.parse_time(course["meetingtime_start"])
+
+parser.courses.each do |course|
+    puts course
+    # puts course["meeting_days"]
+end
+
+'''
+puts course["meetingtime_start"]
+puts course["meetingtime_end"]
+puts course["meeting_days"]
+puts course["meetingtime_start"].hour
+puts course["meetingtime_end"].hour
+'''
