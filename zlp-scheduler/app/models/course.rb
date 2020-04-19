@@ -44,6 +44,7 @@ class Course < ApplicationRecord
       #Everyone I've looked at thus far has been lecture first. Unsure how to
       #treat an Exam or Lab period that doesn't happen regularly.
       first_meeting_category = course_json['meetingsFaculty'][0]['meetingTime']
+      
       start_time = first_meeting_category['beginTime']
       end_time = first_meeting_category['endTime']
       start_date = first_meeting_category['startDate']
@@ -57,7 +58,7 @@ class Course < ApplicationRecord
       end
       c.meeting_days = []
       DAY_ABBREV_MAP.each do |abbrev, full_day|
-        if course_json['meetingsFaculty'][0][full_day]
+        if first_meeting_category[full_day]
           c.meeting_days << abbrev
         end
       end
