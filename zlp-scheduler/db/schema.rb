@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200417082729) do
+ActiveRecord::Schema.define(version: 20200417090006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,10 @@ ActiveRecord::Schema.define(version: 20200417082729) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "subject_id"
     t.index ["instructors"], name: "index_courses_on_instructors", using: :gin
     t.index ["meeting_days"], name: "index_courses_on_meeting_days", using: :gin
+    t.index ["subject_id"], name: "index_courses_on_subject_id", using: :btree
     t.index ["term_id"], name: "index_courses_on_term_id", using: :btree
   end
 
@@ -63,6 +65,7 @@ ActiveRecord::Schema.define(version: 20200417082729) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "courses", "subjects"
   add_foreign_key "courses", "terms"
   add_foreign_key "subjects", "terms"
 end

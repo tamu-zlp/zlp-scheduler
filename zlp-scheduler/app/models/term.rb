@@ -15,4 +15,10 @@ class Term < ApplicationRecord
       end
     end
   end
+  
+  def import_all_courses!
+    t.subjects.each do |subject|
+      Course.ImportCourses!(self, subject)
+    end
+  end
 end
