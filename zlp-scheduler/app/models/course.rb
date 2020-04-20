@@ -43,23 +43,26 @@ class Course < ApplicationRecord
       #There are potentially many meeting types, Lecture, Exam, Lab, etc...
       #Everyone I've looked at thus far has been lecture first. Unsure how to
       #treat an Exam or Lab period that doesn't happen regularly.
-      first_meeting_category = course_json['meetingsFaculty'][0]['meetingTime']
-      
-      start_time = first_meeting_category['beginTime']
-      end_time = first_meeting_category['endTime']
-      start_date = first_meeting_category['startDate']
-      end_date = first_meeting_category['endDate']
-      if [start_time, end_time, start_date, end_date].any?{|e| e.nil?}
-        c.meetingtime_start = nil
-        c.meetingtime_end = nil
-      else
-        c.meetingtime_start = DateTime.strptime("#{start_date} #{start_time}", "%m/%d/%Y %H%M")
-        c.meetingtime_end = DateTime.strptime("#{end_date} #{end_time}", "%m/%d/%Y %H%M")
-      end
-      c.meeting_days = []
-      DAY_ABBREV_MAP.each do |abbrev, full_day|
-        if first_meeting_category[full_day]
-          c.meeting_days << abbrev
+      meetings_faculty = course_json['meetingsFaculty']
+      if meetings_faculty.length > 0
+        meeting_time = meetings_faculty[0]['meetingTime']
+        start_time = meeting_time['beginTime']
+        end_time = meeting_time['endTime']
+        start_date = meeting_time['startDate']
+        end_date = meeting_time['endDate']
+        if [start_time, end_time, start_date, end_date].any?{|e| e.nil?}
+          c.meetingtime_start = nil
+          c.meetingtime_end = nil
+        else
+          zone = "Central Time (US & Canada)"
+          c.meetingtime_start = ActiveSupport::TimeZone[zone].strptime("#{start_date} #{start_time}", "%m/%d/%Y %H%M").utc
+          c.meetingtime_end = ActiveSupport::TimeZone[zone].strptime("#{end_date} #{end_time}", "%m/%d/%Y %H%M").utc
+        end
+        c.meeting_days = []
+        DAY_ABBREV_MAP.each do |abbrev, full_day|
+          if meeting_time[full_day]
+            c.meeting_days << abbrev
+          end
         end
       end
       c.instructors = nil
