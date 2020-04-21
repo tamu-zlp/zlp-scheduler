@@ -1,5 +1,7 @@
 
 %div{:class => 'add_sched_info'}
+    %br 
+    %br
     = form_for @term do |f|
         %label{:for => "term_name"} Term:
         = f.collection_select :name, Term.all, :id, :name
@@ -15,5 +17,5 @@
         %label{:for => "cohort_3"} Cohort 3
         %p
         
-        = f.submit "Activate"
+        = f.submit "Activate", :class => 'button_link'
         = link_to "Cancel", view_term_admin_path, :class => 'button_link'
