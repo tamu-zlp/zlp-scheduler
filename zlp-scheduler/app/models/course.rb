@@ -1,5 +1,8 @@
 require 'nokogiri'
 require 'date'
+require 'net/http'
+require 'json'
+require "uri"
 # Example of Course in Database
   # full_subject: Accounting
   # abbreviated_subject: ACCT
@@ -16,77 +19,57 @@ require 'date'
   # term: nil
 class Course < ApplicationRecord
   belongs_to :term
+  belongs_to :subject
   
-  def self.ParseHTMLToCourses(html_data, full_subject = 'Unknown')
-    noko_object = Nokogiri::HTML(html_data) { |conf| conf.noblanks }
-    course_rows = noko_object.xpath("/html/body/div[@class='pagebodydiv']/table[@class='datadisplaytable'][1]/tbody/tr")
-    courses = []
-    new_course = nil
-    course_rows.each do |row|
-      puts 'start row'
-      puts row
-      puts 'end row'
-      if row.children[0].attr('class') == 'ddtitle'
-          if new_course
-            puts new_course.inspect
-            courses << new_course
+  DAY_ABBREV_MAP = {
+    'M' => 'monday',
+    'T' => 'tuesday',
+    'W' => 'wednesday',
+    'TR' => 'thursday',
+    'F' => 'friday',
+    'SA' => 'saturday',
+    'SU' => 'sunday'
+  }
+  
+  def self.ImportCourses!(term, subject)
+    courses_json = CourseScraper.get_courses(term.term_code, subject.subject_code)
+    courses_json.each do |course_json|
+      c = Course.new
+      c.full_subject = course_json['subject_description']
+      c.abbreviated_subject = course_json['subject']
+      c.course_name = course_json['courseTitle']
+      c.course_number = course_json['courseNumber']
+      c.section_number = course_json['sequenceNumber']
+      #There are potentially many meeting types, Lecture, Exam, Lab, etc...
+      #Everyone I've looked at thus far has been lecture first. Unsure how to
+      #treat an Exam or Lab period that doesn't happen regularly.
+      meetings_faculty = course_json['meetingsFaculty']
+      if meetings_faculty.length > 0
+        meeting_time = meetings_faculty[0]['meetingTime']
+        start_time = meeting_time['beginTime']
+        end_time = meeting_time['endTime']
+        start_date = meeting_time['startDate']
+        end_date = meeting_time['endDate']
+        if [start_time, end_time, start_date, end_date].any?{|e| e.nil?}
+          c.meetingtime_start = nil
+          c.meetingtime_end = nil
+        else
+          zone = "Central Time (US & Canada)"
+          c.meetingtime_start = ActiveSupport::TimeZone[zone].strptime("#{start_date} #{start_time}", "%m/%d/%Y %H%M").utc
+          c.meetingtime_end = ActiveSupport::TimeZone[zone].strptime("#{end_date} #{end_time}", "%m/%d/%Y %H%M").utc
+        end
+        c.meeting_days = []
+        DAY_ABBREV_MAP.each do |abbrev, full_day|
+          if meeting_time[full_day]
+            c.meeting_days << abbrev
           end
-          new_course = Course.new
-          new_course.full_subject = full_subject
-          course_header = row.children[0].xpath("a").text
-          #Course Header contains the Name, Subject, Course Number, and Section Number
-          #Note: The href attr within <a> does have some of this data in the URL as query params, might be cleaner to get them from there
-          new_course.course_name = course_header.split('-')[0].strip
-          new_course.abbreviated_subject, new_course.course_number = course_header.split('-')[2].split(" ")
-          new_course.section_number = course_header.split('-')[3]
-      else
-        # course_details = noko_object.xpath("/html/body/div[@class='pagebodydiv']/table[@class='datadisplaytable'][1]/tbody/tr[2]/td/table/tbody/tr[2]/td[@class='dddefault']")
-        course_details = row.xpath("td/table/tbody/tr[2]/td[@class='dddefault']")
-        puts 'start cdetails'
-        puts course_details
-        puts 'end cdetails'
-        #Extract raw text from HTML nodes (Including un-used data for completeness)
-        #type = course_details[0].text
-        time_range = course_details[1].text
-        days = course_details[2].text
-        puts 'days:'
-        puts days
-        puts 'enddays'
-        location = course_details[3].text
-        date_range = course_details[4].text
-        #schedule_type = course_details[5].text
-        instructors = course_details[6].text
-        #Set instance variables
-        new_course.meeting_days = days.split('')
-        new_course.meeting_location = location
-        new_course.set_meeting_time(time_range, date_range)
-        new_course.set_instructors(instructors)
+        end
       end
-    end
-    if new_course
-      puts new_course.inspect
-      courses << new_course
-    end
-    courses
-  end
-  
-  def set_instructors(instructors_text)
-    self.instructors = instructors_text.split(',').map do |i|
-      i.gsub('(P)', '').strip
-    end
-  end
-  
-  def set_meeting_time(time_range, date_range)
-    if time_range == 'TBA' || date_range == 'TBA'
-      self.meetingtime_start = nil;
-      self.meetingtime_end = nil;
-    else
-      time_start = time_range.split('-')[0].strip
-      time_end = time_range.split('-')[1].strip
-      date_start = date_range.split('-')[0].strip
-      date_end = date_range.split('-')[1].strip
-      self.meetingtime_start = DateTime.parse("#{date_start} #{time_start}")
-      self.meetingtime_end = DateTime.parse("#{date_end} #{time_end}")
+      c.instructors = nil
+      c.meeting_location = nil
+      c.subject_id = subject.id
+      c.term_id = term.id
+      c.save
     end
   end
   

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200417151825) do
+ActiveRecord::Schema.define(version: 20200417090006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,18 +29,32 @@ ActiveRecord::Schema.define(version: 20200417151825) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "subject_id"
     t.index ["instructors"], name: "index_courses_on_instructors", using: :gin
     t.index ["meeting_days"], name: "index_courses_on_meeting_days", using: :gin
+    t.index ["subject_id"], name: "index_courses_on_subject_id", using: :btree
     t.index ["term_id"], name: "index_courses_on_term_id", using: :btree
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string   "subject_code"
+    t.string   "subject_description"
+    t.integer  "term_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["term_id"], name: "index_subjects_on_term_id", using: :btree
   end
 
   create_table "terms", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean  "active"
     t.datetime "opendate"
     t.datetime "closedate"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "term_code"
+    t.boolean  "active",                  default: false
+    t.boolean  "courses_import_complete", default: false
+    t.index ["term_code"], name: "index_terms_on_term_code", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,5 +67,7 @@ ActiveRecord::Schema.define(version: 20200417151825) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "courses", "subjects"
   add_foreign_key "courses", "terms"
+  add_foreign_key "subjects", "terms"
 end
