@@ -2,7 +2,7 @@
 
 %div{:class => "term_frame"}
     %div{:class => "header_div"}
-        %h2{:class => 'term_header'} #{(Term.find_by active: 1).name}
+        %h2{:class => 'term_header'} #{@term.name}
             
     %ul{:class => "schedules"}
         %li

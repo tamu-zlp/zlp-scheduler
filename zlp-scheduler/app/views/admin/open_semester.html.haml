@@ -1,6 +1,6 @@
 %div{:class => 'add_sched_info'}
     %br
-    %h2 Open #{(Term.find_by active: 1).name} Student Input
+    %h2 Open #{@term.name} Student Input
 
     = form_for @term do |f|
         = f.label :opendate, "Open:"
