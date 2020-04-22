@@ -5,5 +5,12 @@ class StudentController < ApplicationController
   end
   
   def add_schedule
+    id = session[:user_id]
+    @user = User.find(id)
+  end
+  
+  def closed
+    id = session[:user_id]
+    @user = User.find(id)
   end
 end

@@ -43,6 +43,10 @@ h1 {
     text-decoration: none;
     padding: 0 1em;
     text-align: center;
+    background: none;
+    border: none;
+    font-family: serif;
+    font-size: 15px;
 }
 
 .button_link:hover, .right_button_link:hover {

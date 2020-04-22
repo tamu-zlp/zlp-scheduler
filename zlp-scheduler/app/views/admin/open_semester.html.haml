@@ -1,18 +1,14 @@
 %div{:class => 'add_sched_info'}
-    %h2 Open Fall 2020 Student Input
+    %br
+    %h2 Open #{(Term.find_by active: 1).name} Student Input
 
-    = form_tag view_term_admin_path do 
-        = label :term_open_range, :starts_at_date, "Start Date:"
-        = text_field :term_open_range, 'open_date', placeholder: "MM/DD/YYYY"
-        = label :term_open_range, :starts_at_time, "Start Time:"
-        = text_field :term_open_range, 'open_time', placeholder: "0:00 - 23:59"
+    = form_for @term do |f|
+        = f.label :opendate, "Open:"
+        = f.datetime_select :opendate, :ampm => true, :minute_step => 30
         %p
-        = label :term_open_range, :starts_at_date, "End Date:"
-        = text_field :term_open_range, 'end_date', placeholder: "MM/DD/YYYY"
-        = label :term_open_range, :starts_at_time, "End Time:"
-        = text_field :term_open_range, 'end_time', placeholder: "0:00 - 23:59"
-
-%div{:class => 'centered_links'}
-    = link_to "Save", view_term_admin_path, :class => 'button_link'
-    = link_to "Cancel", view_term_admin_path, :class => 'button_link'
+        = f.label :closedate, "Close:"
+        = f.datetime_select :closedate, :ampm => true, :minute_step => 30
+        %p
+        = f.submit 'Save', :class => 'button_link'
+        = link_to "Cancel", view_term_admin_path, :class => 'button_link'
         
