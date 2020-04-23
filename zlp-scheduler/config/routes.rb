@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get 'student/view_terms', to: 'student#view_terms', as: 'view_terms'
   
   get 'student/add_schedule', to: 'student#add_schedule', as: 'add_schedule'
+  get 'student/update_courses', :as => 'update_courses'
+  get 'student/update_sections', :as => 'update_sections'
   
   put '/schedules', to: 'student#create_schedule', as: 'schedules'
   

@@ -16,16 +16,39 @@
             - 7.times do
                 %tr{:class => "sched_table_row"}
                     %td
-                        = select_tag "dept", options_for_select(@subject_options), :include_blank => true
+                        = collection_select(nil, :dept_id,  @subjects,  :id, :subject_code, {:include_blank => true}, {:id => 'dept_select'})
                     %td
-                        = select_tag "course_num", :include_blank => true, id: 'course_num'
+                        = collection_select(nil, :course_num_id, @course_options, :id, :course_number, {:include_blank => true}, {:id => 'course_num_select'})
                     %td
-                        = select_tag "section_num", :include_blank => true, id: 'section_num'
+                        = collection_select(nil, :section_num_id, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select'})
                     %td
                         %input{:type => "checkbox"}
 %div{:class => 'centered_links'}   
     //****Change later
     = link_to "Save Schedule", view_terms_path, :class => 'button_link'
     = link_to "Cancel", view_terms_path, :class => 'button_link'
+    
+:javascript
+    $(document).ready(function() {
+        $('#dept_select').change(function() {
+            $.ajax({
+                url: "#{update_courses_path}",
+                data: {
+                    dept_id : $('#dept_select').val()
+                },
+                dataType: "script"
+            });
+        });
+        $('#course_num_select').change(function() {
+            $.ajax({
+                url: "#{update_sections_path}",
+                data: {
+                    dept_id : $('#dept_select').val(),
+                    course_num_id : $('#course_num_select').val()
+                },
+                dataType: "script"
+            });
+        });
+    });
         
     

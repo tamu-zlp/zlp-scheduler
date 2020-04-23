@@ -166,8 +166,8 @@ label, input[type ='text'] {
     margin-bottom: 20px;
 }
 
-.sched_drop_down {
-    width: 90%;
+#dept_select, #course_num_select, #section_num_select {
+    min-width: 50px;
 }
 
 .sched_table {
