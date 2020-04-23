@@ -18,12 +18,9 @@
                     %td
                         = select_tag "dept", options_for_select(@subject_options), :include_blank => true
                     %td
-                        %select{:name => "course_num", :class => "sched_drop_down"}
+                        = select_tag "course_num", :include_blank => true, id: 'course_num'
                     %td
-                        %select{:name => "section", :class => "sched_drop_down"}
-                            %option 180
-                            %option 200
-                            %option 404
+                        = select_tag "section_num", :include_blank => true, id: 'section_num'
                     %td
                         %input{:type => "checkbox"}
 %div{:class => 'centered_links'}   
