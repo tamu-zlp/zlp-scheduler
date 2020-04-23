@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   #get 'users/index'
   
   get '/' => 'users#index'
@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get 'student/view_terms', to: 'student#view_terms', as: 'view_terms'
   
   get 'student/add_schedule', to: 'student#add_schedule', as: 'add_schedule'
+  
+  put '/schedules', to: 'student#create_schedule', as: 'schedules'
   
   get 'student/closed', to: 'student#closed', as: 'closed'
   

@@ -1,6 +1,8 @@
 
-%div{:class => "add_sched_info"}
-    = form_tag view_terms_path do 
+%div{:class => "add_sched_info"}  
+    %br
+    %h2 Add Schedule for #{@term.name}
+    = form_for @schedule do |f|
         %label{:for => "sched_name"} Schedule Name:
         %input{:type => "text", :id => "sched_name"}
         %table{:class => "sched_table"}
@@ -14,15 +16,9 @@
             - 7.times do
                 %tr{:class => "sched_table_row"}
                     %td
-                        %select{:name => "dept", :class => "sched_drop_down"}
-                            %option ECEN
-                            %option CSCE
-                            %option ENGR
+                        = select_tag "dept", options_for_select(@subject_options), :include_blank => true
                     %td
                         %select{:name => "course_num", :class => "sched_drop_down"}
-                            %option 460
-                            %option 300
-                            %option 101
                     %td
                         %select{:name => "section", :class => "sched_drop_down"}
                             %option 180

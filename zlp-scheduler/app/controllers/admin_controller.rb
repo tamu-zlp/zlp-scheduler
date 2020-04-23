@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
   def view_term_admin
+    @term = Term.find_by active: 1;
   end
   
   def open_semester
