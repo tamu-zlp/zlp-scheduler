@@ -20,6 +20,7 @@ class StudentController < ApplicationController
   def update_courses
     # updates artists and songs based on genre selected
     subj = Subject.find(params[:dept_id])
+    @select_id = params[:id]
     # map to name and id for use in our options_for_select
     @courses = Course.where(:abbreviated_subject => subj.subject_code)
     @course_options = [];
@@ -34,6 +35,7 @@ class StudentController < ApplicationController
     # updates artists and songs based on genre selected
     subj = Subject.find(params[:dept_id])
     course_num = params[:course_num_id]
+    @select_id = params[:id]
     # map to name and id for use in our options_for_select
     @sections = Course.where(:abbreviated_subject => subj.subject_code, :course_number => course_num)
     @section_options = [];

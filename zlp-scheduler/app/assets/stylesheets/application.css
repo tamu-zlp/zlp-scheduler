@@ -166,7 +166,7 @@ label, input[type ='text'] {
     margin-bottom: 20px;
 }
 
-#dept_select, #course_num_select, #section_num_select {
+[id^="dept_select"], [id^="course_num_select"], [id^="section_num_select"] {
     min-width: 50px;
 }
 
