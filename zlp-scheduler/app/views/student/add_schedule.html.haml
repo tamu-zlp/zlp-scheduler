@@ -3,8 +3,8 @@
     %br
     %h2 Add Schedule for #{@term.name}
     = form_for @schedule do |f|
-        %label{:for => "sched_name"} Schedule Name:
-        %input{:type => "text", :id => "sched_name"}
+        = f.label :name, "Schedule Name:"
+        = f.text_field :name
         %table{:class => "sched_table"}
             %tr
                 %th Dept.
@@ -76,10 +76,8 @@
                     = collection_select(nil, :section_num_id_7, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_7'})
                 %td
                     %input{:type => "checkbox"}
-%div{:class => 'centered_links'}   
-    //****Change later
-    = link_to "Save Schedule", view_terms_path, :class => 'button_link'
-    = link_to "Cancel", view_terms_path, :class => 'button_link'
+        = f.submit "Save Schedule", :class => 'button_link'
+        = link_to "Cancel", view_terms_path, :class => 'button_link'
     
 :javascript
     $(document).ready(function() {

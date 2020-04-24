@@ -19,35 +19,48 @@ class StudentController < ApplicationController
   
   def update_courses
     # updates artists and songs based on genre selected
-    subj = Subject.find(params[:dept_id])
     @select_id = params[:id]
-    # map to name and id for use in our options_for_select
-    @courses = Course.where(:abbreviated_subject => subj.subject_code)
-    @course_options = [];
-    @courses.each do |c|
-      @course_options.push(c.course_number)
+    if params[:dept_id].empty?
+      @course_options = [].insert(0, "")
+    else 
+      subj = Subject.find(params[:dept_id])
+      # map to name and id for use in our options_for_select
+      @courses = Course.where(:abbreviated_subject => subj.subject_code)
+      @course_options = [];
+      @courses.each do |c|
+        @course_options.push(c.course_number)
+      end
+      @course_options = @course_options.uniq
+      @course_options.insert(0, "")
     end
-    @course_options = @course_options.uniq
-    @course_options.insert(0, "")
   end
   
   def update_sections
     # updates artists and songs based on genre selected
     subj = Subject.find(params[:dept_id])
-    course_num = params[:course_num_id]
     @select_id = params[:id]
-    # map to name and id for use in our options_for_select
-    @sections = Course.where(:abbreviated_subject => subj.subject_code, :course_number => course_num)
-    @section_options = [];
-    @sections.each do |c|
-      @section_options.push(c.section_number)
+    if params[:course_num_id].empty?
+      @section_options = [].insert(0, "")
+    else
+      course_num = params[:course_num_id]
+      # map to name and id for use in our options_for_select
+      @sections = Course.where(:abbreviated_subject => subj.subject_code, :course_number => course_num)
+      @section_options = [];
+      @sections.each do |c|
+        @section_options.push(c.section_number)
+      end
+      @section_options = @section_options.uniq
+      @section_options.insert(0, "")
     end
-    @section_options = @section_options.uniq
-    @section_options.insert(0, "")
   end
   
   def create_schedule
-    
+    if params[:schedule][:name] == ""
+      flash[:notice] = 'Schedule must include a name.'
+      redirect_to add_schedule_path
+    else
+      redirect_to view_term_path
+    end
   end
   
   def closed
