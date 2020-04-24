@@ -1,0 +1,38 @@
+
+%div{:class => "add_sched_info"}
+    = form_tag view_terms_path do 
+        %label{:for => "sched_name"} Schedule Name:
+        %input{:type => "text", :id => "sched_name"}
+        %table{:class => "sched_table"}
+            %tr
+                %th Dept.
+                %th Course Num.
+                %th Section
+                %th{:class => 'tooltip'} 
+                    Mandatory
+                    %span{:class => 'tooltiptext'}Check if you MUST take the course THIS semester to be on track for graduation.
+            - 7.times do
+                %tr{:class => "sched_table_row"}
+                    %td
+                        %select{:name => "dept", :class => "sched_drop_down"}
+                            %option ECEN
+                            %option CSCE
+                            %option ENGR
+                    %td
+                        %select{:name => "course_num", :class => "sched_drop_down"}
+                            %option 460
+                            %option 300
+                            %option 101
+                    %td
+                        %select{:name => "section", :class => "sched_drop_down"}
+                            %option 180
+                            %option 200
+                            %option 404
+                    %td
+                        %input{:type => "checkbox"}
+%div{:class => 'centered_links'}   
+    //****Change later
+    = link_to "Save Schedule", view_terms_path, :class => 'button_link'
+    = link_to "Cancel", view_terms_path, :class => 'button_link'
+        
+    

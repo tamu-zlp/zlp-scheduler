@@ -1,0 +1,14 @@
+%h1 Howdy, #{@user.firstname}!
+
+%div{:class => "term_frame"}
+    %div{:class => "header_div"}
+        %h2{:class => 'term_header'} #{@term.name}
+            
+    %ul{:class => "schedules"}
+        %li
+            &#9776; &emsp; Schedule 1
+            = link_to 'Delete', "", :class => 'right_button_link'
+        %li
+            &#9776; &emsp; Schedule 2
+            = link_to 'Delete', "", confirm: "Are you sure?", :class => 'right_button_link'
+    = link_to 'Add Schedule', add_schedule_path, :class => 'button_link'
