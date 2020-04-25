@@ -21,7 +21,7 @@
                 %td
                     = collection_select(nil, :section_num_id_1, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_1'})
                 %td
-                    %input{:type => "checkbox"}
+                    = check_box_tag :mand_1
             %tr{:class => "sched_table_row"}
                 %td
                     = collection_select(nil, :dept_id_2,  @subjects,  :id, :subject_code, {:include_blank => true}, {:id => 'dept_select_2'})
@@ -30,7 +30,7 @@
                 %td
                     = collection_select(nil, :section_num_id_2, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_2'})
                 %td
-                    %input{:type => "checkbox"}
+                    = check_box_tag :mand_2
             %tr{:class => "sched_table_row"}
                 %td
                     = collection_select(nil, :dept_id_3,  @subjects,  :id, :subject_code, {:include_blank => true}, {:id => 'dept_select_3'})
@@ -39,7 +39,7 @@
                 %td
                     = collection_select(nil, :section_num_id_3, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_3'})
                 %td
-                    %input{:type => "checkbox"}
+                    = check_box_tag :mand_3
             %tr{:class => "sched_table_row"}
                 %td
                     = collection_select(nil, :dept_id_4,  @subjects,  :id, :subject_code, {:include_blank => true}, {:id => 'dept_select_4'})
@@ -48,7 +48,7 @@
                 %td
                     = collection_select(nil, :section_num_id_4, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_4'})
                 %td
-                    %input{:type => "checkbox"}
+                    = check_box_tag :mand_4
             %tr{:class => "sched_table_row"}
                 %td
                     = collection_select(nil, :dept_id_5,  @subjects,  :id, :subject_code, {:include_blank => true}, {:id => 'dept_select_5'})
@@ -57,7 +57,7 @@
                 %td
                     = collection_select(nil, :section_num_id_5, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_5'})
                 %td
-                    %input{:type => "checkbox"}
+                    = check_box_tag :mand_5
             %tr{:class => "sched_table_row"}
                 %td
                     = collection_select(nil, :dept_id_6,  @subjects,  :id, :subject_code, {:include_blank => true}, {:id => 'dept_select_6'})
@@ -66,7 +66,7 @@
                 %td
                     = collection_select(nil, :section_num_id_6, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_6'})
                 %td
-                    %input{:type => "checkbox"}
+                    = check_box_tag :mand_6
             %tr{:class => "sched_table_row"}
                 %td
                     = collection_select(nil, :dept_id_7,  @subjects,  :id, :subject_code, {:include_blank => true}, {:id => 'dept_select_7'})
@@ -75,7 +75,7 @@
                 %td
                     = collection_select(nil, :section_num_id_7, @section_options, :id, :section_number, {:include_blank => true}, {:id => 'section_num_select_7'})
                 %td
-                    %input{:type => "checkbox"}
+                    = check_box_tag :mand_7
         = f.submit "Save Schedule", :class => 'button_link'
         = link_to "Cancel", view_terms_path, :class => 'button_link'
     

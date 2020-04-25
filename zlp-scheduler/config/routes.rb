@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get 'student/update_sections', :as => 'update_sections'
   
   post '/schedules', to: 'student#create_schedule', as: 'schedules'
+  delete '/schedules/:id', to: 'student#delete_schedule', as: 'delete_schedule'
+  get '/schedules/:id', to: 'student#view_schedule', as: 'view_schedule'
   
   get 'student/closed', to: 'student#closed', as: 'closed'
   

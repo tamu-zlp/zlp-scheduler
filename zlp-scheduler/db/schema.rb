@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200422183224) do
+ActiveRecord::Schema.define(version: 20200425172135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20200422183224) do
     t.index ["meeting_days"], name: "index_courses_on_meeting_days", using: :gin
     t.index ["subject_id"], name: "index_courses_on_subject_id", using: :btree
     t.index ["term_id"], name: "index_courses_on_term_id", using: :btree
+  end
+
+  create_table "schedule_to_courses", force: :cascade do |t|
+    t.integer  "schedule_id"
+    t.integer  "course_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.boolean  "mandatory"
+    t.index ["course_id"], name: "index_schedule_to_courses_on_course_id", using: :btree
+    t.index ["schedule_id"], name: "index_schedule_to_courses_on_schedule_id", using: :btree
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -77,6 +87,8 @@ ActiveRecord::Schema.define(version: 20200422183224) do
 
   add_foreign_key "courses", "subjects"
   add_foreign_key "courses", "terms"
+  add_foreign_key "schedule_to_courses", "courses"
+  add_foreign_key "schedule_to_courses", "schedules"
   add_foreign_key "schedules", "users"
   add_foreign_key "subjects", "terms"
 end

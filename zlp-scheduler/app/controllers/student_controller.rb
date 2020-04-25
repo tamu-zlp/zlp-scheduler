@@ -3,6 +3,11 @@ class StudentController < ApplicationController
     id = session[:user_id]
     @user = User.find(id)
     @term = Term.find_by active: 1;
+    if @user.schedules
+      @schedules = @user.schedules
+    else 
+      @schedules = []
+    end
   end
   
   def add_schedule
@@ -59,8 +64,49 @@ class StudentController < ApplicationController
       flash[:notice] = 'Schedule must include a name.'
       redirect_to add_schedule_path
     else
-      redirect_to view_term_path
+      #add courses to schedule, schedule to user
+      id = session[:user_id]
+      @user = User.find(id)
+      @schedule = Schedule.new
+      @schedule.update_attributes(:name => params[:schedule][:name])
+      @user.schedules.push(@schedule)
+      7.times do |n|
+        subj_symb = "dept_id_#{n+1}".to_sym
+        number_symb = "course_num_id_#{n+1}".to_sym
+        section_symb = "section_num_id_#{n+1}".to_sym
+        check_symb = "mand_#{n+1}".to_sym
+        if !(params[section_symb] == "")
+          subj = Subject.find(params[subj_symb]).subject_code
+          @course = Course.where(:abbreviated_subject => subj, :course_number => params[number_symb], :section_number => params[section_symb])
+          @schedule.courses.push(@course)
+          if !params[check_symb].nil?
+            #update mandatory attribute
+            @sched_table = ScheduleToCourse.find_by course_id: @course.ids
+            @sched_table.update_attributes(:mandatory => true)
+          end
+        end
+      end
+      flash[:notice] = 'Schedule added!'
+      redirect_to view_terms_path
     end
+  end
+  
+  def view_schedule
+    @schedule = Schedule.find(params[:id])
+    @courses = @schedule.courses
+    @associations = ScheduleToCourse.where(:schedule_id => @schedule.id)
+  end
+  
+  def schedule_params
+    params.require(:schedule).permit(:name, course_ids: [])
+  end
+  
+  def delete_schedule 
+    @schedule = Schedule.find(params[:id])
+    @schedule.destroy
+    
+    flash[:notice] = 'Schedule deleted!'
+    redirect_to view_terms_path
   end
   
   def closed
