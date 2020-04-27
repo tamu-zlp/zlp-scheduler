@@ -6,12 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
-terms = [
-    {name: 'Fall 2020 - College Station', active: 1},
-    {name: 'Spring 2020 - College Station', active: 0}
-    ]
-    
-terms.each do |term|
-    Term.create!(term)
-end
+Term.ImportTermList!
+# Find the term you want all the courses for, this just takes the first term in the DB
+t = Term.all[0]
+t.import_all_courses!
+t.update_attributes(:active => true)

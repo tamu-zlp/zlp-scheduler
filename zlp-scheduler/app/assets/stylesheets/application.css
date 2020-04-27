@@ -38,6 +38,13 @@ h1 {
     margin-left: 2%;
 }
 
+.alert {
+  padding: 20px;
+  background-color: green; /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+
 .button_link {
     color: #500000;
     text-decoration: none;
@@ -166,8 +173,8 @@ label, input[type ='text'] {
     margin-bottom: 20px;
 }
 
-.sched_drop_down {
-    width: 90%;
+[id^="dept_select"], [id^="course_num_select"], [id^="section_num_select"] {
+    min-width: 50px;
 }
 
 .sched_table {

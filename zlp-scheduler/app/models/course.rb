@@ -20,6 +20,8 @@ require "uri"
 class Course < ApplicationRecord
   belongs_to :term
   belongs_to :subject
+  has_many :schedule_to_courses
+  has_many :schedules, through: :schedule_to_courses
   
   DAY_ABBREV_MAP = {
     'M' => 'monday',
