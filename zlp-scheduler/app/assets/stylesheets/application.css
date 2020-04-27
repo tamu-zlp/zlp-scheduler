@@ -13,16 +13,58 @@
  *= require_tree .
  *= require_self
  */
-body{
+ 
+ body{
 	background-color: #500000;
 }
+
+ 
+ 
+ .container {
+  padding: 0;
+  width: 100%;
+}
+
+.pull-right {
+  position: inline;
+  margin: 20px 20px 0 0;
+}
+
+.header {
+  margin: 0;
+  padding: 0;
+}
+
+.header li {
+ display: inline;
+ margin-left: 30px;
+}
+
+.header a {
+  color: #000;
+  font-size: 20px;  
+  text-decoration: none; 
+}
+
+.topright{
+    margin: auto;
+    float: right;
+	font-size: large; 
+	padding-right: 30px;
+	color: white;
+}
+
+.Input_Medium{
+    font-size: medium;
+}
+
 .Sign_Form{
 	text-align: center;
 	margin:auto;
 	margin-top:5px;	
 	width:400px;
 	background-color: rgba(255,255,255, 1);
-	padding-bottom:20px;
+	padding-bottom:60px;
 	padding-top:2px;
 	padding-right: 15px;
 	padding-left: 15px;
@@ -34,66 +76,16 @@ body{
     transform: translate(-50%, -50%);
     */
 }
-
-.header{
-  float: left;
-  width: 350px;
-  height: 90px;
+.btn-submit {
+  color: #FFFFFF;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: #500000;
+  padding: 10px 20px;
+  border: 0;
+  margin-top: 6px;
 }
 
-.linktotextcolor { color: #fff; }
-
-.topright{float: right;
-	font-size: large; 
-}
-
-.header h1 {
-  position: relative;
-  top: 18px;
-  left: 10px;
-}
-
-
-.Register_Form{
-	text-align: center;
-	margin:auto;
-	margin-top:50px;	
-	width:450px;
-	background-color: rgba(255,255,255, 1);
-	padding-bottom:20px;
-	padding-top:2px;
-	padding-left: 6px;
-	border-radius: 18px;
-	box-shadow: 5px 5px 5px #888888;
-    /*position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    */
-}
-
-.Input_Large{
-    font-size: large;
-}
-
-.Input_Medium{
-    font-size: medium;
-}
-
-.Input_XLarge{
-	/*font-size: xx-small;
-	font-size: x-small;
-	font-size: small;
-	font-size: medium;
-	font-size: large;*/
-	/*font-size: x-large;*/
-	font-size: xx-large;
-	/*font-size: xxx-large;*/
-}
-
-#number {
-  width: 9em;
-}
 
 .alignleft {
 	float: left;
@@ -102,6 +94,22 @@ body{
 	float: right;
 }
 
-
-
-
+.add_sched_info {
+    height: 600px;
+    width: 90%;
+    margin: auto;
+    padding-top:2px;
+    
+    text-align: center;
+    border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+	background-image: linear-gradient(#FFD5C2, white);
+}
+.student_table{
+    width: 90%;
+    line-height: 150%;
+    font-size: small;
+    text-align: left;
+    margin-left: 5%;
+    margin-bottom: 5%;
+}

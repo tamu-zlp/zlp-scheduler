@@ -1,0 +1,21 @@
+<div class = "add_sched_info">
+<table class = "student_table">
+  <tr>
+    <th>Lastname</th>
+    <th>firstname</th>
+    <th>UIN</th>
+    <th>EMAIL</th>
+  </tr>
+  <% @users.each do |users| %>
+  <tr>
+    <td><%= users.lastname %></td>
+    <td><%= users.firstname %></td>
+    <td><%= users.uin%></td>
+    <td><%= users.email %></td>
+  </tr>
+<% end %>
+</table>  
+
+
+
+
