@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @adminstudrec.name %>
+</p>
+
+<p>
+  <strong>Uin:</strong>
+  <%= @adminstudrec.uin %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @adminstudrec.email %>
+</p>
+
+<p>
+  <strong>Classcode:</strong>
+  <%= @adminstudrec.classcode %>
+</p>
+
+<p>
+  <strong>Major:</strong>
+  <%= @adminstudrec.major %>
+</p>
+
+<%= link_to 'Edit', edit_adminstudrec_path(@adminstudrec) %> |
+<%= link_to 'Back', adminstudrecs_path %>
