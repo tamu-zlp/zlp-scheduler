@@ -1,25 +1,28 @@
 class SessionsController < ApplicationController
-    def new 
-    end
     
     def create
-      @user = User.find_by_email(params[:session][:email].downcase)
-      if @user && @user.authenticate(params[:session][:password])
-        session[:user_id] = @user.id
-        if current_user.admin?
-          redirect_to '/view_term_admin', :notice => "Logged in !" 
+        user= User.find_by(email:login_params[:email])
+        if user && user.authenticate(login_params[:password])
+            session[:user_id] = user.id
+            @term = Term.find_by active: 1
+            if @term.opendate.nil? 
+                @term.update_attributes(:opendate => DateTime.yesterday)
+                @term.update_attributes(:closedate => DateTime.yesterday)
+            end
+            if DateTime.current >= @term.opendate && DateTime.current < @term.closedate
+                redirect_to '/student/view_terms'
+            else
+                redirect_to '/student/closed'
+            end
         else
-           redirect_to '/viewterms', :notice => "Logged in !" 
+            flash[:login_errors]= ['invalid credentials']
+            redirect_to '/'
         end
-      else
-        flash[:login_errors]= ['Email or password is invalid']
-        redirect_to '/'
-      end 
-    end 
-    
-    def destroy 
-      session[:user_id] = nil 
-      redirect_to '/login', :notice => "Logged out !" 
     end
-
+    
+    
+    private
+        def login_params
+            params.require(:login).permit(:email, :password)
+        end
 end

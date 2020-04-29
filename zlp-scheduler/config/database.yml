@@ -7,14 +7,14 @@ default: &default
 
 development:
   <<: *default
-  database: myapp_development
+  database: zlp_scheduler_dev
 
 test:
   <<: *default
-  database: myapp_test
+  database: zlp_scheduler_test
 
 production:
   <<: *default
-  database: myapp_production
-  username: myapp
+  database: zlp_scheduler_prod
+  username: zlp_admin
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>

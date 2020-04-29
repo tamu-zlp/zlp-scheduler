@@ -1,0 +1,31 @@
+<h1>Howdy! </h1>
+
+
+<div class= "Sign_Form">
+    <h2> Login </h2>
+    <br>
+    <form action = "/sessions" method = "POST">
+        <input type= "hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+        <p>Email Address<br><input type= "email" name="login[email]" placeholder="netid@tamu.edu" pattern=".+@tamu.edu" size= 30 class= "Input_Medium">
+        <p>Password<br><input type= "password" name="login[password]" placeholder="password" size= 30 class= "Input_Medium">
+        <br><br>
+        <input type= "submit" name="submit" class= "submit" style= "width:80px;" class= "Input_XLarge">
+    </form>
+   
+    
+    <div class= "errors">
+        <% if flash[:login_errors]%>
+            <% flash[:login_errors].each do |error| %>
+                <p> <%= error%> </p>
+            <%end%>
+        <%end%>
+    </div>
+   
+    <br>
+    <p class="alignleft"> <%=link_to "New User?", users_register_path %></p>
+    <p class="alignright"> <%=link_to "Forgot Password?", users_forgotpwd_path %></p>
+    <div style="clear: both;"></div>
+    
+</div> 
+
+<p class="alignright"> <%=link_to "Admin", view_term_admin_path %></p>
