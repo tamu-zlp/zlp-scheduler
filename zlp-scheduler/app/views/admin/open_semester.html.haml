@@ -1,0 +1,14 @@
+%div{:class => 'add_sched_info'}
+    %br
+    %h2 Open #{@term.name} Student Input
+
+    = form_for @term do |f|
+        = f.label :opendate, "Open:"
+        = f.datetime_select :opendate, :ampm => true, :minute_step => 30
+        %p
+        = f.label :closedate, "Close:"
+        = f.datetime_select :closedate, :ampm => true, :minute_step => 30
+        %p
+        = f.submit 'Save', :class => 'button_link'
+        = link_to "Cancel", view_term_admin_path, :class => 'button_link'
+        
