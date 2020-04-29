@@ -39,4 +39,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  
+  #host needs to be chnaged when on heroku
+  config.action_mailer.default_url_options = {:host => "https://09ebdbb2ac7c42b8939c20f25a7bedaa.vfs.cloud9.us-east-2.amazonaws.com/"}
 end
