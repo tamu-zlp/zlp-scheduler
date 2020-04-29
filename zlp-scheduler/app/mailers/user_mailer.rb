@@ -1,8 +1,12 @@
 class UserMailer < ApplicationMailer
-    
-    def reset_password_email(user)
+
+  # Subject can be set in your I18n file at config/locales/en.yml
+  # with the following lookup:
+  #
+  #   en.user_mailer.password_reset.subject
+  #
+  def password_reset(user)
     @user = user
-    @password_reset_url = 'http://localhost:3000/password_reset?' + @user.password_reset_token
-    mail(:to => user.email, :subject => 'Password Reset Instructions.')
-    end
+    mail :to => user.email, :subject => "Password Reset"
+  end
 end
