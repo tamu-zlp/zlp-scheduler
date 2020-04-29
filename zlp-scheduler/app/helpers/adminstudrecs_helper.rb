@@ -1,0 +1,2 @@
+module AdminstudrecsHelper
+end
