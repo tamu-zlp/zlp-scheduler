@@ -1,21 +1,44 @@
 Rails.application.routes.draw do
+
   
+
+  resources :adminstudrecs
   #get 'users/index'
   
-  get '/' => 'users#index'
-  post '/sessions' => 'sessions#create'
-  post '/users' => 'users#create'
-  get '/registerpage' => 'users#register'
+  get '/' => 'sessions#new'
+  get 'signup'  => 'users#new' 
+  resources :users
   
-  get "/signedout" => "users#signout"
-  get "/forgot_password" => "users#forgot_password"
-  put "/forgot_password" => "users#send_password_reset_instructions"
-  get "password_reset" => "users#password_reset"
-  put "password_reset" => "users#new_password"
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
+  
+  resources :password_resets 
+  get '/addcohort' => 'adminstudrecs#index'
+  resources :adminstudrecs
+  post '/import_from_excel' => "adminstudrecs#import_from_excel"
+  
+  
+  #get '/' => 'users#index'
+  #post '/sessions' => 'sessions#create'
+  #post '/users' => 'users#create'
+  #get '/registerpage' => 'users#register'
+  
+  #get "/signedout" => "users#signout"
+  #get "/forgot_password" => "users#forgot_password"
+  #put "/forgot_password" => "users#send_password_reset_instructions"
+  #get "password_reset" => "users#password_reset"
+  #put "password_reset" => "users#new_password"
   
   get 'student/view_terms', to: 'student#view_terms', as: 'view_terms'
   
   get 'student/add_schedule', to: 'student#add_schedule', as: 'add_schedule'
+  get 'student/update_courses', :as => 'update_courses'
+  get 'student/update_sections', :as => 'update_sections'
+  
+  post '/schedules', to: 'student#create_schedule', as: 'schedules'
+  delete '/schedules/:id', to: 'student#delete_schedule', as: 'delete_schedule'
+  get '/schedules/:id', to: 'student#view_schedule', as: 'view_schedule'
   
   get 'student/closed', to: 'student#closed', as: 'closed'
   

@@ -83,4 +83,15 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  
+  #For forgot password email: Google doesn't allow me
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
+  #send emails in production?
+  config.action_mailer.perform_deliveries = true
+  
+  #host needs to be chnaged when on heroku put the heroku url
+  config.action_mailer.default_url_options = {:host => "https://e6e50639ce9142959ad27a142c414481.vfs.cloud9.us-east-2.amazonaws.com/"}
 end

@@ -38,6 +38,13 @@ h1 {
     margin-left: 2%;
 }
 
+.alert {
+  padding: 20px;
+  background-color: green; /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+
 .button_link {
     color: #500000;
     text-decoration: none;
@@ -159,15 +166,23 @@ h1 {
 	box-shadow: 5px 5px 5px #888888;
 	background-image: linear-gradient(#FFD5C2, white);
 }
-
+.add_stud_info {
+    height: 800px;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+	background-image: linear-gradient(#FFD5C2, white);
+}
 label, input[type ='text'] {
     margin-top: 30px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.sched_drop_down {
-    width: 90%;
+[id^="dept_select"], [id^="course_num_select"], [id^="section_num_select"] {
+    min-width: 50px;
 }
 
 .sched_table {
@@ -199,7 +214,7 @@ label, input[type ='text'] {
 	margin-top:5px;	
 	width:400px;
 	background-color: rgba(255,255,255, 1);
-	padding-bottom:20px;
+	padding-bottom:60px;
 	padding-top:2px;
 	padding-right: 15px;
 	padding-left: 15px;
@@ -214,18 +229,30 @@ label, input[type ='text'] {
 
 .linktotextcolor { color: #fff; }
 
-.topright{float: right;
+.topright{
+    margin: auto;
+    float: right;
 	font-size: large; 
+	padding-right: 30px;
+	color: white;
 }
 
-
+.btn-submit {
+  color: #FFFFFF;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: #500000;
+  padding: 10px 20px;
+  border: 0;
+  margin-top: 6px;
+}
 
 
 .Register_Form{
 	text-align: center;
 	margin:auto;
 	margin-top:50px;	
-	width:450px;
+	width:500px;
 	background-color: rgba(255,255,255, 1);
 	padding-bottom:20px;
 	padding-top:2px;
@@ -268,3 +295,4 @@ label, input[type ='text'] {
 .alignright {
 	float: right;
 }
+

@@ -1,0 +1,42 @@
+<%= form_for(adminstudrec) do |f| %>
+  <% if adminstudrec.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(adminstudrec.errors.count, "error") %> prohibited this adminstudrec from being saved:</h2>
+
+      <ul>
+      <% adminstudrec.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :uin %>
+    <%= f.number_field :uin %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :classcode %>
+    <%= f.text_field :classcode %>
+  </div>
+
+  <div class="field">
+    <%= f.label :major %>
+    <%= f.text_field :major %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

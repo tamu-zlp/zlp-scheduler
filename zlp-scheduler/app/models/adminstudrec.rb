@@ -1,0 +1,2 @@
+class Adminstudrec < ApplicationRecord
+end
