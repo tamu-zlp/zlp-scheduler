@@ -1,4 +1,8 @@
 class AdminController < ApplicationController
+  
+  before_action :require_admin, only: [:view_term_admin, :open_semester, :new_term, :update_term, :manage_cohorts, :add_cohort, :manage_administrators]    
+  
+  
   def view_term_admin
     @term = Term.find_by active: 1;
   end
