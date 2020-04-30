@@ -16,9 +16,14 @@ class Term < ApplicationRecord
     end
   end
   
+  # TODO: This will take awhile, it's probably best to fire it off async
+  # => and periodically check `Term.courses_import_complete` to determine
+  # => if it is done or not. As it stands, this call will take upwards of 10 min.
   def import_all_courses!
-    t.subjects.each do |subject|
+    self.subjects.each do |subject|
       Course.ImportCourses!(self, subject)
     end
+    self.courses_import_complete = true
+    self.save
   end
 end

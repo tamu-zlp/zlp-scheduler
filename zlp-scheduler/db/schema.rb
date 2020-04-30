@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20200417090006) do
 
   create_table "terms", force: :cascade do |t|
     t.string   "name"
+    t.datetime "opendate"
+    t.datetime "closedate"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.string   "term_code"

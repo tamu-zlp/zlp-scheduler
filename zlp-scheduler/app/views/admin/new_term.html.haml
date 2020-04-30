@@ -1,8 +1,10 @@
 
 %div{:class => 'add_sched_info'}
-    = form_tag view_term_admin_path do  
-        %label{:for => "term_name"} Term Name:
-        %input{:type => "text", :id => "term_name"}
+    %br 
+    %br
+    = form_for @term do |f|
+        %label{:for => "term_name"} Term:
+        = f.collection_select :name, Term.all, :id, :name
         
         %p Cohorts in term:
         %input{:type => "checkbox", :id => "cohort_1"}
@@ -15,5 +17,5 @@
         %label{:for => "cohort_3"} Cohort 3
         %p
         
-        = link_to "Create", view_term_admin_path, :class => 'button_link'
+        = f.submit "Activate", :class => 'button_link'
         = link_to "Cancel", view_term_admin_path, :class => 'button_link'

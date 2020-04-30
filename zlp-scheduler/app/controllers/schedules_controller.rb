@@ -1,15 +1,34 @@
-class SchedulingController < ApplicationContoller
+# taken from https://gist.github.com/pithyless/9738125 to get "max" integer
+# maybe convert this into a mixin later on??
+class Integer
+    N_BYTES = [42].pack('i').size
+    N_BITS = N_BYTES * 16
+    MAX = 2 ** (N_BITS - 2) - 1
+    MIN = -MAX - 1
+end
+
+class SchedulesController < ApplicationContoller
     def initialize(schedules)
-        # @combinations = self.get_combinations(schedules)
+        @schedules = schedules
     end
 
-    
+    # uses n^m size N-ary string for indexing 
     def optimize
-        optimal_index = [0,0]
-        optimal_combo = self.schedules[optimal_index]
-        optimal_val = inf # how to get largest integer ?? 
-        
-        @combinations.each do |combo|
+        optimal_index = [0, 0]
+        optimal_combo = @schedules[0]
+        # want to minimize val, therefore use largest possible int. shouldnt ever get close to this num
+        optimal_val = Integer::MAX 
+
+        rows = @schedules.length
+        cols = @schedules[0].length
+
+        total_num_combos = rows ** cols
+        index = ""
+
+        for i in 0...total_num_combos
+            # convert to base N (where N is schedules.length / number of schedules)
+            index = i.to_s(@schedules.length)
+            combo = get_combination(@schedules, index)
             sum_matrix = self.element_wise_sum(combo)
             index, val = self.sliding_window(sum_matrix)
             
@@ -19,16 +38,19 @@ class SchedulingController < ApplicationContoller
                 optimal_val = val
             end
         end
-        
-        return optimal_combo, optimal_index, optimal_val
-    end
-    
 
     private
     
-    def get_combinations(schedules)
-        # temporarily just return the first row of schedules for testing
-        return schedules
+    # extract a single combination from the schedule using the specified index
+    # index is a string 
+    def get_combination(schedules, index)
+        combo = Array.new
+
+        for i in 0...index.length
+            combo.push(schedules[index[i].to_i][i])
+        end
+
+        return combo
     end 
 
     # input is an array of schedules

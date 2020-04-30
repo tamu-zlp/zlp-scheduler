@@ -17,11 +17,15 @@ Rails.application.routes.draw do
   
   get 'student/add_schedule', to: 'student#add_schedule', as: 'add_schedule'
   
+  get 'student/closed', to: 'student#closed', as: 'closed'
+  
   get 'admin/view_term_admin', to: 'admin#view_term_admin', as: 'view_term_admin'
   
   get 'admin/open_semester', to: 'admin#open_semester', as: 'open_semester'
   
   get 'admin/new_term', to: 'admin#new_term', as: 'new_term'
+  
+  patch '/terms', to: 'admin#update_term', as: 'term'
   
   get 'admin/manage_cohorts', to: 'admin#manage_cohorts', as: 'manage_cohorts'
   

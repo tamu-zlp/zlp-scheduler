@@ -11,11 +11,7 @@ gem 'rails', '~> 5.0.7', '>= 5.0.7.2'
 # Use postgres as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
-<<<<<<< HEAD
 #gem 'puma', '~> 3.0'
-=======
-# gem 'puma', '~> 3.0'
->>>>>>> dee4368c07fca81a1d5e66d547f74afd84953854
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -34,14 +30,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-<<<<<<< HEAD
  gem 'bcrypt', '~> 3.1.7'
  gem 'therubyracer'
-=======
-# gem 'bcrypt', '~> 3.1.7'
-gem 'matrix'
-
->>>>>>> dee4368c07fca81a1d5e66d547f74afd84953854
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
