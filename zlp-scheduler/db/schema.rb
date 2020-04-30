@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200425172135) do
+ActiveRecord::Schema.define(version: 20200430201802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "adminstudrecs", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "uin"
+    t.string   "email"
+    t.string   "classcode"
+    t.string   "major"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string   "full_subject"
@@ -77,12 +87,15 @@ ActiveRecord::Schema.define(version: 20200425172135) do
 
   create_table "users", force: :cascade do |t|
     t.integer  "uin"
-    t.string   "lastname",        null: false
-    t.string   "firstname",       null: false
-    t.string   "email",           null: false
+    t.string   "lastname",               null: false
+    t.string   "firstname",              null: false
+    t.string   "email",                  null: false
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "role"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
   add_foreign_key "courses", "subjects"

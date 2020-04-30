@@ -1,4 +1,7 @@
 class StudentController < ApplicationController
+  
+   before_action :require_student, only: [:view_terms, :add_schedule, :update_courses, :update_sections, :create_schedule, :view_schedule,:delete_schedule]  
+  
   def view_terms
     id = session[:user_id]
     @user = User.find(id)

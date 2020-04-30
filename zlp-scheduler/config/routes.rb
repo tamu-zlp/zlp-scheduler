@@ -1,17 +1,34 @@
 Rails.application.routes.draw do
 
+  
+
+  resources :adminstudrecs
   #get 'users/index'
   
-  get '/' => 'users#index'
-  post '/sessions' => 'sessions#create'
-  post '/users' => 'users#create'
-  get '/registerpage' => 'users#register'
+  get '/' => 'sessions#new'
+  get 'signup'  => 'users#new' 
+  resources :users
   
-  get "/signedout" => "users#signout"
-  get "/forgot_password" => "users#forgot_password"
-  put "/forgot_password" => "users#send_password_reset_instructions"
-  get "password_reset" => "users#password_reset"
-  put "password_reset" => "users#new_password"
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
+  
+  resources :password_resets 
+  get '/addcohort' => 'adminstudrecs#index'
+  resources :adminstudrecs
+  post '/import_from_excel' => "adminstudrecs#import_from_excel"
+  
+  
+  #get '/' => 'users#index'
+  #post '/sessions' => 'sessions#create'
+  #post '/users' => 'users#create'
+  #get '/registerpage' => 'users#register'
+  
+  #get "/signedout" => "users#signout"
+  #get "/forgot_password" => "users#forgot_password"
+  #put "/forgot_password" => "users#send_password_reset_instructions"
+  #get "password_reset" => "users#password_reset"
+  #put "password_reset" => "users#new_password"
   
   get 'student/view_terms', to: 'student#view_terms', as: 'view_terms'
   
