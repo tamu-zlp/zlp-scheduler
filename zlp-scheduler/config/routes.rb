@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  
+
   #get 'users/index'
   
   get '/' => 'sessions#new'
@@ -10,6 +12,7 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   
+  resources :password_resets 
   
   #get '/' => 'users#index'
   #post '/sessions' => 'sessions#create'
