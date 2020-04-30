@@ -38,6 +38,7 @@ class SchedulesController < ApplicationContoller
                 optimal_val = val
             end
         end
+    end
 
     private
     
