@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   
 
+  resources :adminstudrecs
   #get 'users/index'
   
   get '/' => 'sessions#new'
@@ -13,6 +14,10 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   
   resources :password_resets 
+  get '/addcohort' => 'adminstudrecs#index'
+  resources :adminstudrecs
+  post '/import_from_excel' => "adminstudrecs#import_from_excel"
+  
   
   #get '/' => 'users#index'
   #post '/sessions' => 'sessions#create'
