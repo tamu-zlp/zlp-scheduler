@@ -1,22 +1,24 @@
 Rails.application.routes.draw do
 
-  
-
-  resources :adminstudrecs
   #get 'users/index'
   
   get '/' => 'sessions#new'
   get 'signup'  => 'users#new' 
-  resources :users
+  get 'users/new', to: 'users#new', as: "users"
+  post 'users/new', to: 'users#create', as: 'create'
+  patch 'users/new', to: 'users#update_user', as: 'update_user'
+  delete '/users/:id', to: 'users#delete_user', as: 'delete_user'
   
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   
   resources :password_resets 
-  get '/addcohort' => 'adminstudrecs#index'
+  get 'users/add_cohort', to: 'users#add_cohort', as: 'add_cohort'
   resources :adminstudrecs
-  post '/import_from_excel' => "adminstudrecs#import_from_excel"
+  post '/cohorts', to: "users#import_from_excel", as: 'create_cohort'
+  delete '/cohorts/:id', to: 'admin#delete_cohort', as: 'delete_cohort'
+  get 'admin/cohorts/:id', to: 'admin#view_cohort_semester', as: 'view_cohort_semester'
   
   
   #get '/' => 'users#index'
@@ -48,16 +50,14 @@ Rails.application.routes.draw do
   
   get 'admin/new_term', to: 'admin#new_term', as: 'new_term'
   get 'admin/load_terms', to: 'admin#load_terms', as: 'load_terms'
+  delete '/admins/:id', to: 'admin#delete_admin', as: 'delete_admin'
   
   patch '/terms', to: 'admin#update_term', as: 'term'
   
   get 'admin/manage_cohorts', to: 'admin#manage_cohorts', as: 'manage_cohorts'
   
   get 'admin/manage_administrators', to: 'admin#manage_administrators', as: 'manage_administrators'
-  
-  get 'admin/add_cohort', to: 'admin#add_cohort', as: 'add_cohort'
-  
-  get 'admin/view_cohort_semester', to: 'admin#view_cohort_semester', as: 'view_cohort_semester'
+  get 'admin/add_admin', to: 'admin#add_admin', as: 'add_admin'
   
   get 'users/signout'
 

@@ -1,2 +1,0 @@
-class Adminstudrec < ApplicationRecord
-end

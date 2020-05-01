@@ -6,8 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Term.ImportTermList!
-# Find the term you want all the courses for, this just takes the first term in the DB
-t = Term.all[0]
-t.import_all_courses!
-t.update_attributes(:active => true)
+@user = User.new
+        @user.firstname = 'Lauren'
+        @user.lastname = 'Haylock'
+        @user.uin = 725000950
+        @user.email = 'laurenrhaylock@tamu.edu'
+        @user.role = 'admin'
+        @user.password = "Temp"
+        @user.save

@@ -4,7 +4,7 @@
 
 <div class= "Register_Form">
     <h1 style="color:black;">Create Account </h1>
-    <%= form_for(@user) do |f| %>  
+    <%= form_for @user, method: :patch do |f| %>  
      <div class="field"> 
       Are you a student? 
       <%= f.radio_button :role, 'student', :required => true %>

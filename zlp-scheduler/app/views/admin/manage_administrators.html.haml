@@ -1,1 +1,23 @@
 %h1 Manage Administrators
+%div{:class => "add_sched_info"}  
+    %br
+    %table{:class => "student_table"}
+        %tr
+            %th First Name
+            %th Last Name
+            %th TAMU Email
+            %th UIN
+            %th
+            %th
+        - @admins.each do |admin|
+            %tr
+                %td #{admin.firstname}
+                %td #{admin.lastname}
+                %td #{admin.email}
+                %td #{admin.uin}
+                %td 
+                    = link_to "Edit", "", :class => 'button_link'
+                %td 
+                    = link_to 'Delete', delete_admin_path(admin), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'right_button_link'
+    = link_to "Add Administrator", add_admin_path, :class => 'button_link'
+    = link_to "Back to Home", view_term_admin_path, :class => 'button_link'
