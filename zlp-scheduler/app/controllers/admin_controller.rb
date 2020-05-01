@@ -5,6 +5,7 @@ class AdminController < ApplicationController
   
   def view_term_admin
     @term = Term.find_by active: 1;
+    @cohorts = @term.cohorts
   end
   
   def open_semester
@@ -13,6 +14,11 @@ class AdminController < ApplicationController
   
   def new_term
     @term = Term.find_by active: 1;
+    @cohorts = Cohort.all
+    @cohort_names = []
+    @cohorts.each do |s|
+      @cohort_names.push(s.name)
+    end
   end
   
   def update_term
@@ -21,6 +27,11 @@ class AdminController < ApplicationController
       @term = Term.find(params[:term][:name])
       Term.update_all active: false
       if @term.update_attributes(:active => true)
+        @cohorts = params[:Cohorts]
+        @cohorts.each do |c|
+          add_cohort = Cohort.where(:name => c)
+          @term.cohorts.push(add_cohort)
+        end
         flash[:notice] = 'Term activated!'
         redirect_to view_term_admin_path
       else
@@ -51,12 +62,39 @@ class AdminController < ApplicationController
   end
   
   def manage_cohorts 
+    @cohorts = Cohort.all
   end
   
   def add_cohort
   end
   
+  def view_cohort_semester
+    @cohort = Cohort.find(params[:id])
+    @users = @cohort.users
+  end
+  
+  def delete_cohort
+    @cohort = Cohort.find(params[:id])
+    @cohort.destroy
+    
+    flash[:notice] = 'Cohort deleted!'
+    redirect_to manage_cohorts_path
+  end
+  
   def manage_administrators
+    @admins = User.where(:role => 'admin')
+  end
+  
+  def add_admin
+    @user = User.new
+  end
+  
+  def delete_admin
+    @admin = User.find(params[:id])
+    @admin.destroy
+    
+    flash[:notice] = "Administrator deleted!"
+    redirect_to manage_administrators_path
   end
   
 end

@@ -1,6 +1,7 @@
 class Term < ApplicationRecord
   has_many :courses
   has_many :subjects
+  has_many :cohorts
 
   def self.ImportTermList!
     json_terms = CourseScraper.get_terms

@@ -1,0 +1,12 @@
+%div{:class => "add_stud_info"}
+    %p{:id => "notice"}
+        = notice
+    %br
+    %h1{:style => "color:black;"} Import From Excel
+    %p{:style => "color:red;"}  Please make sure the excel sheet has the columns in the following order: First Name, Last Name, UIN, TAMU Email
+    = form_tag create_cohort_path, multipart: true do |f|
+        = label_tag "Cohort Name"
+        = text_field_tag :name
+        %br
+        = file_field_tag :file 
+        = submit_tag "Import", :class=> "btn"

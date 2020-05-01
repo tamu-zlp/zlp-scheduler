@@ -296,3 +296,7 @@ label, input[type ='text'] {
 	float: right;
 }
 
+select {
+    min-width: 100px;
+}
+
