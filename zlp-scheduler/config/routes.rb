@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   get 'admin/open_semester', to: 'admin#open_semester', as: 'open_semester'
   
   get 'admin/new_term', to: 'admin#new_term', as: 'new_term'
+  get 'admin/load_terms', to: 'admin#load_terms', as: 'load_terms'
   
   patch '/terms', to: 'admin#update_term', as: 'term'
   
