@@ -6,12 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-
-terms = [
-    {name: 'Fall 2020 - College Station', active: 1},
-    {name: 'Spring 2020 - College Station', active: 0}
-    ]
-    
-terms.each do |term|
-    Term.create!(term)
-end
+@user = User.new
+        @user.firstname = 'Lauren'
+        @user.lastname = 'Haylock'
+        @user.uin = 725000950
+        @user.email = 'laurenrhaylock@tamu.edu'
+        @user.role = 'admin'
+        @user.password = "Temp"
+        @user.save

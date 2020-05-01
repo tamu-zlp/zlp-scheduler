@@ -1,17 +1,18 @@
 %div{:class => 'add_sched_info'}
+    %br
+    %h2 #{@cohort.name}
     %table{:class => "cohort_table"}
         %tr
             %th Name
-            %th Schedule Added
-        %tr 
-            %td Lauren Haylock
-            %td No
-        %tr 
-            %td Austen Kaul
-            %td No
-        %tr 
-            %td Amanda Beeck
-            %td Yes
+            %th Schedules Added
+        - @users.each do |user|
+            %tr
+                %td #{user.firstname} #{user.lastname}
+                %td 
+                    - if (user.schedules != [])
+                        Yes
+                    - else
+                        No
 %div{:class => 'centered_links'}
     = link_to "Find Class Time", "", :class => 'button_link'
     = link_to "Back to Home", view_term_admin_path, :class => 'button_link'

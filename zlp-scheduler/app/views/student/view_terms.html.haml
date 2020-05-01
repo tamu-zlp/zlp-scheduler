@@ -1,14 +1,20 @@
-%h1 Howdy, #{@user.firstname}!
-
-%div{:class => "term_frame"}
-    %div{:class => "header_div"}
-        %h2{:class => 'term_header'} #{@term.name}
+%h1 Howdy, #{@current_user.lastname}!
+%div{:class => "topright", :style => "color: white"}
+    = link_to "Log out", logout_path, method: "delete"
+- if current_user && current_user.student?    
+    %div{:class => "term_frame"}
+        %div{:class => "header_div"}
+            %h2{:class => 'term_header'} #{@term.name}
+                
+        %ul{:class => "schedules"}
+            - @schedules.each do |s|
+                %li
+                    &#9776; &emsp; 
+                    = link_to s.name, view_schedule_path(s), method: :get, :class => 'button_link'
+                    = link_to 'Delete', delete_schedule_path(s), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'right_button_link'
+        = link_to 'Add Schedule', add_schedule_path, :class => 'button_link'
             
-    %ul{:class => "schedules"}
-        %li
-            &#9776; &emsp; Schedule 1
-            = link_to 'Delete', "", :class => 'right_button_link'
-        %li
-            &#9776; &emsp; Schedule 2
-            = link_to 'Delete', "", confirm: "Are you sure?", :class => 'right_button_link'
-    = link_to 'Add Schedule', add_schedule_path, :class => 'button_link'
+- else
+    %li
+        = link_to "Login", 'login', :class => 'btn-submit'
+        = link_to "Signup", 'signup', :class => 'btn-submit'

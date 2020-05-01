@@ -27,7 +27,7 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -51,4 +51,16 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  
+  #For forgot password email: Google doesn't allow me
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
+
+  #send emails in development?
+  config.action_mailer.perform_deliveries = true
+  
+  #in development mode host is the url given by cloud9, and when on heroku put the heroku url
+  config.action_mailer.default_url_options = {:host => "https://e6e50639ce9142959ad27a142c414481.vfs.cloud9.us-east-2.amazonaws.com/"}
 end
+

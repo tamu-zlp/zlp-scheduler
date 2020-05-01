@@ -6,16 +6,11 @@
         %label{:for => "term_name"} Term:
         = f.collection_select :name, Term.all, :id, :name
         
-        %p Cohorts in term:
-        %input{:type => "checkbox", :id => "cohort_1"}
-        %label{:for => "cohort_1"} Cohort 1
-        %p
-        %input{:type => "checkbox", :id => "cohort_2"}
-        %label{:for => "cohort_2"} Cohort 2
-        %p
-        %input{:type => "checkbox", :id => "cohort_3"}
-        %label{:for => "cohort_3"} Cohort 3
-        %p
+        %p Cohorts in term (hold control to select multiple):
+        = select_tag "Cohorts", options_for_select(@cohort_names), multiple: true, id: 'cohort_select'
+        %br
+        %br
         
         = f.submit "Activate", :class => 'button_link'
         = link_to "Cancel", view_term_admin_path, :class => 'button_link'
+        = link_to "Load more terms", load_terms_path, :class => 'button_link'
