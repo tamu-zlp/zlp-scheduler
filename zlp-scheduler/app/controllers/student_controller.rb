@@ -20,20 +20,21 @@ class StudentController < ApplicationController
     
     @term = Term.find_by active: 1;
     @subjects = @term.subjects
+    @subjects = @subjects.uniq
     @course_options = [];
     @section_options = [];
     
   end
   
   def update_courses
-    # updates artists and songs based on genre selected
     @select_id = params[:id]
     if params[:dept_id].empty?
       @course_options = [].insert(0, "")
     else 
       subj = Subject.find(params[:dept_id])
       # map to name and id for use in our options_for_select
-      @courses = Course.where(:abbreviated_subject => subj.subject_code)
+      @term = Term.find_by active: 1;
+      @courses = Course.where(:abbreviated_subject => subj.subject_code, :term_id => @term.id)
       @course_options = [];
       @courses.each do |c|
         @course_options.push(c.course_number)
@@ -52,7 +53,8 @@ class StudentController < ApplicationController
     else
       course_num = params[:course_num_id]
       # map to name and id for use in our options_for_select
-      @sections = Course.where(:abbreviated_subject => subj.subject_code, :course_number => course_num)
+      @term = Term.find_by active: 1;
+      @sections = Course.where(:abbreviated_subject => subj.subject_code, :course_number => course_num, :term_id => @term.id)
       @section_options = [];
       @sections.each do |c|
         @section_options.push(c.section_number)
@@ -70,6 +72,7 @@ class StudentController < ApplicationController
       #add courses to schedule, schedule to user
       id = session[:user_id]
       @user = User.find(id)
+      @term = Term.find_by active: 1;
       @schedule = Schedule.new
       @schedule.update_attributes(:name => params[:schedule][:name])
       @user.schedules.push(@schedule)
@@ -80,7 +83,7 @@ class StudentController < ApplicationController
         check_symb = "mand_#{n+1}".to_sym
         if !(params[section_symb] == "")
           subj = Subject.find(params[subj_symb]).subject_code
-          @course = Course.where(:abbreviated_subject => subj, :course_number => params[number_symb], :section_number => params[section_symb])
+          @course = Course.where(:abbreviated_subject => subj, :course_number => params[number_symb], :section_number => params[section_symb], :term_id => @term.id)
           @schedule.courses.push(@course)
           if !params[check_symb].nil?
             #update mandatory attribute
