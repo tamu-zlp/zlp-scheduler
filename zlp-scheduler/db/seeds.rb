@@ -48,37 +48,81 @@ Term.ImportTermList!
 @term = Term.first
 
 Subject.ImportSubjectsForTerm!(@term)
-@subject = Subject.all
+@subject = Subject.first
 
 # could index thru courses but everyone taking 5 accounting courses is fine for testing
-Course.ImportCourses!(@term, @subject[0]) 
+Course.ImportCourses!(@term, @subject) 
 @courses = Course.all
 
 
-# add first user to database with 7 unique courses
-@schedule = Schedule.new
+#------------------------------------------------#
+num_courses = 7
 
-7.times do |i|
+# add users to database (3 schedules, 7 unique courses per schedule)
+# add first schedule for first user
+@schedule = Schedule.new
+num_courses.times do |i|
         @schedule.courses.push(@courses[i])
 end
-
 @user1.schedules.push(@schedule)
 
 
-# add second user to database with 7 unique courses 
+# add second schedule for first user
 @schedule = Schedule.new
-
-7.times do |i|
-        @schedule.courses.push(@courses[i + 7])
+num_courses.times do |i|
+        @schedule.courses.push(@courses[i + num_courses])
 end
+@user1.schedules.push(@schedule)
 
+# add third schedule for first user
+@schedule = Schedule.new
+num_courses.times do |i|
+        @schedule.courses.push(@courses[i + 2*num_courses])
+end
+@user1.schedules.push(@schedule)
+
+
+#------------------------------------------------#
+# add first schedule for second user
+@schedule = Schedule.new
+num_courses.times do |i|
+        @schedule.courses.push(@courses[i + 3*num_courses])
+end
 @user2.schedules.push(@schedule)
 
-# add third user to database with 7 unique courses
+# add second schedule for second user
 @schedule = Schedule.new
-
-7.times do |i|
-        @schedule.courses.push(@courses[i + 14])
+num_courses.times do |i|
+        @schedule.courses.push(@courses[i + 4*num_courses])
 end
+@user2.schedules.push(@schedule)
 
+# add third schedule for second user
+@schedule = Schedule.new
+num_courses.times do |i|
+        @schedule.courses.push(@courses[i + 5*num_courses])
+end
+@user2.schedules.push(@schedule)
+
+
+#------------------------------------------------#
+# add first schedule for third user
+@schedule = Schedule.new
+num_courses.times do |i|
+        @schedule.courses.push(@courses[i + 6*num_courses])
+end
+@user3.schedules.push(@schedule)
+
+# add second schedule for third user
+@schedule = Schedule.new
+num_courses.times do |i|
+        @schedule.courses.push(@courses[i + 7*num_courses])
+end
+@user3.schedules.push(@schedule)
+
+# add third schedule for third user
+@schedule = Schedule.new
+num_courses.times do |i|
+        @schedule.courses.push(@courses[i + 8*num_courses])
+end
 @user3.schedules.push(@schedule)
