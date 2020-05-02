@@ -1,4 +1,5 @@
 # taken from https://gist.github.com/pithyless/9738125 to get "max" integer
+# maybe convert this into a mixin later on??
 class Integer
     N_BYTES = [42].pack('i').size
     N_BITS = N_BYTES * 16
@@ -8,11 +9,8 @@ end
 
 class Scheduler
     def initialize(schedules)
-        # probably do something
         @schedules = schedules
     end
-
-    # private (determine what to set private and what to set public in actual controller)
 
     # uses n^m size N-ary string for indexing 
     def optimize
@@ -40,18 +38,10 @@ class Scheduler
                 optimal_val = val
             end
         end
-        
-        return optimal_combo, optimal_index, optimal_val
     end
 
-    def optimize2
-        # consider implementing a recursive backtracking solution like:
-        # https://leetcode.com/problems/expression-add-operators/
-        # or
-        # https://leetcode.com/problems/target-sum/solution/
-    end
-
-
+    private
+    
     # extract a single combination from the schedule using the specified index
     # index is a string 
     def get_combination(schedules, index)
@@ -63,39 +53,6 @@ class Scheduler
 
         return combo
     end 
-
-
-    # return the students who have a conflict with the optimal time-slot 
-    # need to check that time_slot[0] corresponds to the time and time_slot[1] corresponds to the student
-    def get_conflicts(schedules, time_slot)
-        conflicts = Array.new
-        students = Array.new
-
-        student_iter = 0
-
-        schedules.each do |schedule|
-            if schedule[time_slot[0]][time_slot[1]] > 0
-                conflicts.push(schedule)
-                students.push(student_iter)
-
-            elsif schedule[time_slot[0] + 1][time_slot[1]] > 0
-                conflicts.push(schedule)
-                students.push(student_iter)
-
-            elsif schedule[time_slot[0] + 2][time_slot[1]] > 0
-                conflicts.push(schedule)
-                students.push(student_iter)
-
-            elsif schedule[time_slot[0] + 3][time_slot[1]] > 0
-                conflicts.push(schedule)
-                students.push(student_iter)
-            end
-
-            student_iter += 1
-        end
-
-        return conflicts
-    end
 
     # input is an array of schedules
     def element_wise_sum(input)
@@ -141,83 +98,3 @@ class Scheduler
         return min_index, min
     end
 end
-
-
-# simple testing for the scheduling controller
-
-m1 = [[0,0,1,1,0],
-    [1,0,1,1,0],
-    [1,0,1,1,0],
-    [1,0,1,1,1],
-    [1,1,0,1,0],
-    [1,1,0,1,1],
-    [0,1,1,0,1]]
-
-m2 = [[1,0,1,1,1],
-    [0,1,1,1,1],
-    [1,0,0,0,1],
-    [1,0,0,1,0],
-    [0,1,0,1,0],
-    [1,1,0,0,0],
-    [0,1,0,1,0]]
-
-m3 = [[1,0,0,1,1],
-    [1,0,0,1,1],
-    [1,0,0,1,1],
-    [1,0,1,1,0],
-    [0,0,1,0,1],
-    [1,0,1,1,0],
-    [0,0,0,1,0]]
-
-
-m4 = [[0,0,0,1,0],
-    [1,1,0,1,0],
-    [1,1,0,0,0],
-    [1,1,1,0,0],
-    [0,1,0,0,1],
-    [1,0,0,0,0],
-    [0,0,0,1,1]]
-
-m5 = [[0,0,1,1,1],
-    [0,1,1,0,1],
-    [1,0,0,0,0],
-    [1,0,1,0,0],
-    [0,0,0,0,1],
-    [1,0,0,0,0],
-    [0,0,0,1,0]]
-
-m6 = [[1,1,0,1,1],
-    [1,0,0,0,1],
-    [1,0,0,0,1],
-    [1,0,1,1,0],
-    [0,1,0,1,1],
-    [1,1,0,1,0],
-    [0,1,0,1,0]]
-
-m = [[m1, m2, m3], [m4, m5, m6]]
-
-
-'''
-scheduler = Scheduler.new
-
-index = "010"
-x = scheduler.get_combination(m, index)
-summed_matrix = scheduler.element_wise_sum(x)
-min_index, min = scheduler.sliding_window(summed_matrix)
-
-
-print(summed_matrix)
-
-puts min
-puts min_index
-
-print
-print
-print(x)
-'''
-
-s = Scheduler.new(m)
-optimal_combo, optimal_index, optimal_val = s.optimize
-print(optimal_combo)
-print(optimal_index)
-print(optimal_val)

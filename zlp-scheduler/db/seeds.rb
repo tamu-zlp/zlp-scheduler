@@ -14,16 +14,17 @@
         @user.role = 'admin'
         @user.password = "Temp"
         @user.save
+  
         
-
+# Produce some data for testing the algorithm
 Term.ImportTermList!
 @term = Term.first
 
-Subject.ImportSubjectForTerms!(@term)
-@subjects = Subject.all
+Subject.ImportSubjectsForTerm!(@term)
+@subject = Subject.first
 
 # could index thru courses but everyone taking 5 accounting courses is fine for testing
-Course.ImportCourses!(term, subjects[0]) 
+Course.ImportCourses!(@term, @subject) 
 @courses = Course.all
 
 
@@ -38,11 +39,13 @@ Course.ImportCourses!(term, subjects[0])
 
 @schedule = Schedule.new
 
-num_courses = 7
-num_courses.times do |i|
+# num_courses = 7
+7.times do |i|
         @schedule.courses.push(@courses[i])
 end
 
-@user.schedules.push(schedule)
+@user.schedules.push(@schedule)
+
+
 
          
