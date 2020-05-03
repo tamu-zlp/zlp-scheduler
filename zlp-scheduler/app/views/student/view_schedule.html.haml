@@ -14,5 +14,9 @@
                 %td #{course.abbreviated_subject}
                 %td #{course.course_number}
                 %td #{course.section_number}
-                %td #{(@associations.find_by course_id: course.id).mandatory}
+                %td 
+                    - if (@associations.find_by course_id: course.id).mandatory == true
+                        Yes
+                    - else
+                        No
     = link_to "Back to Home", view_terms_path, :class => 'button_link'

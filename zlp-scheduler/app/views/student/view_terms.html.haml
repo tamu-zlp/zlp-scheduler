@@ -1,4 +1,4 @@
-%h1 Howdy, #{@current_user.lastname}!
+%h1 Howdy, #{@current_user.firstname}!
 %div{:class => "topright", :style => "color: white"}
     = link_to "Log out", logout_path, method: "delete"
 - if current_user && current_user.student?    

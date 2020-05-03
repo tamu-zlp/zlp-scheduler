@@ -66,7 +66,7 @@ class StudentController < ApplicationController
   
   def create_schedule
     if params[:schedule][:name] == ""
-      flash[:notice] = 'Schedule must include a name.'
+      flash[:warning] = 'Schedule must include a name.'
       redirect_to add_schedule_path
     else
       #add courses to schedule, schedule to user

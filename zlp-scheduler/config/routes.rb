@@ -14,23 +14,15 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   
   resources :password_resets 
+  get 'admin/manage_cohorts', to: 'admin#manage_cohorts', as: 'manage_cohorts'
   get 'users/add_cohort', to: 'users#add_cohort', as: 'add_cohort'
-  resources :adminstudrecs
+  get 'download_excel_example', to: 'users#download_excel_example'
   post '/cohorts', to: "users#import_from_excel", as: 'create_cohort'
   delete '/cohorts/:id', to: 'admin#delete_cohort', as: 'delete_cohort'
   get 'admin/cohorts/:id', to: 'admin#view_cohort_semester', as: 'view_cohort_semester'
-  
-  
-  #get '/' => 'users#index'
-  #post '/sessions' => 'sessions#create'
-  #post '/users' => 'users#create'
-  #get '/registerpage' => 'users#register'
-  
-  #get "/signedout" => "users#signout"
-  #get "/forgot_password" => "users#forgot_password"
-  #put "/forgot_password" => "users#send_password_reset_instructions"
-  #get "password_reset" => "users#password_reset"
-  #put "password_reset" => "users#new_password"
+  get '/users/:id', to: 'users#edit_user', as: 'edit_user'
+  patch '/users/:id', to: 'users#patch_user', as: 'patch_user'
+
   
   get 'student/view_terms', to: 'student#view_terms', as: 'view_terms'
   
@@ -53,8 +45,6 @@ Rails.application.routes.draw do
   delete '/admins/:id', to: 'admin#delete_admin', as: 'delete_admin'
   
   patch '/terms', to: 'admin#update_term', as: 'term'
-  
-  get 'admin/manage_cohorts', to: 'admin#manage_cohorts', as: 'manage_cohorts'
   
   get 'admin/manage_administrators', to: 'admin#manage_administrators', as: 'manage_administrators'
   get 'admin/add_admin', to: 'admin#add_admin', as: 'add_admin'

@@ -8,6 +8,34 @@ class UsersController < ApplicationController
     @cohort = Cohort.new
   end
   
+  def download_excel_example
+    send_file "#{Rails.root}/app/assets/docs/example.xlsx", x_sendfile: true
+  end
+  
+  def edit_user
+    @user = User.find(params[:id])
+  end
+  
+  def patch_user
+    @user = User.find(params[:id])
+    @user.firstname = params[:user][:firstname]
+    @user.lastname = params[:user][:lastname]
+    @user.uin = params[:user][:uin]
+    @user.email = params[:user][:email]
+    if @user.save
+      if @user.role == 'student'
+        flash[:notice] = "Student updated!"
+        redirect_to manage_cohorts_path
+      else #admin
+        flash[:notice] = "Administrator updated!"
+        redirect_to manage_administrators_path
+      end
+    else
+      flash[:warning] = "Error"
+      redirect_to edit_user_path(@user)
+    end
+  end
+  
   def delete_user
     @user = User.find(params[:id])
     @user.destroy
@@ -59,9 +87,9 @@ class UsersController < ApplicationController
     
     def update_user
       #check if there is a record for them in users
-      @user = User.where(:firstname => params[:user][:firstname], :lastname => params[:user][:lastname], :email => params[:user][:email], :uin => params[:user][:uin], :role => params[:user][:role])
-      if @user.nil?
-        flash[:register_errors] = "Unregistered"
+      @user = User.where(:email => params[:user][:email], :uin => params[:user][:uin], :role => params[:user][:role])
+      if @user.empty?
+        flash[:warning] = "The director has not registered your email."
         redirect_to '/signup' 
       else
         @user[0].update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])

@@ -1,7 +1,5 @@
-%h1 Howdy, #{@current_user.lastname}!
-%div{:class => "topright", :style => "color: white"}
-    = link_to "Log out", logout_path, method: "delete"
 - if current_user && current_user.admin?
+    %h1 Howdy, #{@current_user.firstname}!
     %div{:class => "term_frame"}
         %div{:class => "header_div"}
             %h2{:class => "term_header"} #{@term.name} &emsp;

@@ -3,7 +3,7 @@
 </div>
 
 <div class= "Register_Form">
-    <h1 style="color:black;">Create Account </h1>
+    <h1 style="color:black;">Claim Account </h1>
     <%= form_for @user, method: :patch do |f| %>  
      <div class="field"> 
       Are you a student? 
@@ -15,8 +15,8 @@
       <br>
       
       UIN<br> <%= f.number_field :uin, :size => 10, :class => "Input_Medium", :required => true %><br />
-      <br>Last name<br> <%= f.text_field :lastname, :size => 20, :class => "Input_Medium", :required => true %><br />
       <br>First name<br> <%= f.text_field :firstname, :size => 20, :class => "Input_Medium", :required => true %><br />
+      <br>Last name<br> <%= f.text_field :lastname, :size => 20, :class => "Input_Medium", :required => true %><br />
       <br>Email<br> <%= f.text_field :email, :placeholder => "netid@tamu.edu", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :class => "Input_Medium", :required => true %><br />
       <br>Password<br> <%= f.password_field :password, :size => 30, :class => "Input_Medium", :required => true %><br />
       <br>Retype Password<br> <%= f.password_field :password_confirmation, :size => 30, :class => "Input_Medium", :required => true %><br />

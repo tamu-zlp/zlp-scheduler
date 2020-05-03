@@ -1,0 +1,21 @@
+%div{:class => "add_sched_info"}  
+    %br
+    %h2 Edit #{@user.firstname} #{@user.lastname}
+    = form_for @user, url: patch_user_path(@user) do |f|
+        %table{:class => "student_table"}
+            %tr
+                %th First Name
+                %th Last Name
+                %th TAMU Email
+                %th UIN
+            %tr
+                %th
+                    = f.text_field :firstname, :value => @user.firstname
+                %th
+                    = f.text_field :lastname, :value => @user.lastname
+                %th
+                    = f.text_field :email, :value => @user.email
+                %th
+                    = f.text_field :uin, :value => @user.uin
+        = f.submit "Update", :class => 'button_link'
+        = link_to "Cancel", manage_cohorts_path, :class => 'button_link'

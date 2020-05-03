@@ -21,15 +21,11 @@ pre {
 }
 
 a {
-  color: #000;
-
-  &:visited {
-    color: #666;
-  }
+  color: #500000;
+  text-decoration: none;
 
   &:hover {
-    color: #fff;
-    background-color: #000;
+    text-decoration: underline;
   }
 }
 
@@ -49,7 +45,13 @@ div {
   }
 }
 
+.alignleft {
+	float: left;
+}
 
+.alignright {
+	float: right;
+}
 
 .field_with_errors {
   padding: 2px;
