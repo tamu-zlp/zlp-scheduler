@@ -32,6 +32,10 @@ class AdminController < ApplicationController
           add_cohort = Cohort.where(:name => c)
           @term.cohorts.push(add_cohort)
         end
+        @scheduletocourse = ScheduleToCourse.all
+        @scheduletocourse.destroy
+        @schedules = Schedule.all
+        @schedules.destroy
         flash[:notice] = 'Term activated!'
         redirect_to view_term_admin_path
       else
