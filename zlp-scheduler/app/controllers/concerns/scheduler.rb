@@ -9,20 +9,45 @@ end
 
 
 class Scheduler
-    # import MatrixGenerator
+    
+    # keeping attr_reader so the outputs can be easily used on the frontend
+    attr_reader :schedules
+    attr_reader :optimal_index
+    attr_reader :optimal_combo
+    attr_reader :optimal_val
+    attr_reader :optimal_summed_matrix
+    
+    def get_all_schedules
+        return Helpers.print_matrix(@schedules)
+    end
+    
+    # not sure how this one should be displayed to the user
+    def get_optimal_index
+        return Helpers.format_time(@optimal_index)
+    end
+    
+    def get_optimal_combo
+        return Helpers.print_matrix(@optimal_combo)
+    end
+    
+    def get_optimal_summed_matrix
+        return Helpers.print_matrix(@optimal_summed_matrix)
+    end
+    
     
     def initialize(schedules)
-        # @schedules = MatrixGenerator.get_all_schedules(User.all)
         @schedules = schedules
+        return nil
     end
     
 
     # uses n^m size N-ary string for indexing 
     def optimize
-        optimal_index = [0, 0]
-        optimal_combo = @schedules[0]
+        @optimal_index = [0, 0]
+        @optimal_combo = @schedules[0]
         # want to minimize val, therefore use largest possible int. shouldnt ever get close to this num
-        optimal_val = Integer::MAX 
+        @optimal_val = Integer::MAX 
+        @optimal_summed_matrix = []
 
         rows = @schedules.length
         cols = @schedules[0].length
@@ -38,17 +63,16 @@ class Scheduler
             index, val = self.sliding_window(sum_matrix)
             
             if val < optimal_val
-                optimal_val = val
-                optimal_index = index
-                optimal_combo = combo
+                @optimal_val = val
+                @optimal_index = index
+                @optimal_combo = combo
+                @optimal_summed_matrix = sum_matrix
             end
         end
         
-        return optimal_combo, optimal_index, optimal_val
-        # return format_output(optimal_combo, optimal_index, optimal_val)
+        return nil
     end
 
-    # private
     
     # extract a single combination from the schedule using the specified index
     # index is a string 
@@ -61,6 +85,7 @@ class Scheduler
 
         return combo
     end 
+    
 
     # input is an array of schedules
     def element_wise_sum(input)
@@ -82,23 +107,30 @@ class Scheduler
         return sum
     end
     
+    HOUR_SHIFT = 12
 
-    def sliding_window(input)
-        num_rows = input.length
-        num_cols = input[0].length
+    # finds the smallest amount (min) of conflict within a 2 hour window
+    def sliding_window(summed_schedule)
+        num_time_slots = summed_schedule.length
+        num_days = summed_schedule[0].length
 
-        # need to update this to get max value (something life inf)
-        min = 10000
-        # window size will be min_index + window_size
+        min = Integer::MAX
+        # min_index is the starting time for the window
         min_index = [0, 0]
-        window_size = 1
+        window_size = 2 * HOUR_SHIFT # 24 time intervals
         
-        for i in 0...num_rows-1
-            for j in 0...num_cols
-                sum = input[i][j] + input[i + window_size][j]
+        # window_size - 1 so we don't get out of bounds
+        for day in 0...num_days
+            for time in 0...num_time_slots - (window_size - 1)
+            
+                sum = 0
+                for t in time...(time + window_size)
+                    sum += summed_schedule[t][day]
+                end
+                
                 if sum < min
                     min = sum
-                    min_index = [i, j]
+                    min_index = [time, day]
                 end   
             end
         end

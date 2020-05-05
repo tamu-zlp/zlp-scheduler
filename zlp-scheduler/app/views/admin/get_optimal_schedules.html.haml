@@ -1,0 +1,7 @@
+- if current_user && current_user.admin?
+    %h1 Howdy, #{@current_user.firstname}!
+        
+- else
+    %li
+        = link_to "Login", 'login', :class => 'btn-submit'
+        = link_to "Signup", 'signup', :class => 'btn-submit'
