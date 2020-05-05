@@ -3,13 +3,9 @@ class MatrixGenerator
     end
     
     # gets all schedules in matrix format for a set of users
-    def get_all_schedules(users)
+    def get_all_schedules #(users)
+        users = User.all
         all_schedules = []
-        
-        # only these users work for now, rest give other errors
-        # all_schedules.push(all_student_schedules(User.all[2].schedules))
-        # all_schedules.push(all_student_schedules(User.all[6].schedules))
-        # all_schedules.push(all_student_schedules(User.all[10].schedules))
         
         # this code is fine but some of the users in db give back errors
         users.each do |user|
@@ -44,9 +40,16 @@ class MatrixGenerator
         schedule = Array.new(num_time_slots) { Array.new(num_days, 0)} # important !!!!!
     
         courses.each do |course|
-            days = parse_day(course.meeting_days)
+            
+            # puts "start time for %s" % course.course_name
+            if course.meetingtime_start.nil? or course.meetingtime_end.nil?
+                next
+            end
             start_time = parse_time(course.meetingtime_start)
+            
+            # puts "end time for %s " % course.course_name
             end_time = parse_time(course.meetingtime_end)
+            days = parse_day(course.meeting_days)
             schedule = insert_course(schedule, days, start_time, end_time)
         end
         
@@ -97,7 +100,7 @@ class MatrixGenerator
         
         days.each do |day|
             for time in start_time...end_time
-                if time < schedule[0].length
+                if time < schedule[day].length
                     schedule[time][day] = 1
                 end
             end
