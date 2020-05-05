@@ -21,7 +21,7 @@
                         %td #{user.email}
                         %td #{user.uin}
                         %td 
-                            = link_to "Edit", "", :class => 'button_link'
+                            = link_to "Edit", edit_user_path(user), :class => 'button_link'
                         %td 
                             = link_to 'Delete', delete_user_path(user), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'right_button_link'
 

@@ -38,9 +38,16 @@ h1 {
     margin-left: 2%;
 }
 
-.alert {
+.notice {
   padding: 20px;
   background-color: green; /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+
+.warning {
+  padding: 20px;
+  background-color: red;
   color: white;
   margin-bottom: 15px;
 }
@@ -66,6 +73,16 @@ h1 {
     line-height: 40px;
     float: right;
     margin-right: 2%;
+    font-family: serif;
+    font-size: 15px;
+}
+
+.topright{
+    margin: auto;
+    float: right;
+	font-size: large; 
+	padding-right: 30px;
+	color: white;
 }
 
 .centered_links {
@@ -166,8 +183,9 @@ h1 {
 	box-shadow: 5px 5px 5px #888888;
 	background-image: linear-gradient(#FFD5C2, white);
 }
+
 .add_stud_info {
-    height: 800px;
+    height: 500px;
     width: 70%;
     margin: auto;
     text-align: center;
@@ -175,6 +193,7 @@ h1 {
 	box-shadow: 5px 5px 5px #888888;
 	background-image: linear-gradient(#FFD5C2, white);
 }
+
 label, input[type ='text'] {
     margin-top: 30px;
     font-weight: bold;
@@ -220,22 +239,9 @@ label, input[type ='text'] {
 	padding-left: 15px;
 	border-radius: 18px;
 	box-shadow: 5px 5px 5px #888888;
-    /*position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    */
 }
 
 .linktotextcolor { color: #fff; }
-
-.topright{
-    margin: auto;
-    float: right;
-	font-size: large; 
-	padding-right: 30px;
-	color: white;
-}
 
 .btn-submit {
   color: #FFFFFF;
@@ -259,11 +265,6 @@ label, input[type ='text'] {
 	padding-left: 6px;
 	border-radius: 18px;
 	box-shadow: 5px 5px 5px #888888;
-    /*position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    */
 }
 
 .Input_Large{
@@ -275,25 +276,11 @@ label, input[type ='text'] {
 }
 
 .Input_XLarge{
-	/*font-size: xx-small;
-	font-size: x-small;
-	font-size: small;
-	font-size: medium;
-	font-size: large;*/
-	/*font-size: x-large;*/
 	font-size: xx-large;
-	/*font-size: xxx-large;*/
 }
 
 #number {
   width: 9em;
-}
-
-.alignleft {
-	float: left;
-}
-.alignright {
-	float: right;
 }
 
 select {

@@ -16,7 +16,7 @@
                 %td #{admin.email}
                 %td #{admin.uin}
                 %td 
-                    = link_to "Edit", "", :class => 'button_link'
+                    = link_to "Edit", edit_user_path(admin), :class => 'button_link'
                 %td 
                     = link_to 'Delete', delete_admin_path(admin), method: :delete, data: {confirm: 'Are you sure?'}, :class => 'right_button_link'
     = link_to "Add Administrator", add_admin_path, :class => 'button_link'
