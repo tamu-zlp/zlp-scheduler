@@ -1,5 +1,7 @@
 - if current_user && current_user.admin?
     %h1 Howdy, #{@current_user.firstname}!
+        button_to "Optimizate Schedules"
+        
         %table{:class => "student_table"}
             %tr
 
