@@ -14,3 +14,12 @@
         @user.role = 'admin'
         @user.password = "Temp"
         @user.save
+        
+@user = User.new
+        @user.firstname = 'Steven'
+        @user.lastname = 'Universe'
+        @user.uin = 424242
+        @user.email = 'misteruniverse@tamu.edu'
+        @user.role = 'student'
+        @user.password = "Temp"
+        @user.save
