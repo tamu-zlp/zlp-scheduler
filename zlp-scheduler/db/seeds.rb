@@ -18,7 +18,7 @@
 @user1 = User.new
         @user1.firstname = 'Barack'
         @user1.lastname = 'Obama'
-        @user1.uin = 0000
+        @user1.uin = 0001
         @user1.email = 'obama@tamu.edu'
         @user1.role = 'student'
         @user1.password = "temp"
@@ -27,7 +27,7 @@
 @user2 = User.new
         @user2.firstname = 'Mahatma'
         @user2.lastname = 'Gandhi'
-        @user2.uin = 0001
+        @user2.uin = 0002
         @user2.email = 'gandhi@tamu.edu'
         @user2.role = 'student'
         @user2.password = "temp"
@@ -36,7 +36,7 @@
 @user3 = User.new
         @user3.firstname = 'Johnny'
         @user3.lastname = 'Appleseed'
-        @user3.uin = 0002
+        @user3.uin = 0003
         @user3.email = 'apples@tamu.edu'
         @user3.role = 'student'
         @user3.password = "temp"
@@ -46,7 +46,7 @@
 @user4 = User.new
         @user4.firstname = 'Matt'
         @user4.lastname = 'Apples'
-        @user4.uin = 0003
+        @user4.uin = 0004
         @user4.email = 'apples@tamu.edu'
         @user4.role = 'student'
         @user4.password = "temp"
@@ -55,7 +55,7 @@
 @user5 = User.new
         @user5.firstname = 'a'
         @user5.lastname = 'aa'
-        @user5.uin = 0015
+        @user5.uin = 0005
         @user5.email = 'a@tamu.edu'
         @user5.role = 'student'
         @user5.password = "temp"
@@ -65,7 +65,7 @@
 @user6 = User.new
         @user6.firstname = 'b'
         @user6.lastname = 'ab'
-        @user6.uin = 0004
+        @user6.uin = 0006
         @user6.email = 'ab@tamu.edu'
         @user6.role = 'student'
         @user6.password = "temp"
@@ -75,7 +75,7 @@
 @user7 = User.new
         @user7.firstname = 'c'
         @user7.lastname = 'ac'
-        @user7.uin = 0005
+        @user7.uin = 7
         @user7.email = 'ac@tamu.edu'
         @user7.role = 'student'
         @user7.password = "temp"
@@ -85,7 +85,7 @@
 @user8 = User.new
         @user8.firstname = 'd'
         @user8.lastname = 'ad'
-        @user8.uin = 0006
+        @user8.uin = 8
         @user8.email = 'ad@tamu.edu'
         @user8.role = 'student'
         @user8.password = "temp"
@@ -95,7 +95,7 @@
 @user9 = User.new
         @user9.firstname = 'e'
         @user9.lastname = 'ae'
-        @user9.uin = 0007
+        @user9.uin = 9
         @user9.email = 'ae@tamu.edu'
         @user9.role = 'student'
         @user9.password = "temp"
@@ -105,7 +105,7 @@
 @user10 = User.new
         @user10.firstname = 'f'
         @user10.lastname = 'af'
-        @user10.uin = 0020
+        @user10.uin = 10
         @user10.email = 'af@tamu.edu'
         @user10.role = 'student'
         @user10.password = "temp"
@@ -115,7 +115,7 @@
 @user11 = User.new
         @user11.firstname = 'g'
         @user11.lastname = 'ag'
-        @user11.uin = 0045
+        @user11.uin = 11
         @user11.email = 'ag@tamu.edu'
         @user11.role = 'student'
         @user11.password = "temp"
@@ -125,7 +125,7 @@
 @user12 = User.new
         @user12.firstname = 'h'
         @user12.lastname = 'ah'
-        @user12.uin = 0010
+        @user12.uin = 12
         @user12.email = 'ah@tamu.edu'
         @user12.role = 'student'
         @user12.password = "temp"
@@ -135,7 +135,7 @@
 @user13 = User.new
         @user13.firstname = 'i'
         @user13.lastname = 'ai'
-        @user13.uin = 0011
+        @user13.uin = 13
         @user13.email = 'ai@tamu.edu'
         @user13.role = 'student'
         @user13.password = "temp"
@@ -145,7 +145,7 @@
 @user14 = User.new
         @user14.firstname = 'j'
         @user14.lastname = 'aj'
-        @user14.uin = 0012
+        @user14.uin = 14
         @user14.email = 'aj@tamu.edu'
         @user14.role = 'student'
         @user14.password = "temp"
@@ -155,7 +155,7 @@
 @user15 = User.new
         @user15.firstname = 'k'
         @user15.lastname = 'ak'
-        @user15.uin = 0013
+        @user15.uin = 15
         @user15.email = 'ak@tamu.edu'
         @user15.role = 'student'
         @user15.password = "temp"
@@ -165,7 +165,7 @@
 @user16 = User.new
         @user16.firstname = 'l'
         @user16.lastname = 'al'
-        @user16.uin = 0014
+        @user16.uin = 16
         @user16.email = 'al@tamu.edu'
         @user16.role = 'student'
         @user16.password = "temp"
@@ -302,14 +302,14 @@ num_courses.times do |i|
 end
 @user5.schedules.push(@schedule)
 
-
+'''
 # ----- Get new courses for next 5 students --------------- #
 @subject = Subject.all[2]
 
 # could index thru courses but everyone taking 5 accounting courses is fine for testing
 Course.ImportCourses!(@term, @subject) 
 @courses = Course.all
-
+'''
 
 #------------------------------------------------#
 # add first schedule for sixth user
@@ -379,6 +379,7 @@ num_courses.times do |i|
 end
 @user8.schedules.push(@schedule)
 
+
 #------------------------------------------------#
 # add first schedule for ninth user
 @schedule = Schedule.new
@@ -401,15 +402,17 @@ num_courses.times do |i|
 end
 @user9.schedules.push(@schedule)
 
-
+'''
 # ------ Get new subject for next 6 students ------ #
 @subject = Subject.all[20]
 
 # could index thru courses but everyone taking 5 accounting courses is fine for testing
 Course.ImportCourses!(@term, @subject) 
 @courses = Course.all
+'''
 
 #------------------------------------------------#
+
 # add first schedule for tenth user
 @schedule = Schedule.new
 num_courses.times do |i|

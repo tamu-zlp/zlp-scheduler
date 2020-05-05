@@ -14,34 +14,40 @@ Takes as input a set of schedules for all students (change this to a cohort mayb
 '''
 class Scheduler
     def initialize
-        # users = User.all
-        # @schedules = get_all_schedules(users)
+        @schedules = get_all_schedules(User.all)
     end
     
-    '''
+    
     # gets all schedules in matrix format for a set of users
-    def get_all_schedules #(users)
-        users = User.all
+    def get_all_schedules(users)
         all_schedules = []
         
+        # only these users work for now, rest give other errors
+        all_schedules.push(all_student_schedules(User.all[2].schedules))
+        all_schedules.push(all_student_schedules(User.all[6].schedules))
+        all_schedules.push(all_student_schedules(User.all[10].schedules))
+        
+        
+        '''
         users.each do |user|
             if user.student?
-                all_schedules.push(get_user_schedules(user.schedules))
+                puts user.uin, user.schedules
+                # all_schedules.push(all_student_schedules(user.schedules))
             end
         end
+        '''
         
         return all_schedules
     end
-    '''
     
     
-    # converts all schedules for a specific student into matrix format
-    def get_user_schedules(schedules)
-        # schedules = User.all[2].schedules
+    # converts all schedules for one student into matrix format
+    def all_student_schedules(schedules)
+        schedules = User.all[2].schedules
         user_schedule_list = []
         
         schedules.each do |schedule|
-            user_schedule_list.push(generate_student_schedule(schedule.courses))
+            user_schedule_list.push(student_schedule(schedule.courses))
         end
         
         return user_schedule_list # matrix of schedules for a single user: [S, S, S]
@@ -49,10 +55,10 @@ class Scheduler
     
     
     # takes as input a list of courses for a student and outputs the schedule in matrix format
-    def generate_student_schedule(courses)
-        # courses = User.all[1].schedules[0].courses
+    def student_schedule(courses)
+        # courses = User.all[7].schedules[0].courses
         num_days = 5
-        num_time_slots = 111
+        num_time_slots = 111 # 8:00am - 5:15pm in 5 minute intervals
         schedule = Array.new(num_time_slots) { Array.new(num_days, 0)} # important !!!!!
     
         # run for loop for all courses here
@@ -95,9 +101,12 @@ class Scheduler
                 optimal_combo = combo
             end
         end
+        
+        # return optimal_combo, optimal_index, optimal_val
+        return format_output(optimal_combo, optimal_index, optimal_val)
     end
 
-    private
+    # private
     
     # extract a single combination from the schedule using the specified index
     # index is a string 
@@ -127,7 +136,7 @@ class Scheduler
                 end
             end
         end
-    
+        
         return sum
     end
     
@@ -159,7 +168,6 @@ class Scheduler
     
     # takes DateTime object and returns index corresponding to the time in the schedule
     def parse_time(time)
-        # puts time
         zone = ActiveSupport::TimeZone.new("Central Time (US & Canada)")
         time = time.in_time_zone(zone)
         hour = (time.hour - 8) * 12
@@ -202,5 +210,15 @@ class Scheduler
         end
         
         return schedule
+    end
+    
+    def format_output(optimal_combo, optimal_index, optimal_val)
+        days = ['M', 'T', 'W', 'R', 'F']
+        minutes = (optimal_index[0] * 5) % 60
+        hours = 8 + ((optimal_index[0] * 5) - minutes) / 60
+        
+        day = days[optimal_index[1]]
+        time = [hours, minutes]
+        return day, time, optimal_val, optimal_combo
     end
 end
