@@ -101,4 +101,12 @@ class AdminController < ApplicationController
     redirect_to manage_administrators_path
   end
   
+  
+  def optimize
+    generator = MatrixGenerator.new
+    schedules = generator.get_all_schedules(User.all)
+    @scheduler = Scheduler.new(schedules)
+    @scheduler.optimize
+  end
+  
 end

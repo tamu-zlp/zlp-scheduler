@@ -44,6 +44,8 @@ Rails.application.routes.draw do
   get 'admin/load_terms', to: 'admin#load_terms', as: 'load_terms'
   delete '/admins/:id', to: 'admin#delete_admin', as: 'delete_admin'
   
+  get 'admin/optimize', to: 'admin#optimize', as: 'optimize'
+  
   patch '/terms', to: 'admin#update_term', as: 'term'
   
   get 'admin/manage_administrators', to: 'admin#manage_administrators', as: 'manage_administrators'
