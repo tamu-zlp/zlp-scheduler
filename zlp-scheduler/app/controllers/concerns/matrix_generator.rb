@@ -1,40 +1,35 @@
 class MatrixGenerator
-    
     def initialize
-        
     end
-        
     
     # gets all schedules in matrix format for a set of users
     def get_all_schedules(users)
         all_schedules = []
         
         # only these users work for now, rest give other errors
-        all_schedules.push(all_student_schedules(User.all[2].schedules))
-        all_schedules.push(all_student_schedules(User.all[6].schedules))
-        all_schedules.push(all_student_schedules(User.all[10].schedules))
+        # all_schedules.push(all_student_schedules(User.all[2].schedules))
+        # all_schedules.push(all_student_schedules(User.all[6].schedules))
+        # all_schedules.push(all_student_schedules(User.all[10].schedules))
         
-        
-        '''
+        # this code is fine but some of the users in db give back errors
         users.each do |user|
             if user.student?
-                puts user.uin, user.schedules
-                # all_schedules.push(all_student_schedules(user.schedules))
+                # puts user.uin, user.schedules
+                all_schedules.push(get_student_schedules(user.schedules))
             end
         end
-        '''
         
         return all_schedules
     end
     
     
     # converts all schedules for one student into matrix format
-    def all_student_schedules(schedules)
-        schedules = User.all[2].schedules
+    def get_student_schedules(schedules)
+        # schedules = User.all[2].schedules
         user_schedule_list = []
         
         schedules.each do |schedule|
-            user_schedule_list.push(student_schedule(schedule.courses))
+            user_schedule_list.push(generate_schedule(schedule.courses))
         end
         
         return user_schedule_list # matrix of schedules for a single user: [S, S, S]
@@ -42,13 +37,12 @@ class MatrixGenerator
     
     
     # takes as input a list of courses for a student and outputs the schedule in matrix format
-    def student_schedule(courses)
+    def generate_schedule(courses)
         # courses = User.all[7].schedules[0].courses
         num_days = 5
-        num_time_slots = 111 # 8:00am - 5:15pm in 5 minute intervals
+        num_time_slots = 111 # num of 5 minute intervals from 8:00am - 5:15pm
         schedule = Array.new(num_time_slots) { Array.new(num_days, 0)} # important !!!!!
     
-        # run for loop for all courses here
         courses.each do |course|
             days = parse_day(course.meeting_days)
             start_time = parse_time(course.meetingtime_start)
@@ -59,15 +53,18 @@ class MatrixGenerator
         return schedule
     end
     
+    # might need to move these
+    START_TIME = 8
+    TIME_INTERVAL = 5
     
        
     # takes DateTime object and returns index corresponding to the time in the schedule
     def parse_time(time)
         zone = ActiveSupport::TimeZone.new("Central Time (US & Canada)")
         time = time.in_time_zone(zone)
-        hour = (time.hour - 8) * 12
-        minute = time.min / 5
-        return hour + minute # this is the index
+        hour = (time.hour - START_TIME) * 12
+        minute = time.min / TIME_INTERVAL
+        return hour + minute # this is the index used in the schedule
     end
     
     
@@ -97,23 +94,15 @@ class MatrixGenerator
     
     # insert a single course into a schedule
     def insert_course(schedule, days, start_time, end_time)
-
+        
         days.each do |day|
             for time in start_time...end_time
-                schedule[time][day] = 1
+                if time < schedule[0].length
+                    schedule[time][day] = 1
+                end
             end
         end
         
         return schedule
-    end
-    
-    def format_output(optimal_combo, optimal_index, optimal_val)
-        days = ['M', 'T', 'W', 'R', 'F']
-        minutes = (optimal_index[0] * 5) % 60
-        hours = 8 + ((optimal_index[0] * 5) - minutes) / 60
-        
-        day = days[optimal_index[1]]
-        time = [hours, minutes]
-        return day, time, optimal_val, optimal_combo
     end
 end

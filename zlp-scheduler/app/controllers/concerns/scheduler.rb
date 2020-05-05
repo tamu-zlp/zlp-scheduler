@@ -9,8 +9,10 @@ end
 
 
 class Scheduler
+    # import MatrixGenerator
+    
     def initialize(schedules)
-        # @schedules = get_all_schedules(User.all)
+        # @schedules = MatrixGenerator.get_all_schedules(User.all)
         @schedules = schedules
     end
     
@@ -42,8 +44,8 @@ class Scheduler
             end
         end
         
-        # return optimal_combo, optimal_index, optimal_val
-        return format_output(optimal_combo, optimal_index, optimal_val)
+        return optimal_combo, optimal_index, optimal_val
+        # return format_output(optimal_combo, optimal_index, optimal_val)
     end
 
     # private
