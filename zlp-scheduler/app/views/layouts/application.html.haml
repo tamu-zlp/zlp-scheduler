@@ -9,6 +9,7 @@
     %body
       %div{:class => "header_div"}
         = link_to image_tag("tamu_zlp_logo.png", class: "header"), "/"
+      - unless params[:action] == 'new'
         = link_to "Log out", logout_path, method: "delete", :class => 'topright'
       %div.container
         #main
