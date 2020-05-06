@@ -16,31 +16,49 @@
         @user.save
         
 @user1 = User.new
-        @user1.firstname = 'Barack'
-        @user1.lastname = 'Obama'
-        @user1.uin = 0001
-        @user1.email = 'obama@tamu.edu'
+        @user1.firstname = 'Brittany'
+        @user1.lastname = 'Nelson'
+        @user1.uin = 87690475
+        @user1.email = 'Nelson@tamu.edu'
         @user1.role = 'student'
         @user1.password = "temp"
         @user1.save
         
 @user2 = User.new
-        @user2.firstname = 'Mahatma'
-        @user2.lastname = 'Gandhi'
-        @user2.uin = 0002
-        @user2.email = 'gandhi@tamu.edu'
+        @user2.firstname = 'Luke'
+        @user2.lastname = 'Gore'
+        @user2.uin = 394769472
+        @user2.email = 'gore@tamu.edu'
         @user2.role = 'student'
         @user2.password = "temp"
         @user2.save
         
 @user3 = User.new
-        @user3.firstname = 'Johnny'
-        @user3.lastname = 'Appleseed'
-        @user3.uin = 0003
-        @user3.email = 'apples@tamu.edu'
+        @user3.firstname = 'Nick'
+        @user3.lastname = 'Barrio'
+        @user3.uin = 485629470
+        @user3.email = 'barrio@tamu.edu'
         @user3.role = 'student'
         @user3.password = "temp"
         @user3.save
+        
+@user4 = User.new
+        @user4.firstname = 'Alli'
+        @user4.lastname = 'M'
+        @user4.uin = 403828492
+        @user4.email = 'alli@tamu.edu'
+        @user4.role = 'student'
+        @user4.password = "temp"
+        @user4.save
+        
+@user5 = User.new
+        @user5.firstname = 'Mo'
+        @user5.lastname = 'Ad'
+        @user5.uin = 574839295
+        @user5.email = 'mo@tamu.edu'
+        @user5.role = 'student'
+        @user5.password = "temp"
+        @user5.save
        
         
 # Produce some data for testing the algorithm
