@@ -17,6 +17,7 @@ class Scheduler
     attr_reader :optimal_val
     attr_reader :optimal_summed_matrix
     
+  '''  
     def get_all_schedules
         return Helpers.print_matrix(@schedules)
     end
@@ -33,11 +34,12 @@ class Scheduler
     def get_optimal_summed_matrix
         return Helpers.print_matrix(@optimal_summed_matrix)
     end
+    '''
     
     
     def initialize(schedules)
         @schedules = schedules
-        return nil
+        # return nil
     end
     
 
@@ -94,6 +96,10 @@ class Scheduler
         
         # add each schedule to the sum array
         input.each do |schedule|
+            if schedule.nil?
+                next
+            end 
+            
             num_rows = schedule.length
             num_cols = schedule[0].length
         
