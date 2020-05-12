@@ -8,13 +8,7 @@ class SessionsController < ApplicationController
         session[:user_id] = @user.id
         @term = Term.find_by active: 1
         if @term.nil?
-          @terms = Term.ImportTermList!
-          @term = Term.all[0]
-          @term.update_attributes(:active => 1)
-        end
-        if @term.opendate.nil? 
-          @term.update_attributes(:opendate => DateTime.yesterday)
-          @term.update_attributes(:closedate => DateTime.yesterday)
+          Term.ImportTermList!
         end
         if current_user.admin?
           redirect_to view_term_admin_path, :notice => "Logged in !" 
