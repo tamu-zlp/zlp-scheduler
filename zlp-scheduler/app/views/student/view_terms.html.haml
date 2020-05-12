@@ -5,6 +5,7 @@
     %div{:class => "term_frame"}
         %div{:class => "header_div"}
             %h2{:class => 'term_header'} #{@term.name}
+            %p1 You may add up to three schedules for this term. Please add them in the order of preference (first schedule added is the highest preferred).
                 
         %ul{:class => "schedules"}
             - @schedules.each do |s|

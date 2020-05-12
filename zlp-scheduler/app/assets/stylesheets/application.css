@@ -38,6 +38,12 @@ h1 {
     margin-left: 2%;
 }
 
+p1 {
+    font-family: serif;
+    margin: 0;
+    font-size: 15px;
+}
+
 .notice {
   padding: 20px;
   background-color: green; /* Red */

@@ -16,6 +16,12 @@ class StudentController < ApplicationController
   def add_schedule
     id = session[:user_id]
     @user = User.find(id)
+    
+    if @user.schedules.length == 3
+      flash[:warning] = "You may only add 3 schedules."
+      redirect_to view_terms_path
+    end
+    
     @schedule = Schedule.new
     
     @term = Term.find_by active: 1;
@@ -65,13 +71,13 @@ class StudentController < ApplicationController
   end
   
   def create_schedule
+    id = session[:user_id]
+    @user = User.find(id)
     if params[:schedule][:name] == ""
       flash[:warning] = 'Schedule must include a name.'
       redirect_to add_schedule_path
     else
       #add courses to schedule, schedule to user
-      id = session[:user_id]
-      @user = User.find(id)
       @term = Term.find_by active: 1;
       @schedule = Schedule.new
       @schedule.update_attributes(:name => params[:schedule][:name])
