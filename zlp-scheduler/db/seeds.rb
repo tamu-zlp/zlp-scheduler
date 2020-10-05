@@ -23,10 +23,3 @@
         @user.role = 'student'
         @user.password = "Temp"
         @user.save
-
-@terms = Term.ImportTermList!
-@terms.each do |t|
-        Term.create!(t)
-end 
-@term = @terms.all[0]
-@term.update_attributes(:active => 1)
