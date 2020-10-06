@@ -52,7 +52,6 @@ print(@term.name)
         @user.password = "Temp"
         @user.cohort_id = @cohort.id
         @user.save
-       
 kylie_classes = [
         {:abbreviated_subject => "ISEN", :course_number => "210", :section_number => "501", :term_id => @term.id},
         {:abbreviated_subject => "ISEN", :course_number => "310", :section_number => "501", :term_id => @term.id},
@@ -152,23 +151,5 @@ valentina_classes = [
 ]
 create_schedule(@user,"Test 1", valentina_classes)
         
-# @active_term = Term.new
-#         @active_term.name = "Fall 2020"
-#         @active_term.opendate = DateTime.new(2001,2,3,4,5,6,'+03:00')
-#         @active_term.closedate = DateTime.new(2025,2,3,4,5,6,'+03:00')
-#         @active_term.term_code = 202031
-#         @active_term.active = true
-#         @active_term.courses_import_complete = false
-#         @active_term.save
-        
 
-        
-
-
-
-#print(@terms)
-#@terms.each do |t|
-#        Term.create!(t)
-#end 
-#@term = @terms.all[0]
-#@term.update_attributes(:active => 1)
+       
