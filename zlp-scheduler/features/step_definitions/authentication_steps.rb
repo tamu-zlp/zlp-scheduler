@@ -1,32 +1,16 @@
-student = {
-  :fisrtName => "MyFirstName",
-  :lastName => "MyLastName",
-  :password => "MyPassword",
-  :email => "testEmail@tamu.edu",
-  :uin => 123456789
-}
+Before do
+  # The current sessions_controller requires at least one active term
+  @term = FactoryBot.create(:term, :active=>true)
+  @term.save()
+end
 
 Given(/^I am (not )?a registered student$/) do |is_not|
   if is_not == nil
-    @user = User.new
-    @user.firstname = student[:fisrtName]
-    @user.lastname = student[:lastName]
-    @user.uin = student[:uin]
-    @user.email = student[:email]
-    @user.role = "student"
-    @user.password = student[:password]
-    @user.save
+    @user = FactoryBot.create(:user, :role=>"student")
+  else
+    # Using build will not save record to db, so the user is not registered
+    @user = FactoryBot.build(:user, :role=>"student")
   end
-end
-
-Given("I visit the index page") do
-  visit "/"
-end
-
-When("I fill in the login form") do
-  fill_in "Email", :with => student[:email]
-  fill_in "Password", :with => student[:password]
-  click_button "Log in"
 end
 
 Then (/^I should (not )?be logged in$/) do |is_not|
@@ -38,15 +22,27 @@ Then (/^I should (not )?be logged in$/) do |is_not|
   end
 end
 
+Given("I visit the index page") do
+  visit "/"
+end
+
+def fill_login_form
+  fill_in "Email", :with => @user.email
+  fill_in "Password", :with => @user.password
+  click_button("Log in")
+end
+
+When("I fill in the login form") do
+  fill_login_form
+end
+
 Given("I am logged in") do
   visit "/"
-  fill_in "Email", :with => student[:email]
-  fill_in "Password", :with => student[:password]
-  click_button "Log in"
+  fill_login_form
 end
 
 When("I click on the log out link") do
-  click_link "Log out"
+  click_link("Log out", match: :first)
 end
 
 Then("I should be redirected to the login page") do
@@ -54,22 +50,10 @@ Then("I should be redirected to the login page") do
 end
 
 Then(/^I am (not )?in the active cohort$/) do |is_not|
-  @term = Term.find_by active: true
-  Term.ImportTermList! unless (@term = Term.find_by active: 1) != nil
-  @term = Term.find_by active: true
-  if is_not == nil
-    @term.opendate = DateTime.new(2001, 2, 3, 4, 5, 6, '+03:00')
-    @term.closedate = DateTime.new(2025, 2,3, 4, 5, 6, '+03:00')
+  if is_not != nil
+    @term.opendate = Date.current.tomorrow
+    @term.closedate = Date.current.tomorrow
     @term.save
-
-    @cohort = Cohort.new
-    @cohort.name = "Test Cohort"
-    @cohort.term_id = @term.id
-    @cohort.save
-    @user.cohort_id = @cohort.id
-    @user.save
-  else
-    @term.active = false
   end
 end
 
