@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200501194224) do
+ActiveRecord::Schema.define(version: 20201007185206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,9 +27,23 @@ ActiveRecord::Schema.define(version: 20200501194224) do
 
   create_table "cohorts", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "term_id"
+    t.integer  "time_slots_id"
+    t.index ["time_slots_id"], name: "index_cohorts_on_time_slots_id", using: :btree
+  end
+
+  create_table "conflicts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "cost"
+    t.integer "course_id"
+    t.integer "schedule_id"
+    t.integer "time_slot_id"
+    t.index ["course_id"], name: "index_conflicts_on_course_id", using: :btree
+    t.index ["schedule_id"], name: "index_conflicts_on_schedule_id", using: :btree
+    t.index ["time_slot_id"], name: "index_conflicts_on_time_slot_id", using: :btree
+    t.index ["user_id"], name: "index_conflicts_on_user_id", using: :btree
   end
 
   create_table "courses", force: :cascade do |t|
@@ -90,6 +104,17 @@ ActiveRecord::Schema.define(version: 20200501194224) do
     t.boolean  "active",                  default: false
     t.boolean  "courses_import_complete", default: false
     t.index ["term_code"], name: "index_terms_on_term_code", unique: true, using: :btree
+  end
+
+  create_table "time_slots", force: :cascade do |t|
+    t.datetime "time"
+    t.integer  "cost"
+    t.boolean  "was_conflict"
+    t.integer  "cohort_id"
+    t.string   "day"
+    t.integer  "conflicts_id"
+    t.index ["cohort_id"], name: "index_time_slots_on_cohort_id", using: :btree
+    t.index ["conflicts_id"], name: "index_time_slots_on_conflicts_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

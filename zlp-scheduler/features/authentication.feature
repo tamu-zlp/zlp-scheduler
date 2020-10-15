@@ -32,3 +32,26 @@ Scenario: Student logout
   And I am logged in
   When I click on the log out link
   Then I should be redirected to the login page
+
+Scenario: Administrator login success
+  Given I am a registered admin
+  And I visit the index page
+  When I fill in the login form
+  Then I should be logged in
+
+Scenario: A logged in administrator sees view term page
+  Given I am a registered admin
+  And I am logged in
+  Then I should see the admin terms page
+
+Scenario: A Administrator Failed
+  Given I am not a registered admin
+  And I visit the index page
+  When I fill in the login form
+  Then I should not be logged in
+
+Scenario: Administrator logout
+  Given I am a registered admin
+  And I am logged in
+  When I click on the log out link
+  Then I should be redirected to the login page
