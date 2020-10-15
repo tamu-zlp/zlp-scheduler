@@ -1,0 +1,368 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ 
+ body{
+	background-color: #500000;
+}
+
+.header{
+  width: 350px;
+  height: 90px;
+}
+
+.header_div {
+  padding: 0 1em;
+}
+
+.header h1 {
+  position: relative;
+  top: 18px;
+  left: 10px;
+}
+
+h1 {
+    color: white;
+    margin-left: 2%;
+}
+
+p1 {
+    font-family: serif;
+    margin: 0;
+    font-size: 15px;
+}
+
+.notice {
+  padding: 20px;
+  background-color: green; /* Red */
+  color: white;
+  margin-bottom: 15px;
+}
+
+.warning {
+  padding: 20px;
+  background-color: red;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.button_link {
+    color: #500000;
+    text-decoration: none;
+    padding: 0 1em;
+    text-align: center;
+    background: none;
+    border: none;
+    font-family: serif;
+    font-size: 15px;
+}
+
+.button_link:hover, .right_button_link:hover {
+    text-decoration: underline;
+}
+
+.right_button_link {
+    color: #500000;
+    text-decoration: none;
+    line-height: 40px;
+    float: right;
+    margin-right: 2%;
+    font-family: serif;
+    font-size: 15px;
+}
+
+.topright{
+    margin: auto;
+    float: right;
+	font-size: large; 
+	padding-right: 30px;
+	color: white;
+}
+
+.centered_links {
+    margin: auto;
+    width: 40%;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.centered_links .button_link {
+    color: white;
+}
+
+/*Tooltip setup*/
+
+.tooltip{
+  position:relative;
+  text-decoration: underline;
+  color: #500000;
+}
+
+
+.tooltiptext{
+  display:none;
+  position:absolute; 
+  z-index:10;
+  border:1px;
+  border-style:solid;
+  border-width:1px;
+  padding:3px;
+  top: -5px;
+  left: 105%;
+  width: 80%;
+}
+
+.tooltip:hover span.tooltiptext{
+  display:block;
+}
+
+/*CSS for drop-down terms on students and admin page */
+
+.term_frame {
+  width:70%;
+  margin: auto;
+  background-image: linear-gradient(#FFD5C2, white);
+  vertical-align: middle;
+  height: 500px;
+  border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+}
+
+.cohort_frame{
+    width:70%;
+    margin: auto;
+    vertical-align: middle;
+}
+
+.term_header {
+    display: inline-block;
+}
+
+.term_frame ul, .term_frame li, .cohort_frame label {
+    line-height: 40px;
+    margin: 0;
+    padding: 0 1em;
+    list-style: none;
+}
+
+.cohort_frame label{
+    font-size: 20px;
+}
+
+.term_frame ul {
+    margin-bottom: 15px;
+}
+
+.custom_drop_down table, .custom_drop_down input[type="checkbox"] {
+    display: none;
+}
+
+.custom_drop_down input:checked ~ table {
+    display: table;
+}
+
+.custom_drop_down{
+    background-image: linear-gradient(#FFD5C2, white);
+    line-height: 40px;
+}
+
+/*stylers for add_schedule page*/
+
+.add_sched_info {
+  height: 500px;
+  width: 70%;
+  margin: auto;
+  text-align: center;
+  border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+	background-image: linear-gradient(#FFD5C2, white);
+}
+
+.add_stud_info {
+  height: 500px;
+  width: 70%;
+  margin: auto;
+  text-align: center;
+  border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+	background-image: linear-gradient(#FFD5C2, white);
+}
+
+label, input[type ='text'] {
+    margin-top: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+[id^="dept_select"], [id^="course_num_select"], [id^="section_num_select"] {
+    min-width: 50px;
+}
+
+.sched_table {
+    width: 60%;
+    border: 1;
+    margin: auto;
+    margin-bottom: 10px;
+    line-height: 30px;
+}
+
+.cohort_table {
+    width: 40%;
+    border: 1;
+    margin: auto;
+    text-align: center;
+}
+
+.student_table{
+    width: 90%;
+    line-height: 150%;
+    text-align: left;
+    margin-left: 5%;
+    margin-bottom: 5%;
+}
+
+.Sign_Form{
+	text-align: center;
+	margin:auto;
+	margin-top:5px;	
+	width:400px;
+	background-color: rgba(255,255,255, 1);
+	padding-bottom:60px;
+	padding-top:2px;
+	padding-right: 15px;
+	padding-left: 15px;
+	border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+}
+
+.linktotextcolor { color: #fff; }
+
+.btn-submit {
+  color: #FFFFFF;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: #500000;
+  padding: 10px 20px;
+  border: 0;
+  margin-top: 6px;
+}
+
+
+.Register_Form{
+	text-align: center;
+	margin:auto;
+	margin-top:50px;	
+	width:500px;
+	background-color: rgba(255,255,255, 1);
+	padding-bottom:20px;
+	padding-top:2px;
+	padding-left: 6px;
+	border-radius: 18px;
+	box-shadow: 5px 5px 5px #888888;
+}
+
+.Input_Large{
+    font-size: large;
+}
+
+.Input_Medium{
+    font-size: medium;
+}
+
+.Input_XLarge{
+	font-size: xx-large;
+}
+
+#number {
+  width: 9em;
+}
+
+select {
+    min-width: 100px;
+}
+
+/*
+ * Minh Dang 
+ * admin_view_result
+*/
+table {
+  width: 100%;
+  table-layout: fixed;
+  border: 1px solid white;
+}
+
+th {
+  height: 40px;
+  border: 1px solid white;
+  text-align: center;
+  color: white;
+  background-color: green;
+}
+
+td {
+  height: 40px;
+  border: 1px solid white;
+  text-align: center;
+  color: white;
+}
+
+tr:hover {
+  background-color: rgb(51, 49, 190);
+}
+
+h3 {
+  position: relative;
+  color: #ffffff;
+}
+
+.detailbtn {
+  background-color: white;
+  border: white;
+  color: black;
+  text-align: center;
+  font-size: 16px;
+  font-family: serif;
+}
+
+.choosebtn {
+  background-color: white;
+  border: white;
+  color: black;
+  text-align: center;
+  font-size: 16px;
+}
+
+.notifybtn {
+  background-color: white;
+  border: white;
+  color: black;
+  text-align: center;
+  font-size: 16px;
+  font-family: serif;
+}
+
+.backbtn {
+  position:relative;
+  top: 20px;
+  float: right;
+  background-color: white;
+  border: white;
+  color: black;
+  text-align: center;
+  width: 190px;
+  height: 30px;
+  font-size: 20px;
+  font-family: serif;
+}
