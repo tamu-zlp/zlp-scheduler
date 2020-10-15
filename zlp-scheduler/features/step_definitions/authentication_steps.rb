@@ -56,13 +56,3 @@ Then(/^I am (not )?in the active cohort$/) do |is_not|
     @term.save
   end
 end
-
-Then(/^I should see the (.+) page$/) do |page_name|
-  if page_name == 'closed'
-    expect(current_path).to eq "/student/closed"
-  elsif page_name == 'terms'
-    expect(current_path).to eq "/student/view_terms"
-  elsif page_name == 'admin terms'
-    expect(current_path).to eq "/admin/view_term_admin"
-  end
-end
