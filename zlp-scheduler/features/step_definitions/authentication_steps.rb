@@ -4,12 +4,12 @@ Before do
   @term.save()
 end
 
-Given(/^I am (not )?a registered student$/) do |is_not|
+Given(/^I am (not )?a registered (student|admin)$/) do |is_not, role|
   if is_not == nil
-    @user = FactoryBot.create(:user, :role=>"student")
+    @user = FactoryBot.create(:user, :role=>role)
   else
     # Using build will not save record to db, so the user is not registered
-    @user = FactoryBot.build(:user, :role=>"student")
+    @user = FactoryBot.build(:user, :role=>role)
   end
 end
 
@@ -62,5 +62,7 @@ Then(/^I should see the (.+) page$/) do |page_name|
     expect(current_path).to eq "/student/closed"
   elsif page_name == 'terms'
     expect(current_path).to eq "/student/view_terms"
+  elsif page_name == 'admin terms'
+    expect(current_path).to eq "/admin/view_term_admin"
   end
 end
