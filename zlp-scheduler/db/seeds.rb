@@ -92,10 +92,8 @@ end
         @user.password = "Temp"
         @user.cohort_id = @cohort.id
         @user.save
-<<<<<<< HEAD
        
-=======
->>>>>>> 9de1514f3f77236cae263362f78b3edd229a8ba0
+
 kylie_classes = [
         {:abbreviated_subject => "ISEN", :course_number => 210, :section_number => 501, :term_id => @term.id},
         {:abbreviated_subject => "ISEN", :course_number => 310, :section_number => 501, :term_id => @term.id},
@@ -130,7 +128,6 @@ create_schedule(@user,"Test 2", kylie_classes)
         @user.password = "Temp"
         @user.cohort_id = @cohort.id
         @user.save
-<<<<<<< HEAD
         
 gabi_classes = [
         {:abbreviated_subject => "CHEN", :course_number => 482, :section_number => 500, :term_id => @term.id},
@@ -211,15 +208,10 @@ valentina_classes = [
 create_schedule(@user,"Test 2", valentina_classes)
         
 
-<<<<<<< HEAD
 #print(@terms)
 #@terms.each do |t|
 #        Term.create!(t)
 #end 
 #@term = @terms.all[0]
 #@term.update_attributes(:active => 1)
-=======
->>>>>>> dc6881466d920c5eec05d7bc83f35766e49a85cd
-=======
-       
->>>>>>> 9de1514f3f77236cae263362f78b3edd229a8ba0
+

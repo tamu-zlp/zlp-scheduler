@@ -22,13 +22,13 @@ Scenario: View the create new term page
 Scenario: Cancel making a new term
   When I click "New Term"
   And I click "Cancel"
-  Then I should see the current term page
+  Then I should see the admin terms page
   And I should see "Test Term"
   
 Scenario: Create a new term
   When I click "New Term"
   And I fill in the new term form
-  Then I should see the current term page
+  Then I should see the admin terms page
   And I should see "New Test Term"
   And I should see "Apple"
   And I should not see "Banana"

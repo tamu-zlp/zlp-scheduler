@@ -21,10 +21,10 @@ Scenario: View open term page
 Scenario: Cancel opening a term
   When I click "Open"
   And I click "Cancel"
-  Then I should see the current term page
+  Then I should see the admin terms page
   
 Scenario: Open term
   When I click "Open"
   And I fill in the open term form
-  Then I should see the current term page
+  Then I should see the admin terms page
   And I should see "Term open dates updated."
