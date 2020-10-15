@@ -127,6 +127,7 @@ create_schedule(@user,"Test 2", kylie_classes)
         @user.password = "Temp"
         @user.cohort_id = @cohort.id
         @user.save
+<<<<<<< HEAD
         
 gabi_classes = [
         {:abbreviated_subject => "CHEN", :course_number => 482, :section_number => 500, :term_id => @term.id},
@@ -226,3 +227,5 @@ create_schedule(@user,"Test 2", valentina_classes)
 #end 
 #@term = @terms.all[0]
 #@term.update_attributes(:active => 1)
+=======
+>>>>>>> dc6881466d920c5eec05d7bc83f35766e49a85cd
