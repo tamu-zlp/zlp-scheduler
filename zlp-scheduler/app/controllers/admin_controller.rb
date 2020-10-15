@@ -50,7 +50,7 @@ class AdminController < ApplicationController
       @term = Term.find_by active: 1
       open = DateTime.new(params[:term]['opendate(1i)'].to_i, params[:term]['opendate(2i)'].to_i, params[:term]['opendate(3i)'].to_i, params[:term]['opendate(4i)'].to_i, params[:term]['opendate(5i)'].to_i)
       close = DateTime.new(params[:term]['closedate(1i)'].to_i, params[:term]['closedate(2i)'].to_i, params[:term]['closedate(3i)'].to_i, params[:term]['closedate(4i)'].to_i, params[:term]['closedate(5i)'].to_i)
-      LoadCoursesJob.set(wait_until: 2.hours.until.open).perform_later(@term)
+      LoadCoursesJob.perform_later(@term)
       if @term.update_attributes(:opendate => open) && @term.update_attributes(:closedate => close)
         flash[:notice] = 'Term open dates updated.'
         redirect_to view_term_admin_path
