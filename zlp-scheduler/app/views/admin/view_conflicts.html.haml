@@ -1,0 +1,50 @@
+!!!
+%html
+  %head
+    %link{:href => "table.css", :rel => "stylesheet"}/
+    %title Conflicted Detail
+  %body
+    %h1{:style => "text-align:center"} Conflicted Time Slot Details
+    %table#conflictTable
+      %tr
+        %th Student Name
+        %th Course
+        %th Mandatory
+        %th Option
+      %tr
+        %td Minh Dang
+        %td CSCE 606
+        %td Yes
+        %td
+          %form
+            %button.notifybtn{:formaction => "view_term_admin"} Notify
+      %tr
+        %td Minh Dang
+        %td CSCE 606
+        %td Yes
+        %td
+          %form
+            %button.notifybtn{:formaction => "view_term_admin"} Notify
+      %tr
+        %td Minh Dang
+        %td CSCE 606
+        %td No
+        %td
+          %form
+            %button.notifybtn{:formaction => "view_term_admin"} Notify
+      %tr
+        %td Minh Dang
+        %td CSCE 606
+        %td Yes
+        %td
+          %form
+            %button.notifybtn{:formaction => "view_term_admin"} Notify
+      %tr
+        %td Minh Dang
+        %td CSCE 606
+        %td No
+        %td
+          %form
+            %button.notifybtn{:formaction => ""} Notify
+    %form
+      %button.backbtn{:formaction => "view_result"} Back
