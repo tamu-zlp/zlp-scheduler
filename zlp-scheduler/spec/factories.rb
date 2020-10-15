@@ -1,6 +1,5 @@
 FactoryBot.define do
     factory :cohort do
-        id {rand(10000)}
     end
 
     factory :user do
@@ -9,11 +8,22 @@ FactoryBot.define do
         email {Faker::Internet.email}
         password {Faker::Internet.password}
     end
-          
+
     factory :term do
-        id {rand(10000)}
         opendate {Date.current}
         closedate {Date.current.tomorrow}
         active {true}
     end
+
+    factory :course do
+      course_number {rand(500)}
+      section_number {rand(500)}
+    end
+    
+    factory :schedule do    
+    end
+    
+    factory :subject do     
+    end    
 end
+
