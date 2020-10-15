@@ -24,23 +24,13 @@
         @user.password = "Temp"
         @user.save
 
-@result = result_table.new
-        @result.result_id = 1
-        @result.day = "Monday"
-        @result.start_at = "8:45 AM"
-        @result.end_at ="10:45 AM"
-        @result.chosen = False;
 
-@result = result_table.new
-        @result.result_id = 2
-        @result.day = "Tuesday"
-        @result.start_at = "1:45 PM"
-        @result.end_at ="3:45 PM"
-        @result.chosen = False;
-        
-@result = result_table.new
-        @result.result_id = 3
-        @result.day = "Thursday"
-        @result.start_at = "3:45 AM"
-        @result.end_at ="5:45 AM"
-        @result.chosen = False;
+
+
+  	 
+results = [{:result_id => 1, :day => "Monday", :start_at => "8:45 AM", :end_at => "10:45 AM", :chosen => False},
+        {:result_id => 2, :day => "Tuesday", :start_at => "8:45 AM", :end_at => "10:45 AM", :chosen =>False}]
+
+results.each do |result|
+  Result.create!(result)
+end

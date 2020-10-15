@@ -124,4 +124,9 @@ class AdminController < ApplicationController
     @scheduler.optimize
   end
   
+  def view_result
+     @result = Result.all
+  end
+
+  
 end

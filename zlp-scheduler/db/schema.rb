@@ -106,13 +106,14 @@ ActiveRecord::Schema.define(version: 20200501194224) do
     t.integer  "cohort_id"
   end
   
-  create_table  "result_table", force: :cascade do |t|
+  create_table  "results", force: :cascade do |t|
     t.integer  
     t.string "day"
     t.string "start_at",          null: false
     t.string "end_at",            null: false
     t.boolean "chosen",           null: false
   end
+  
   add_foreign_key "courses", "subjects"
   add_foreign_key "courses", "terms"
   add_foreign_key "schedule_to_courses", "courses"

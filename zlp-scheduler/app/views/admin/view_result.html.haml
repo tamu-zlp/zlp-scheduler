@@ -11,13 +11,14 @@
         %th Day
         %th Time
         %th Option
-        -@result.each do |result|
-            %tr
-            %td result.day
-            %td result.start_at +" - " + result.end_at
-            %td
-                %form
-                     %button.choosebtn{:formaction => "view_term_admin"} Choose
+      - @result.each do |result|
+        %tr
+          %td= result.day
+          %td= result.start_at +" - " + result.end_at
+          %td 
+            %form
+              %button.choosebtn{:formaction => "view_term_admin"} Choose
+                     
       %tr
         %td Wednesday
         %td 1:45 PM - 3:45 PM
