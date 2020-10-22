@@ -1,6 +1,6 @@
 %html
   %head
-    %link{:href => "table.css", :rel => "stylesheet"}/
+    %link{:href => "result.css", :rel => "stylesheet"}/
     %title Admin View Result
   %body
     %h1{:style => "text-align:center"} Algorithm Result
@@ -8,63 +8,63 @@
       Non-conflicted Time Slots
     %table#resultTable
       %tr
-        %th Day
-        %th Time
-        %th Option
-      - @results.each do |result|
-        %tr
-          %td result.day
-          %td result.time
-          %td
-            %form
-              %button.choosebtn{:onclick => "myFunction()"} Choose
+        %th#special_table_header Day
+        %th#special_table_header Time
+        %th#special_table_header Option
       %tr
-        %td Wednesday
-        %td 1:45 PM - 3:45 PM
-        %td
+        %td#special_table_data Monday
+        %td#special_table_data 1:45 PM - 3:45 PM
+        %td#special_table_data
+          %form
+            %button.choosebtn{:formaction => "view_term_admin"} Choose
+
+      %tr
+        %td#special_table_data Wednesday
+        %td#special_table_data 1:45 PM - 3:45 PM
+        %td#special_table_data
           %form
             %button.choosebtn{:onclick => "myFunction()"} Choose
       %tr
-        %td Friday
-        %td 1:45 PM - 3:45 PM
-        %td
+        %td#special_table_data Friday
+        %td#special_table_data 1:45 PM - 3:45 PM
+        %td#special_table_data
           %form
             %button.choosebtn{:onclick => "myFunction()"} Choose
     %h3{:style => "text-align:left"}
       Conflicted Time Slots
     %table#conflictTable
       %tr
-        %th Day
-        %th Time
-        %th Option
+        %th#special_table_header Day
+        %th#special_table_header Time
+        %th#special_table_header Option
       %tr
-        %td Monday
-        %td 11:45 AM - 1:45 PM
-        %td
+        %td#special_table_data Monday
+        %td#special_table_data 11:45 AM - 1:45 PM
+        %td#special_table_data
           %form
             %button.detailbtn{:formaction => "view_conflicts"} Details
       %tr
-        %td Monday
-        %td 3:45 PM- 5:00 PM
-        %td
+        %td#special_table_data Monday
+        %td#special_table_data 3:45 PM- 5:00 PM
+        %td#special_table_data
           %form
             %button.detailbtn{:formaction => "view_conflicts"} Details
       %tr
-        %td Tuesday
-        %td 8:00 AM- 10:00 AM
-        %td
+        %td#special_table_data Tuesday
+        %td#special_table_data 8:00 AM- 10:00 AM
+        %td#special_table_data
           %form
             %button.detailbtn{:formaction => "view_conflicts"} Details
       %tr
-        %td Tuesday
-        %td 10:00 AM - 12:00 PM
-        %td
+        %td#special_table_data Tuesday
+        %td#special_table_data 10:00 AM - 12:00 PM
+        %td#special_table_data
           %form
             %button.detailbtn{:formaction => "view_conflicts"} Details
       %tr
-        %td Wednesday
-        %td 8:00 AM - 10:10 AM
-        %td
+        %td#special_table_data Wednesday
+        %td#special_table_data 8:00 AM - 10:10 AM
+        %td#special_table_data
           %form
             %button.detailbtn{:formaction => "view_conflicts"} Details
             
