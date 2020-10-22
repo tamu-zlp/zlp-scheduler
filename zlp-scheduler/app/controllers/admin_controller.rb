@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   
-  before_action :require_admin, only: [:view_term_admin, :open_semester, :new_term, :update_term, :manage_cohorts, :add_cohort, :manage_administrators]    
+  before_action :require_admin, only: [:view_term_admin, :open_semester, :new_term, :update_term, :manage_cohorts, :add_cohort, :manage_administrators, :view_result]    
   
   
   def view_term_admin
@@ -125,4 +125,8 @@ class AdminController < ApplicationController
     @scheduler.optimize
   end
   
+  def view_result
+    @results = TimeSlot.where(:was_conflict => false)
+ 
+  end
 end

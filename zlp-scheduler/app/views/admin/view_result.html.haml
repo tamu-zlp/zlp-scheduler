@@ -11,24 +11,25 @@
         %th Day
         %th Time
         %th Option
-      %tr
-        %td Monday
-        %td 1:45 PM - 3:45 PM
-        %td
-          %form
-            %button.choosebtn{:formaction => "view_term_admin"} Choose
+      - @results.each do |result|
+        %tr
+          %td result.day
+          %td result.time
+          %td
+            %form
+              %button.choosebtn{:onclick => "myFunction()"} Choose
       %tr
         %td Wednesday
         %td 1:45 PM - 3:45 PM
         %td
           %form
-            %button.choosebtn{:formaction => "view_term_admin"} Choose
+            %button.choosebtn{:onclick => "myFunction()"} Choose
       %tr
         %td Friday
         %td 1:45 PM - 3:45 PM
         %td
           %form
-            %button.choosebtn{:formaction => "view_term_admin"} Choose
+            %button.choosebtn{:onclick => "myFunction()"} Choose
     %h3{:style => "text-align:left"}
       Conflicted Time Slots
     %table#conflictTable
@@ -66,3 +67,16 @@
         %td
           %form
             %button.detailbtn{:formaction => "view_conflicts"} Details
+            
+  :javascript
+    function myFunction(){
+    	var x;
+    	var r=confirm("Select ok to set the time slot!");
+    	if (r==true){
+    		x="This time slot is selected";
+    	}
+    	else{
+    		x="You must click the button to set";
+    	}
+    	document.getElementById("words").innerHTML=x;
+    }
