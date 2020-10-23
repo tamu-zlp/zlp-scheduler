@@ -34,9 +34,11 @@ When /I click "(.*)"/ do |action|
     click_link("#{action}", match: :first)
 end
 
-When /I fill in the new term form/ do
+When /I fill in the new term form( without cohorts)?/ do |cohorts|
     select("New Test Term", from: 'Term')
-    select("Apple", from: 'cohort_select')
+    if not cohorts
+        select("Apple", from: 'cohort_select')
+    end
     click_button("Activate")
 end
 

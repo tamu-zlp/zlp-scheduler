@@ -33,3 +33,10 @@ Scenario: Create a new term
   And I should see "Apple"
   And I should not see "Banana"
   
+Scenario: Incomplete Form Redirects to Form Page
+  When I click "New Term"
+  And I fill in the new term form without cohorts
+  Then I should see the new term page
+  And I should see "Please select at least one cohort."
+  And I should see "New Test Term"
+  
