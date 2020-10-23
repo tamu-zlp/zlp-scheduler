@@ -41,7 +41,8 @@ class Scheduler_2
                         #print(@conflict)
                         @conflict_mod = Conflict.new
                         @conflict_mod.user = student
-                        @conflict_mod.cost = schedule.schedule_to_courses.find_by(course_id: @conflict.id).mandatory ? 2**index + 4 : 2 ** index
+                        print(@conflict.id)
+                        @conflict_mod.cost = ScheduleToCourse.find_by(:course_id  =>  @conflict.id, :schedule_id => schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
                         @conflict_mod.course = @conflict
                         @conflict_mod.schedule = schedule
                         @conflict_mod.save
