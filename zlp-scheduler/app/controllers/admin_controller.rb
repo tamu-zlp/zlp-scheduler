@@ -31,7 +31,7 @@ class AdminController < ApplicationController
       # check for selected cohorts before updating anything
       @term = Term.find(params[:term][:name])
       if not params[:Cohorts]
-        flash[:warning] = "Please select at least one cohort."
+        flash[:notice] = "Please select at least one cohort."
         redirect_to new_term_path, flash: {selected_term_id: @term.id} and return
       end
       
