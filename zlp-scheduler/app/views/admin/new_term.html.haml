@@ -4,7 +4,7 @@
     %br
     = form_for @term do |f|
         %label{:for => "term_name"} Term:
-        = f.collection_select :name, Term.all, :id, :name
+        = f.collection_select :name, Term.all, :id, :name, {:selected => @term.id}
         
         %p Cohorts in term (hold control to select multiple):
         = select_tag "Cohorts", options_for_select(@cohort_names), multiple: true, id: 'cohort_select'

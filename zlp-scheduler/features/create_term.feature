@@ -5,9 +5,10 @@ Feature: An Admin can create a new term
   
 Background: log in as an admin
   Given the following terms exist:
-  | name          |
-  | Test Term     |
-  | New Test Term |
+  | name            |
+  | Test Term       |
+  | Extra Test Term |
+  | New Test Term   |
   And the active term is "Test Term"
   And the following cohorts exist:
   | name   |
@@ -38,5 +39,5 @@ Scenario: Incomplete Form Redirects to Form Page
   And I fill in the new term form without cohorts
   Then I should see the new term page
   And I should see "Please select at least one cohort."
-  And I should see "New Test Term"
+  And the term "New Test Term" should be selected
   

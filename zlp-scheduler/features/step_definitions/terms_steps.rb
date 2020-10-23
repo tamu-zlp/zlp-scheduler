@@ -61,3 +61,8 @@ Then /I should (not )?see "(.*)"/ do |is_not, string|
         expect(page.body.match?(/#{string}/m)).to eq true
     end
 end
+
+Then /the term "(.*)" should be selected/ do |term|
+    selected_term = Term.find_by(:name => term)
+    expect(page.body.match?(/<option selected="selected" value="#{selected_term.id}">#{term}<\/option>/)).to eq true
+end

@@ -13,7 +13,11 @@ class AdminController < ApplicationController
   end
   
   def new_term
-    @term = Term.find_by active: 1;
+    if flash[:selected_term_id]
+      @term = Term.find(flash[:selected_term_id])
+    else
+      @term = Term.find_by active: 1;
+    end
     @cohorts = Cohort.all
     @cohort_names = []
     @cohorts.each do |s|
@@ -24,7 +28,13 @@ class AdminController < ApplicationController
   def update_term
     if params[:term][:name]
       ##updating active term
+      # check for selected cohorts before updating anything
       @term = Term.find(params[:term][:name])
+      if not params[:Cohorts]
+        flash[:warning] = "Please select at least one cohort."
+        redirect_to new_term_path, flash: {selected_term_id: @term.id} and return
+      end
+      
       Term.update_all active: false
       if @term.update_attributes(:active => true)
         @cohorts = params[:Cohorts]
