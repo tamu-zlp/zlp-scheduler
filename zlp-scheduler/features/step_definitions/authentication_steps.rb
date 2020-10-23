@@ -49,10 +49,19 @@ Then("I should be redirected to the login page") do
   expect(current_path).to eq "/login"
 end
 
-Then(/^I am (not )?in the active cohort$/) do |is_not|
+Then(/^the current term is (not )?open$/) do |is_not|
   if is_not != nil
     @term.opendate = Date.current.tomorrow
     @term.closedate = Date.current.tomorrow
     @term.save
   end
+end
+
+Given /I am (not )?in the active cohort$/ do |is_not|
+  if is_not
+    @cohort = FactoryBot.create(:cohort, :name => "Inactive")
+  else
+    @cohort = FactoryBot.create(:cohort, :name => "Active", :term_id => @term.id)
+  end
+  @user.cohort_id = @cohort.id
 end

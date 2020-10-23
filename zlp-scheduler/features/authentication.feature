@@ -11,15 +11,23 @@ Scenario: student login success
 
 Scenario: A logged in student sees closed page if he/she is not in the active cohort
   Given I am a registered student
-  And I am not in the active cohort
+  And the current term is not open
   And I am logged in
   Then I should see the closed page
 
 Scenario: A logged in student sees terms page if he/she is in the active cohort
   Given I am a registered student
+  And the current term is open
   And I am in the active cohort
   And I am logged in
   Then I should see the terms page
+  
+Scenario: A logged in student sees closed term is the term is open but they are in a different cohort
+  Given I am a registered student
+  And the current term is open
+  But I am not in the active cohort
+  And I am logged in
+  Then I should see the closed page
 
 Scenario: Student login Failed
   Given I am not a registered student
