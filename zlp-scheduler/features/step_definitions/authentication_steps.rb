@@ -2,14 +2,15 @@ Before do
   # The current sessions_controller requires at least one active term
   @term = FactoryBot.create(:term, :active=>true)
   @term.save()
+  @cohort = FactoryBot.create(:cohort, :name => "Cohort")
 end
 
 Given(/^I am (not )?a registered (student|admin)$/) do |is_not, role|
   if is_not == nil
-    @user = FactoryBot.create(:user, :role=>role)
+    @user = FactoryBot.create(:user, :role=>role, :cohort_id => @cohort.id)
   else
     # Using build will not save record to db, so the user is not registered
-    @user = FactoryBot.build(:user, :role=>role)
+    @user = FactoryBot.build(:user, :role=>role, :cohort_id => @cohort.id)
   end
 end
 
@@ -58,10 +59,8 @@ Then(/^the current term is (not )?open$/) do |is_not|
 end
 
 Given /I am (not )?in the active cohort$/ do |is_not|
-  if is_not
-    @cohort = FactoryBot.create(:cohort, :name => "Inactive")
-  else
-    @cohort = FactoryBot.create(:cohort, :name => "Active", :term_id => @term.id)
+  if not is_not
+    @cohort.term_id = @term.id
+    @cohort.save
   end
-  @user.cohort_id = @cohort.id
 end
