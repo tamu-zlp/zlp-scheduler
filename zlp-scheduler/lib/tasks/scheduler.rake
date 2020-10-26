@@ -52,6 +52,17 @@ namespace :scheduler do
         end
     end
     
+    task show_worst_times: :environment do
+        cohort = Cohort.find_by term_id: 1
+        cohort.time_slots.limit(10).order('cost desc').each do |slot|
+            print("\n")
+            print(slot.time)
+            print("   " + slot.day)
+            print("   " + slot.cost.to_s)
+            print("\n")
+        end
+    end
+    
     task show_conflict_times: :environment do
         cohort = Cohort.find_by term_id: 1
         print(cohort.time_slots.length)
