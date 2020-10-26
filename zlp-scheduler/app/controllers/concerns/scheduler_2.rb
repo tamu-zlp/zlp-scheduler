@@ -18,6 +18,7 @@ class Scheduler_2
         end
     end
     
+    
     def self.Generate_time_slots(cohort)
         
         @days.each do |day|
@@ -31,7 +32,8 @@ class Scheduler_2
                 @total_cost = 0
                 @conflict = false
                 cohort.users.each do |student|
-                    student.schedules.each do |schedule|
+                    
+                    student.schedules.each_with_index do |schedule, index|
                     @conflict = self.is_conflict?(day,current_time,schedule)
                     if @conflict.is_a? false.class
                         break
@@ -39,10 +41,11 @@ class Scheduler_2
                         #print(@conflict)
                         @conflict_mod = Conflict.new
                         @conflict_mod.user = student
-                        @conflict_mod.cost = 1
+                        @conflict_mod.cost = ScheduleToCourse.find_by(:course_id  =>  @conflict.id, :schedule_id => schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
                         @conflict_mod.course = @conflict
                         @conflict_mod.schedule = schedule
                         @conflict_mod.save
+                        @total_cost += @conflict_mod.cost
                         @time_slot.conflicts.push(@conflict_mod)
                     end
 
