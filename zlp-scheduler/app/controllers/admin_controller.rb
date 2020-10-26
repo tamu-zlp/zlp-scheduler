@@ -126,7 +126,7 @@ class AdminController < ApplicationController
   end
   
   def view_result
-    @results = TimeSlot.where(:was_conflict => false)
+    @results = TimeSlot.where(:was_conflict => false).order(:cost)
     @conflict = TimeSlot.where(:was_conflict => true).order(:cost)
   end
 end

@@ -11,10 +11,10 @@
         %th#special_table_header Day
         %th#special_table_header Time
         %th#special_table_header Option
-      -@results.each do |each|
+      -@results.each do |result|
         %tr
-          %td#special_table_data each.day
-          %td#special_table_data each.time
+          %td#special_table_data #{result.day} 
+          %td#special_table_data #{result.time}
           %td#special_table_data
             %form
               %button.choosebtn{:formaction => "view_conflicts"} Choose
@@ -40,8 +40,8 @@
         %th#special_table_header Option
       -@conflict.each do |conf|
         %tr
-          %td#special_table_data conf.day
-          %td#special_table_data conf.time
+          %td#special_table_data #{conf.day}
+          %td#special_table_data #{conf.time}
           %td#special_table_data
             %form
               %button.detailbtn{:formaction => "view_conflicts"} Details
