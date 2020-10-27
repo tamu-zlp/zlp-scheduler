@@ -16,6 +16,8 @@
  
 body{
 	background-color: #500000;
+	/*can be overwrite with font-family*/
+	font: normal 15px serif;
 }
 
 .header{
@@ -46,9 +48,11 @@ p1 {
 
 .notice {
   padding: 20px;
-  background-color: green; /* Red */
+  background-color: green;
   color: white;
   margin-bottom: 15px;
+  font-family: serif;
+  font-size: 15px;
 }
 
 .warning {
@@ -88,6 +92,7 @@ p1 {
     float: right;
 	font-size: large; 
 	padding-right: 30px;
+	font-family: serif;
 	color: white;
 }
 
@@ -179,7 +184,6 @@ p1 {
 }
 
 /*stylers for add_schedule page*/
-
 .add_sched_info {
     height: 500px;
     width: 70%;
