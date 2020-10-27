@@ -2,8 +2,19 @@ require 'rails_helper'
 
 describe "Scheduler" do
     before do
+        
+        @term = Term.new
+            @term.name = "Test Term"
+            @term.id = 1
+            @term.opendate = DateTime.new(2001,2,3,4,5,6,'+03:00')
+            @term.closedate = DateTime.new(2025,2,3,4,5,6,'+03:00')
+            @term.active = 1
+            @term.save
+            
         @cohort = Cohort.new
+            @cohort.term_id = @term.id
             @cohort.save
+            
         @user = User.new
             @user.firstname = 'Kylie'
             @user.lastname = 'Brown'
@@ -11,8 +22,11 @@ describe "Scheduler" do
             @user.email = 'kyliebrown@tamu.edu'
             @user.role = 'student'
             @user.password = "Temp"
-            @user.cohort_id = 1
+            @user.cohort_id = @cohort.id
             @user.save
+            
+            
+        @subject = Subject.create!(subject_code: "TEST", subject_description:"Test", term_id: @term.id)
         @course = Course.new
             @course.abbreviated_subject = "TEST"
             @course.course_number = 210
@@ -20,7 +34,8 @@ describe "Scheduler" do
             @course.meetingtime_start = DateTime.new(2001,2,3,11,5,6,'-05:00')
             @course.meetingtime_end =   DateTime.new(2001,2,3,13,5,6,'-05:00')
             @course.meeting_days = ['M','T','W']
-            @course.term_id = 1
+            @course.term_id = @term.id
+            @course.subject_id = @subject.id
             @course.save
         
         @schedule = Schedule.new
@@ -29,6 +44,13 @@ describe "Scheduler" do
             @schedule.courses.push(@course)
             @schedule.save
             
+        @schedule_course = ScheduleToCourse.new
+            @schedule_course.course_id = @course.id
+            @schedule_course.schedule_id = @schedule.id
+            @schedule_course.mandatory = false
+            @schedule_course.save
+        
+        
         @cohort.users.push(@user)
         @user.schedules.push(@schedule)
         @user.save
@@ -63,6 +85,9 @@ describe "Scheduler" do
         it "should generate a conflict db entry when a conflict is found" do
             expect(@cohort.time_slots[12].conflicts.length).to eql(1)
         end
+        it "Should have a cost which is the sum of all conflict costs" do
+            expect(@cohort.time_slots[12].cost).to eql(1)
+        end
         describe "Conflicts generated" do
             it "Should contain the user that had the conflict" do
                 expect(@cohort.time_slots[12].conflicts[0].user).to eql(@user) 
@@ -71,8 +96,13 @@ describe "Scheduler" do
             it "Should contain the course that is in conflict" do
                 expect(@cohort.time_slots[12].conflicts[0].course).to eql(@course)
             end
-            it "If there is a conflict it should set was_conflict to true" do
-                expect(@cohort.time_slots[12].was_conflict).to eql(true)
+            describe "If there is a conflict" do
+                it "Should set was_conflict to true" do
+                    expect(@cohort.time_slots[12].was_conflict).to eql(true)
+                end
+                it "Should have a cost" do
+                    expect(@cohort.time_slots[12].cost).to eql(1)
+                end
             end
         end
     end
