@@ -18,7 +18,7 @@ class Scheduler_2
         end
     end
     
-    def self.exponential_cost_function(current_time, prior_of_day, later_of_day, start_of_day, end_of_day)
+    def self.exponential_cost_function(current_time, start_of_day, end_of_day)
         
         def self.sigmoid_cost_fuc(max_cost, alpha, beta, x)
             return max_cost / (1+Math::exp(-1*(alpha*max_cost*x) + (beta*max_cost)))
@@ -82,7 +82,7 @@ class Scheduler_2
                     end
                 end
                 
-                @time_preference_cost = self.exponential_cost_function(current_time, prior_of_day, later_of_day, start_of_day, end_of_day)
+                @time_preference_cost = self.exponential_cost_function(current_time, start_of_day, end_of_day)
                 @time_preference_mod = Conflict.new
                 @time_preference_mod.cost = @time_preference_cost
                 @time_preference_mod.save
