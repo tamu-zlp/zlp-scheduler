@@ -25,14 +25,15 @@ class Scheduler_2
         end
         max_cost = 100
         prior_alpha = -0.015
-        prior_beta = 0.05
+        prior_beta = 0.025
         later_alpha = 0.01
         later_beta = 0.07
         # https://www.desmos.com/calculator
         
         if current_time < start_of_day
-            x = (current_time.to_f - start_of_day.to_f)/900
-            cost = self.sigmoid_cost_fuc(max_cost, prior_alpha, prior_beta, x)
+            cost = max_cost - 1
+            # x = (current_time.to_f - start_of_day.to_f)/900
+            # cost = self.sigmoid_cost_fuc(max_cost, prior_alpha, prior_beta, x)
         elsif current_time > end_of_day
             x = (current_time.to_f - end_of_day.to_f)/900
             cost = self.sigmoid_cost_fuc(max_cost, later_alpha, later_beta, x)
