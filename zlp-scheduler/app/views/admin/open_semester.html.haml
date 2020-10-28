@@ -1,7 +1,6 @@
-%div{:class => 'add_sched_info'}
+%div#openSemesterDiv
+    %h1{:style => "text-align:center"} Open #{@term.name} Student Input
     %br
-    %h2 Open #{@term.name} Student Input
-
     = form_for @term do |f|
         = f.label :opendate, "Open:"
         = f.datetime_select :opendate, :ampm => true, :minute_step => 30

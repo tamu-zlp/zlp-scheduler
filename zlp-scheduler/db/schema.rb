@@ -15,6 +15,16 @@ ActiveRecord::Schema.define(version: 20201007185206) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "adminstudrecs", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "uin"
+    t.string   "email"
+    t.string   "classcode"
+    t.string   "major"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cohorts", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",    null: false
@@ -60,9 +70,9 @@ ActiveRecord::Schema.define(version: 20201007185206) do
   create_table "schedule_to_courses", force: :cascade do |t|
     t.integer  "schedule_id"
     t.integer  "course_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "mandatory",   default: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.boolean  "mandatory"
     t.index ["course_id"], name: "index_schedule_to_courses_on_course_id", using: :btree
     t.index ["schedule_id"], name: "index_schedule_to_courses_on_schedule_id", using: :btree
   end
@@ -118,7 +128,6 @@ ActiveRecord::Schema.define(version: 20201007185206) do
     t.string   "role"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
-    t.datetime "password_expires_after"
     t.integer  "cohort_id"
   end
 

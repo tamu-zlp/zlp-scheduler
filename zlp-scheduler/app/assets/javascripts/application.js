@@ -16,3 +16,11 @@
 //= require jquery-ui/sortable
 //= require turbolinks
 //= require_tree .
+
+setTimeout(function() {
+    $('#notice').fadeOut('fast');
+}, 1000);
+
+setTimeout(function() {
+    $('#warning').fadeOut('fast');
+}, 1000);
