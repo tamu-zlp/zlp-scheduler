@@ -124,28 +124,13 @@ class Scheduler_2
                 current_time += 60*15
                 
             end
-            conflict_mods.each(&:save)
-            time_preferences.each(&:save)
-            time_slots.each(&:save)
-            cohort.save
             
         end
-        
-        # cohort.users.each do |student|
-        #     print(student.firstname+"\n")
-        #     student.schedules.each do |schedule|
-        #         print(schedule.name+"\n")
-        #         # print(schedule.courses.where(:abbreviated_subject => "ISEN").first.course_name)
-        #         schedule.courses.each do |course|
-        #             # Time.parse(course.meetingtime_start)
-                    
-        #             print(Time.parse(course.meetingtime_end.to_s))
-        #             print(course.meeting_days)
-        #             print("\n")
-        #         end
-        #     end
-        # end
-        
+        conflict_mods.each(&:save)
+        time_preferences.each(&:save)
+        time_slots.each(&:save)
+        cohort.save
+            
     end
     
 end
