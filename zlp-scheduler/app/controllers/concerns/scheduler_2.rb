@@ -53,11 +53,11 @@ class Scheduler_2
                 end
                 
                 @time_slot.cost = @total_cost
-                print(@conflict.class)
+                #print(@conflict.class)
                 if @conflict.is_a? false.class
                     @time_slot.was_conflict = false
                 else
-                    print("Set Conflict")
+                    #print("Set Conflict")
                     @time_slot.was_conflict = true
                 end
                 @time_slot.day = day
