@@ -440,7 +440,7 @@
             <td class="cell--number">20</td>
             <td class="cell--number">12</td>
             <td class="cell--number">8</td>
-            <td class="cell--number">1.50</td>
+            <td class="cell--number">1.70</td>
             
           </tr>
         
@@ -722,7 +722,7 @@
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.58
+         0.61
        </span>
     </span> hits/line
     )
@@ -868,7 +868,7 @@
             <td class="cell--number">20</td>
             <td class="cell--number">12</td>
             <td class="cell--number">8</td>
-            <td class="cell--number">1.50</td>
+            <td class="cell--number">1.70</td>
             
           </tr>
         
@@ -2970,6 +2970,50 @@
       
         <div>
           <li class="missed" data-hits="0" data-linenumber="142">
+            
+            
+
+            
+
+            <code class="ruby">  def view_result</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="129">
+            
+            
+
+            
+
+            <code class="ruby">    @results = TimeSlot.where(:was_conflict =&gt; false).order(:cost)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="130">
+            
+            
+
+            
+
+            <code class="ruby">    @conflict = TimeSlot.where(:was_conflict =&gt; true).order(:cost)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="131">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="132">
             
             
 
@@ -7310,7 +7354,7 @@
 
             
 
-            <code class="ruby">                        @time_slot.conflicts.push(@conflict_mod)</code>
+            <code class="ruby">        time_slots = Array.new</code>
           </li>
         </div>
       
@@ -7321,7 +7365,7 @@
 
             
 
-            <code class="ruby">                    end</code>
+            <code class="ruby">        </code>
           </li>
         </div>
       
@@ -7332,7 +7376,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">        start_time_timing = Time.now</code>
           </li>
         </div>
       
@@ -7343,7 +7387,7 @@
 
             
 
-            <code class="ruby">                    end</code>
+            <code class="ruby">        @days.each do |day|</code>
           </li>
         </div>
       
@@ -7354,7 +7398,7 @@
 
             
 
-            <code class="ruby">                end</code>
+            <code class="ruby">            #soft time preference</code>
           </li>
         </div>
       
@@ -7464,7 +7508,7 @@
 
             
 
-            <code class="ruby">                </code>
+            <code class="ruby">            prior_of_day = Time.new(2020,12,9,0,0,0)</code>
           </li>
         </div>
       
@@ -7486,7 +7530,7 @@
 
             
 
-            <code class="ruby">                print(@conflict.class)</code>
+            <code class="ruby">            current_time = prior_of_day</code>
           </li>
         </div>
       
@@ -7497,7 +7541,7 @@
 
             
 
-            <code class="ruby">                if @conflict.is_a? false.class</code>
+            <code class="ruby">            </code>
           </li>
         </div>
       
@@ -7508,7 +7552,7 @@
 
             
 
-            <code class="ruby">                    @time_slot.was_conflict = false</code>
+            <code class="ruby">            #hard time preference</code>
           </li>
         </div>
       
@@ -7519,7 +7563,7 @@
 
             
 
-            <code class="ruby">                else</code>
+            <code class="ruby">            start_of_day =  Time.new(2020,12,9,8,0,0)</code>
           </li>
         </div>
       
@@ -7530,7 +7574,7 @@
 
             
 
-            <code class="ruby">                    print(&quot;Set Conflict&quot;)</code>
+            <code class="ruby">            end_of_day =    Time.new(2020,12,9,15,0,0)</code>
           </li>
         </div>
       
@@ -7541,7 +7585,7 @@
 
             
 
-            <code class="ruby">                    @time_slot.was_conflict = true</code>
+            <code class="ruby">            </code>
           </li>
         </div>
       
@@ -7552,7 +7596,7 @@
 
             
 
-            <code class="ruby">                end</code>
+            <code class="ruby">            </code>
           </li>
         </div>
       
@@ -7563,7 +7607,7 @@
 
             
 
-            <code class="ruby">                @time_slot.day = day</code>
+            <code class="ruby">            while current_time &lt; later_of_day</code>
           </li>
         </div>
       
@@ -7574,7 +7618,7 @@
 
             
 
-            <code class="ruby">                @time_slot.save</code>
+            <code class="ruby">                @time_slot = TimeSlot.new</code>
           </li>
         </div>
       
@@ -7585,7 +7629,7 @@
 
             
 
-            <code class="ruby">                cohort.time_slots.push(@time_slot)</code>
+            <code class="ruby">                @time_slot.time = current_time</code>
           </li>
         </div>
       
@@ -7596,7 +7640,7 @@
 
             
 
-            <code class="ruby">                cohort.save</code>
+            <code class="ruby">                @total_cost = 0</code>
           </li>
         </div>
       
@@ -7607,7 +7651,7 @@
 
             
 
-            <code class="ruby">                current_time += 60*15</code>
+            <code class="ruby">                @conflict = false</code>
           </li>
         </div>
       
@@ -7629,7 +7673,7 @@
 
             
 
-            <code class="ruby">            end</code>
+            <code class="ruby">                cohort.users.each do |student|</code>
           </li>
         </div>
       
@@ -7640,7 +7684,7 @@
 
             
 
-            <code class="ruby">        end</code>
+            <code class="ruby">                    </code>
           </li>
         </div>
       
@@ -7651,7 +7695,7 @@
 
             
 
-            <code class="ruby">        </code>
+            <code class="ruby">                    student.schedules.each_with_index do |schedule, index|</code>
           </li>
         </div>
       
@@ -7662,7 +7706,7 @@
 
             
 
-            <code class="ruby">        # cohort.users.each do |student|</code>
+            <code class="ruby">                        @conflict = self.is_conflict?(day,current_time,schedule)</code>
           </li>
         </div>
       
@@ -7673,7 +7717,7 @@
 
             
 
-            <code class="ruby">        #     print(student.firstname+&quot;\n&quot;)</code>
+            <code class="ruby">                            if @conflict.is_a? false.class</code>
           </li>
         </div>
       
@@ -7684,7 +7728,7 @@
 
             
 
-            <code class="ruby">        #     student.schedules.each do |schedule|</code>
+            <code class="ruby">                                break</code>
           </li>
         </div>
       
@@ -7695,7 +7739,7 @@
 
             
 
-            <code class="ruby">        #         print(schedule.name+&quot;\n&quot;)</code>
+            <code class="ruby">                            else</code>
           </li>
         </div>
       
@@ -7706,7 +7750,7 @@
 
             
 
-            <code class="ruby">        #         # print(schedule.courses.where(:abbreviated_subject =&gt; &quot;ISEN&quot;).first.course_name)</code>
+            <code class="ruby">                                #print(@conflict)</code>
           </li>
         </div>
       
@@ -7717,40 +7761,64 @@
 
             
 
-            <code class="ruby">        #         schedule.courses.each do |course|</code>
+            <code class="ruby">                                #start_time = Time.now</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="118">
             
+
+            <code class="ruby">                                @conflict_mod = Conflict.new</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="336" data-linenumber="80">
+            <span class="hits">336</span>
             
 
             
 
-            <code class="ruby">        #             # Time.parse(course.meetingtime_start)</code>
+            <code class="ruby">                                @conflict_mod.user = student</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="119">
             
+
+            <code class="ruby">                                @conflict_mod.cost = ScheduleToCourse.find_by(:course_id  =&gt;  @conflict.id, :schedule_id =&gt; schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="336" data-linenumber="82">
+            <span class="hits">336</span>
             
 
             
 
-            <code class="ruby">                    </code>
+            <code class="ruby">                                @conflict_mod.course = @conflict</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="120">
             
+
+            <code class="ruby">                                @conflict_mod.schedule = schedule</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="336" data-linenumber="84">
+            <span class="hits">336</span>
             
 
             
 
-            <code class="ruby">        #             print(Time.parse(course.meetingtime_end.to_s))</code>
+            <code class="ruby">                                conflict_mods.append(@conflict_mod)</code>
           </li>
         </div>
       
@@ -7761,18 +7829,26 @@
 
             
 
-            <code class="ruby">        #             print(course.meeting_days)</code>
+            <code class="ruby">                                #@conflict_mod.save</code>
           </li>
         </div>
       
         <div>
           <li class="never" data-hits="" data-linenumber="122">
             
+
+            <code class="ruby">                                @total_cost += @conflict_mod.cost</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="336" data-linenumber="87">
+            <span class="hits">336</span>
             
 
             
 
-            <code class="ruby">        #             print(&quot;\n&quot;)</code>
+            <code class="ruby">                                @time_slot.conflicts.push(@conflict_mod)</code>
           </li>
         </div>
       
@@ -7783,7 +7859,7 @@
 
             
 
-            <code class="ruby">        #         end</code>
+            <code class="ruby">                                #end_time = Time.now</code>
           </li>
         </div>
       
@@ -7794,7 +7870,7 @@
 
             
 
-            <code class="ruby">        #     end</code>
+            <code class="ruby">                                #puts &quot;Time Elasped for conflict #{(end_time-start_time)*1000} milliseconds&quot;</code>
           </li>
         </div>
       
@@ -7805,7 +7881,7 @@
 
             
 
-            <code class="ruby">        # end</code>
+            <code class="ruby">                            end</code>
           </li>
         </div>
       
@@ -7816,7 +7892,7 @@
 
             
 
-            <code class="ruby">        </code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -7827,7 +7903,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">                    end</code>
           </li>
         </div>
       
@@ -7838,7 +7914,7 @@
 
             
 
-            <code class="ruby">    </code>
+            <code class="ruby">                end</code>
           </li>
         </div>
       
@@ -16382,8 +16458,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="10" data-linenumber="9">
-            <span class="hits">10</span>
+          <li class="covered" data-hits="12" data-linenumber="9">
+            <span class="hits">12</span>
             
 
             
@@ -16393,8 +16469,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="10" data-linenumber="10">
-            <span class="hits">10</span>
+          <li class="covered" data-hits="12" data-linenumber="10">
+            <span class="hits">12</span>
             
 
             
