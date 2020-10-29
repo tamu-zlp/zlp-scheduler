@@ -21,7 +21,7 @@ class Scheduler_2
     def self.exponential_cost_function(current_time, start_of_day, end_of_day)
         
         def self.sigmoid_cost_fuc(max_cost, alpha, beta, x)
-            return max_cost / (1+Math::exp(-1*(alpha*max_cost*x) + (beta*max_cost)))
+            return cost = max_cost / (1+Math::exp(-1*(alpha*max_cost*x) + (beta*max_cost)))
         end
         max_cost = 100
         prior_alpha = -0.015
@@ -35,8 +35,11 @@ class Scheduler_2
             # x = (current_time.to_f - start_of_day.to_f)/900
             # cost = self.sigmoid_cost_fuc(max_cost, prior_alpha, prior_beta, x)
         elsif current_time > end_of_day
+            start_time = Time.now
             x = (current_time.to_f - end_of_day.to_f)/900
             cost = self.sigmoid_cost_fuc(max_cost, later_alpha, later_beta, x)
+            end_time = Time.now
+            puts "Time Elasped for sigmoid_cost_fuc #{(end_time-start_time)*1000} milliseconds"
         else
             cost = 0
         end
@@ -45,6 +48,9 @@ class Scheduler_2
     
     
     def self.Generate_time_slots(cohort)
+        conflict_mods = []
+        time_preferences = []
+        time_slots = []
         
         @days.each do |day|
             #soft time preference
@@ -62,43 +68,50 @@ class Scheduler_2
                 @time_slot.time = current_time
                 @total_cost = 0
                 @conflict = false
+                
                 cohort.users.each do |student|
                     
                     student.schedules.each_with_index do |schedule, index|
-                    @conflict = self.is_conflict?(day,current_time,schedule)
-                    if @conflict.is_a? false.class
-                        break
-                    else
-                        #print(@conflict)
-                        @conflict_mod = Conflict.new
-                        @conflict_mod.user = student
-                        @conflict_mod.cost = ScheduleToCourse.find_by(:course_id  =>  @conflict.id, :schedule_id => schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
-                        @conflict_mod.course = @conflict
-                        @conflict_mod.schedule = schedule
-                        @conflict_mod.save
-                        @total_cost += @conflict_mod.cost
-                        @time_slot.conflicts.push(@conflict_mod)
-                    end
+                        @conflict = self.is_conflict?(day,current_time,schedule)
+                            if @conflict.is_a? false.class
+                                break
+                            else
+                                #print(@conflict)
+                                start_time = Time.now
+                                @conflict_mod = Conflict.new
+                                @conflict_mod.user = student
+                                @conflict_mod.cost = ScheduleToCourse.find_by(:course_id  =>  @conflict.id, :schedule_id => schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
+                                @conflict_mod.course = @conflict
+                                @conflict_mod.schedule = schedule
+                                conflict_mods.append(@conflict_mod)
+                                #@conflict_mod.save
+                                @total_cost += @conflict_mod.cost
+                                @time_slot.conflicts.push(@conflict_mod)
+                                end_time = Time.now
+                                puts "Time Elasped for conflict #{(end_time-start_time)*1000} milliseconds"
+                            end
 
                     end
                 end
                 
-<<<<<<< HEAD
+             
                 @time_slot.cost = @total_cost
-                #print(@conflict.class)
-=======
+                
+                start_time = Time.now
                 @time_preference_cost = self.exponential_cost_function(current_time, start_of_day, end_of_day)
                 @time_preference_mod = Conflict.new
                 @time_preference_mod.cost = @time_preference_cost
-                @time_preference_mod.save
-                print(current_time)
-                print("Time cost ", @time_preference_mod.cost,"\n")
+                start_time_save = Time.now
+                time_preferences.append(@time_preference_mod)
+                end_time_save = Time.now
+                end_time = Time.now
+                puts "Time Elasped for time_preference #{(end_time-start_time)*1000} milliseconds saving took #{(end_time_save-start_time_save) *1000}"
+                #print(current_time)
+                #print("Time cost ", @time_preference_mod.cost,"\n")
                 @time_slot.conflicts.push(@time_preference_mod)
                 
                 
                 @time_slot.cost = @total_cost + @time_preference_mod.cost
-                print(@conflict.class)
->>>>>>> 016b8da33d1b2df7478771e14711477c3b8cbf5e
                 if @conflict.is_a? false.class
                     @time_slot.was_conflict = false
                 else
@@ -106,12 +119,16 @@ class Scheduler_2
                     @time_slot.was_conflict = true
                 end
                 @time_slot.day = day
-                @time_slot.save
+                time_slots.append(@time_slot)
                 cohort.time_slots.push(@time_slot)
-                cohort.save
                 current_time += 60*15
                 
             end
+            conflict_mods.each(&:save)
+            time_preferences.each(&:save)
+            time_slots.each(&:save)
+            cohort.save
+            
         end
         
         # cohort.users.each do |student|
