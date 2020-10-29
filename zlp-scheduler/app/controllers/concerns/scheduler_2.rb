@@ -35,11 +35,8 @@ class Scheduler_2
             # x = (current_time.to_f - start_of_day.to_f)/900
             # cost = self.sigmoid_cost_fuc(max_cost, prior_alpha, prior_beta, x)
         elsif current_time > end_of_day
-            start_time = Time.now
             x = (current_time.to_f - end_of_day.to_f)/900
             cost = self.sigmoid_cost_fuc(max_cost, later_alpha, later_beta, x)
-            end_time = Time.now
-            puts "Time Elasped for sigmoid_cost_fuc #{(end_time-start_time)*1000} milliseconds"
         else
             cost = 0
         end
@@ -48,19 +45,20 @@ class Scheduler_2
     
     
     def self.Generate_time_slots(cohort)
-        conflict_mods = []
-        time_preferences = []
-        time_slots = []
+        conflict_mods = Array.new
+        time_preferences = Array.new
+        time_slots = Array.new
         
+        #start_time_timing = Time.now
         @days.each do |day|
             #soft time preference
             prior_of_day = Time.new(2020,12,9,0,0,0)
-            later_of_day = Time.new(2020,12,9,24,0,0)
+            later_of_day = Time.new(2020,12,9,20,0,0)
             current_time = prior_of_day
             
             #hard time preference
-            start_of_day = Time.new(2020,12,9,8,0,0)
-            end_of_day = Time.new(2020,12,9,15,0,0)
+            start_of_day =  Time.new(2020,12,9,8,0,0)
+            end_of_day =    Time.new(2020,12,9,15,0,0)
             
             
             while current_time < later_of_day
@@ -77,7 +75,7 @@ class Scheduler_2
                                 break
                             else
                                 #print(@conflict)
-                                start_time = Time.now
+                                #start_time = Time.now
                                 @conflict_mod = Conflict.new
                                 @conflict_mod.user = student
                                 @conflict_mod.cost = ScheduleToCourse.find_by(:course_id  =>  @conflict.id, :schedule_id => schedule.id).mandatory ? 2**index + 4 : 2 ** index #  schedule.schedule_to_courses.find_by(course_id: @conflict.id)
@@ -87,8 +85,8 @@ class Scheduler_2
                                 #@conflict_mod.save
                                 @total_cost += @conflict_mod.cost
                                 @time_slot.conflicts.push(@conflict_mod)
-                                end_time = Time.now
-                                puts "Time Elasped for conflict #{(end_time-start_time)*1000} milliseconds"
+                                #end_time = Time.now
+                                #puts "Time Elasped for conflict #{(end_time-start_time)*1000} milliseconds"
                             end
 
                     end
@@ -97,15 +95,15 @@ class Scheduler_2
              
                 @time_slot.cost = @total_cost
                 
-                start_time = Time.now
+                #start_time = Time.now
                 @time_preference_cost = self.exponential_cost_function(current_time, start_of_day, end_of_day)
                 @time_preference_mod = Conflict.new
                 @time_preference_mod.cost = @time_preference_cost
-                start_time_save = Time.now
+                #start_time_save = Time.now
                 time_preferences.append(@time_preference_mod)
-                end_time_save = Time.now
-                end_time = Time.now
-                puts "Time Elasped for time_preference #{(end_time-start_time)*1000} milliseconds saving took #{(end_time_save-start_time_save) *1000}"
+                #end_time_save = Time.now
+                #end_time = Time.now
+                #puts "Time Elasped for time_preference #{(end_time-start_time)*1000} milliseconds saving took #{(end_time_save-start_time_save) *1000}"
                 #print(current_time)
                 #print("Time cost ", @time_preference_mod.cost,"\n")
                 @time_slot.conflicts.push(@time_preference_mod)
@@ -130,7 +128,8 @@ class Scheduler_2
         time_preferences.each(&:save)
         time_slots.each(&:save)
         cohort.save
-            
+        #end_time_timing = Time.now
+        #puts "Time Elasped to run algorithm #{(end_time_timing-start_time_timing)*1000} milliseconds"
     end
     
 end

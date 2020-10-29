@@ -91,31 +91,31 @@ describe "Scheduler" do
             Scheduler_2.Generate_time_slots(@cohort)
         end
         it "should generate time_slot db entries" do
-            expect(@cohort.time_slots.length).to eql(240) 
+            expect(@cohort.time_slots.length).to eql(400) 
             # length is increased due to soft time preference from 7*4*5 to 16*4*5 (hrs*4(15min term)*days)
         end
         
         it "should generate a conflict db entry when a conflict is found" do
-            expect(@cohort.time_slots[12].conflicts.length).to eql(2)
+            expect(@cohort.time_slots[45].conflicts.length).to eql(2)
             # there would be two conflicts (course conflict and time preference conflict)
         end
         it "Should have a cost which is the sum of all conflict costs" do
-            expect(@cohort.time_slots[12].cost).to eql(1)
+            expect(@cohort.time_slots[45].cost).to eql(1)
         end
         describe "Conflicts generated" do
             it "Should contain the user that had the conflict" do
-                expect(@cohort.time_slots[12].conflicts[0].user).to eql(@user) 
+                expect(@cohort.time_slots[45].conflicts[0].user).to eql(@user) 
             end
             
             it "Should contain the course that is in conflict" do
-                expect(@cohort.time_slots[12].conflicts[0].course).to eql(@course)
+                expect(@cohort.time_slots[45].conflicts[0].course).to eql(@course)
             end
             describe "If there is a conflict" do
                 it "Should set was_conflict to true" do
-                    expect(@cohort.time_slots[12].was_conflict).to eql(true)
+                    expect(@cohort.time_slots[45].was_conflict).to eql(true)
                 end
                 it "Should have a cost" do
-                    expect(@cohort.time_slots[12].cost).to eql(1)
+                    expect(@cohort.time_slots[45].cost).to eql(1)
                 end
             end
         end
