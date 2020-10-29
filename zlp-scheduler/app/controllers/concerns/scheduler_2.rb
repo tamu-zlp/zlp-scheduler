@@ -31,9 +31,8 @@ class Scheduler_2
         # https://www.desmos.com/calculator
         
         if current_time < start_of_day
-            cost = max_cost - 1
-            # x = (current_time.to_f - start_of_day.to_f)/900
-            # cost = self.sigmoid_cost_fuc(max_cost, prior_alpha, prior_beta, x)
+            x = (current_time.to_f - start_of_day.to_f)/900
+            cost = self.sigmoid_cost_fuc(max_cost, prior_alpha, prior_beta, x)
         elsif current_time > end_of_day
             x = (current_time.to_f - end_of_day.to_f)/900
             cost = self.sigmoid_cost_fuc(max_cost, later_alpha, later_beta, x)
@@ -49,13 +48,12 @@ class Scheduler_2
         @days.each do |day|
             #soft time preference
             prior_of_day = Time.new(2020,12,9,0,0,0)
-            later_of_day = Time.new(2020,12,9,24,0,0)
-            current_time = prior_of_day
+            later_of_day = Time.new(2020,12,9,20,0,0)
             
             #hard time preference
             start_of_day = Time.new(2020,12,9,8,0,0)
             end_of_day = Time.new(2020,12,9,15,0,0)
-            
+            current_time = start_of_day
             
             while current_time < later_of_day
                 @time_slot = TimeSlot.new
@@ -87,8 +85,8 @@ class Scheduler_2
                 @time_preference_mod = Conflict.new
                 @time_preference_mod.cost = @time_preference_cost
                 @time_preference_mod.save
-                print(current_time)
-                print("Time cost ", @time_preference_mod.cost,"\n")
+                # print(current_time)
+                # print("Time cost ", @time_preference_mod.cost,"\n")
                 @time_slot.conflicts.push(@time_preference_mod)
                 
                 

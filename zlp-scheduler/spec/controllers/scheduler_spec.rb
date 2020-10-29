@@ -74,16 +74,30 @@ describe "Scheduler" do
         end
     end
     
+    describe "exponential_cost_function" do
+        it "should return zero cost if current time is in hard time preference" do
+            cost = Scheduler_2.exponential_cost_function(DateTime.new(2020,12,9,0,0,0,'-05:00'), DateTime.new(2020,12,8,0,0,0,'-05:00'), DateTime.new(2020,12,9,15,0,0,'-05:00'))
+            expect(cost).to eql(0)
+        end
+        
+        it "should return exponentially high cost if current time is not in hard time preference" do
+            cost = Scheduler_2.exponential_cost_function(DateTime.new(2020,12,20,0,0,0,'-05:00'), DateTime.new(2020,12,8,0,0,0,'-05:00'), DateTime.new(2020,12,9,15,0,0,'-05:00'))
+            expect(cost).to be > 50
+        end
+    end
+    
     describe "generate_time_slots" do
         before do
             Scheduler_2.Generate_time_slots(@cohort)
         end
         it "should generate time_slot db entries" do
-            expect(@cohort.time_slots.length).to eql(140)
+            expect(@cohort.time_slots.length).to eql(240) 
+            # length is increased due to soft time preference from 7*4*5 to 16*4*5 (hrs*4(15min term)*days)
         end
         
         it "should generate a conflict db entry when a conflict is found" do
-            expect(@cohort.time_slots[12].conflicts.length).to eql(1)
+            expect(@cohort.time_slots[12].conflicts.length).to eql(2)
+            # there would be two conflicts (course conflict and time preference conflict)
         end
         it "Should have a cost which is the sum of all conflict costs" do
             expect(@cohort.time_slots[12].cost).to eql(1)
