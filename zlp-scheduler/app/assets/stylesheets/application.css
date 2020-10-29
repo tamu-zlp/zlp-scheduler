@@ -326,7 +326,8 @@ select {
 /*admin/open_semester*/
 #openSemesterDiv {
     padding: 30px 0;
-    text-align: center
+    text-align: center;
+    color: white
 }
 
 /*admin/new_term*/
@@ -401,6 +402,11 @@ select {
 #addCohortDiv {
     padding: 30px 0;
     text-align: center;
+    color: white
+}
+
+#file {
+    color: white
 }
 
 /*admin/edit_user*/
