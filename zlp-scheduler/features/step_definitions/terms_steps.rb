@@ -34,6 +34,10 @@ When /I click "(.*)"/ do |action|
     click_link("#{action}", match: :first)
 end
 
+When /I push "(.*)"/ do |name|
+    click_link("#{this_cohort}", match: :first)
+end
+
 When /I fill in the new term form( without cohorts)?/ do |cohorts|
     select("New Test Term", from: 'Term')
     if not cohorts

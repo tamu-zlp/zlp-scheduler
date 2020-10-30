@@ -10,8 +10,8 @@ Background: log in as an admin
   Then I should see the admin terms page
 
 Scenario: View the view result page
-  When I click "Test Cohort"
-  Then I should see the view cohort semester page
-  And I click "Find Class Time"
+  When I push "Test Cohort"
+  Then I should see the Test Cohort page
+  And I push "Find Class Time"
   Then I should see the view result page
 
