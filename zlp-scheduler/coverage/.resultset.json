@@ -279,7 +279,6 @@
           2,
           null,
           null,
-          null,
           null
         ]
       },
@@ -304,9 +303,6 @@
           null,
           1,
           25,
-          null,
-          null,
-          null,
           null,
           null
         ]
@@ -619,6 +615,8 @@
           null,
           null,
           1,
+          0,
+          0,
           0,
           0,
           null,
@@ -1283,15 +1281,15 @@
           0,
           0,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           0,
           0,
           null,
@@ -1337,7 +1335,6 @@
           0,
           0,
           0,
-          null,
           0
         ],
         "branches": {
@@ -1482,7 +1479,7 @@
         }
       }
     },
-    "timestamp": 1604017686
+    "timestamp": 1604022798
   },
   "RSpec": {
     "coverage": {
@@ -2577,15 +2574,15 @@
           0,
           0,
           0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           0,
           0,
           null,
@@ -2631,7 +2628,6 @@
           0,
           0,
           0,
-          null,
           0
         ],
         "branches": {
@@ -2780,6 +2776,8 @@
           0,
           0,
           0,
+          0,
+          0,
           0
         ],
         "branches": {
@@ -2819,7 +2817,6 @@
           0,
           0,
           0,
-          null,
           0,
           null
         ],
@@ -2848,9 +2845,6 @@
           0,
           0,
           0,
-          null,
-          null,
-          null,
           0
         ],
         "branches": {
@@ -2973,6 +2967,6 @@
         }
       }
     },
-    "timestamp": 1604017735
+    "timestamp": 1604022837
   }
 }

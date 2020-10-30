@@ -13,7 +13,8 @@ class SessionsController < ApplicationController
         if current_user.admin?
           redirect_to view_term_admin_path, :notice => "Logged in!" 
         else
-          if DateTime.current >= @term.opendate && DateTime.current < @term.closedate
+          user_cohort = Cohort.find(current_user.cohort_id)
+          if DateTime.current >= @term.opendate && DateTime.current < @term.closedate && user_cohort.term_id == @term.id
             redirect_to '/student/view_terms', :notice => "Logged in!" 
           else
             redirect_to '/student/closed', :notice => "Logged in!" 
