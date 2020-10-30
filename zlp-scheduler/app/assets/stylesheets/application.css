@@ -554,7 +554,7 @@ h3 {
 }
 
 .detailbtn {
-  background-color: white;
+  background-color: transparent;
   border: white;
   color: black;
   text-align: center;
@@ -563,11 +563,11 @@ h3 {
 }
 
 .choosebtn {
-  background-color: #500000;
+  background-color: transparent;
   border: white;
   color: black;
   text-align: center;
-  font-size: 16px
+  font-size: 16px;
 }
 
 .notifybtn {
@@ -583,7 +583,7 @@ h3 {
   position:relative;
   top: 20px;
   float: right;
-  background-color: #500000;
+  background-color: transparent;
   border: white;
   color: black;
   text-align: center;
