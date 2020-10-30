@@ -124,9 +124,9 @@ class Scheduler_2
             end
             
         end
-        conflict_mods.each(&:save)
-        time_preferences.each(&:save)
-        time_slots.each(&:save)
+        conflict_mods.each(&:save!)
+        time_preferences.each(&:save!)
+        time_slots.each(&:save!)
         cohort.save
         #end_time_timing = Time.now
         #puts "Time Elasped to run algorithm #{(end_time_timing-start_time_timing)*1000} milliseconds"
