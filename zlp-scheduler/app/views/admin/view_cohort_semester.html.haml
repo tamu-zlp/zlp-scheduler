@@ -13,5 +13,5 @@
                     - else
                         No
 %div#viewCohortDiv
-    = link_to "Find Class Time" , view_result_path, :class => 'button_link'
+    = link_to "Find Class Time" , view_result_path(@cohort.id), :class => 'button_link'
     = link_to "Back to Home", view_term_admin_path, :class => 'button_link'

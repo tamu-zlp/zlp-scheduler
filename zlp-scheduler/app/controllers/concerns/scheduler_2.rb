@@ -45,6 +45,7 @@ class Scheduler_2
     
     
     def self.Generate_time_slots(cohort)
+        byebug
         conflict_mods = Array.new
         time_preferences = Array.new
         time_slots = Array.new
