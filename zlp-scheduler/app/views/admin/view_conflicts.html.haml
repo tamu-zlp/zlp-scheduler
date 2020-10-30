@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %link{:href => "specialTable.css", :rel => "stylesheet"}/
+    // %link{:href => "specialTable.css", :rel => "stylesheet"}
     %title Conflicted Detail
   %body
     %h1{:style => "text-align:center"} Conflicted Time Slot Details
@@ -21,5 +21,4 @@
         %td#specialTableData CSCE 606
         %td#specialTableData 03
         %td#specialTableData Yes
-    %form
-      %button.backbtn{:formaction => "view_result"} Back
+    = button_to "Back", view_result_path(@cohort.id), method: :get, form_class: "backbtn"

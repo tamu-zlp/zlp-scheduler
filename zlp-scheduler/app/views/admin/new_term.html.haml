@@ -4,8 +4,8 @@
     %br
     = javascript_include_tag 'application'
     = form_for @term do |f|
-        %labe#cohortLabel{:for => "term_name"} Term:
-        = f.collection_select :name, Term.all, :id, :name
+        %label#cohortLabel{:for => "term_name"} Term:
+        = f.collection_select :name, Term.all, :id, :name, {:selected => @term.id}
         %p#cohortLabel Cohorts in term (hold control to select multiple):
         = select_tag "Cohorts", options_for_select(@cohort_names), multiple: true, id: 'cohort_select'
         %br

@@ -16,7 +16,7 @@ end
 
 Then (/^I should (not )?be logged in$/) do |is_not|
   if is_not == nil
-    expect(page).to have_content("Logged in !")
+    expect(page).to have_content("Logged in!")
   else
     expect(page).to have_content("Email or password is invalid")
     expect(current_path).to eq "/"

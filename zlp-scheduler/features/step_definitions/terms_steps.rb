@@ -39,7 +39,7 @@ When /I push "(.*)"/ do |name|
 end
 
 When /I fill in the new term form( without cohorts)?/ do |cohorts|
-    select("New Test Term", from: 'Term')
+    select("New Test Term", from: 'Term:')
     if not cohorts
         select("Apple", from: 'cohort_select')
     end
