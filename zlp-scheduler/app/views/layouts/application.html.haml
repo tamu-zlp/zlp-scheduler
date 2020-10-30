@@ -2,22 +2,23 @@
 %html
   %head
     %title ZLP Class Scheduler
-    = stylesheet_link_tag 'application', 'media' => 'all'
+    = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = csrf_meta_tags
 
     %body
       %div{:class => "header_div"}
+        // change the path 
         = link_to image_tag("tamu_zlp_logo.png", class: "header"), "/"
-      - unless params[:action] == 'new'
-        = link_to "Log out", logout_path, method: "delete", :class => 'topright'
+        - unless params[:action] == 'new'
+          = link_to "Log out", logout_path, method: "delete", :class => 'topright'
       %div.container
+        %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"}
         #main
           - if flash[:notice]
-            %div.notice
+            %div#notice
               #notice.message= flash[:notice]
           - elsif flash[:warning]
-            %div.warning
+            %div#warning
               #warning.message= flash[:warning]
-
           = yield

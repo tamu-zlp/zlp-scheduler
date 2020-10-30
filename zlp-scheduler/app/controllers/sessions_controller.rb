@@ -11,12 +11,12 @@ class SessionsController < ApplicationController
           Term.ImportTermList!
         end
         if current_user.admin?
-          redirect_to view_term_admin_path, :notice => "Logged in !" 
+          redirect_to view_term_admin_path, :notice => "Logged in!" 
         else
           if DateTime.current >= @term.opendate && DateTime.current < @term.closedate
-            redirect_to '/student/view_terms', :notice => "Logged in !" 
+            redirect_to '/student/view_terms', :notice => "Logged in!" 
           else
-            redirect_to '/student/closed', :notice => "Logged in !" 
+            redirect_to '/student/closed', :notice => "Logged in!" 
           end
         end
       else
@@ -27,8 +27,7 @@ class SessionsController < ApplicationController
     
     def destroy 
       session[:user_id] = nil 
-      redirect_to '/login', :notice => "Logged out !" 
+      redirect_to '/login', :notice => "Logged out!" 
     end
-
 end
 

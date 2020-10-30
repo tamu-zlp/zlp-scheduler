@@ -1,20 +1,17 @@
-%div{:class => 'add_sched_info'}
-    %br
-    %h2 #{@cohort.name}
-    %table{:class => "cohort_table"}
+%div#viewCohortDiv
+    %h1{:style => "text-align:center"} #{@cohort.name}
+    %table#resultTable
         %tr
-            %th Name
-            %th Schedules Added
+            %th#specialTableHeader Name
+            %th#specialTableHeader Schedules Added
         - @users.each do |user|
             %tr
-                %td #{user.firstname} #{user.lastname}
-                %td 
+                %td#specialTableData #{user.firstname} #{user.lastname}
+                %td#specialTableData
                     - if (user.schedules != [])
                         Yes
                     - else
                         No
-    
-%div{:class => 'centered_links'}
-
+%div#viewCohortDiv
     = link_to "Find Class Time" , view_result_path, :class => 'button_link'
     = link_to "Back to Home", view_term_admin_path, :class => 'button_link'
