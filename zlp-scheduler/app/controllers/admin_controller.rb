@@ -136,6 +136,8 @@ class AdminController < ApplicationController
   end
   
   def view_result
+    @cohort = Cohort.find(params[:cohort_id])
+    Scheduler_2.Generate_time_slots(@cohort)
     @results = TimeSlot.where(:was_conflict => false).order(:cost)
     @conflict = TimeSlot.where(:was_conflict => true).order(:cost)
   end

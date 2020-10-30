@@ -59,7 +59,7 @@ Rails.application.routes.draw do
 
   get 'view_terms/index'
   
-  get 'admin/view_result', to: 'admin#view_result', as: 'view_result'
+  get 'admin/view_result:cohort_id', to: 'admin#view_result', as: 'view_result'
   get 'admin/view_conflicts', to: 'admin#view_conflicts', as: 'view_view_conflicts'
   
   
