@@ -141,4 +141,8 @@ class AdminController < ApplicationController
     @results = TimeSlot.where(:was_conflict => false).order(:cost)
     @conflict = TimeSlot.where(:was_conflict => true).order(:cost)
   end
+  
+  def view_conflicts
+    @cohort = Cohort.find(params[:cohort_id])
+  end
 end

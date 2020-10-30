@@ -1,6 +1,6 @@
 %html
   %head
-    %link{:href => "specialTable.css", :rel => "stylesheet"}/
+    // %link{:href => "specialTable.css", :rel => "stylesheet"}
     %title Admin View Result
   %body
     %h1{:style => "text-align:center"} Algorithm Result
@@ -15,8 +15,7 @@
           %td#specialTableData #{result.day} 
           %td#specialTableData #{result.time}
           %td#specialTableData
-            %form
-              %button.choosebtn{:formaction => "view_conflicts"} Choose
+            = button_to "Choose", view_conflicts_path(@cohort.id), method: :get, form_class: "choosebtn"
     %h3{:style => "text-align:left"}
       Conflicted Time Slots
     %table#conflictTable
@@ -29,5 +28,4 @@
           %td#specialTableData #{conf.day}
           %td#specialTableData #{conf.time}
           %td#specialTableData
-            %form
-              %button.detailbtn{:formaction => "view_conflicts"} Details
+            = button_to "Choose", view_conflicts_path(@cohort.id), method: :get, form_class: "choosebtn"
