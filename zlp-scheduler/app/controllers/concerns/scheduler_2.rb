@@ -45,7 +45,6 @@ class Scheduler_2
     
     
     def self.Generate_time_slots(cohort)
-        byebug
         conflict_mods = Array.new
         time_preferences = Array.new
         time_slots = Array.new
@@ -125,12 +124,9 @@ class Scheduler_2
             end
             
         end
-        conflict_mods.each(&:save!)
-        print(conflict_mods.length)
-        time_preferences.each(&:save!)
-        print(time_preferences.length)
-        time_slots.each(&:save!)
-        print(time_slots.length)
+        conflict_mods.each(&:save)
+        time_preferences.each(&:save)
+        time_slots.each(&:save)
         cohort.save
         #end_time_timing = Time.now
         #puts "Time Elasped to run algorithm #{(end_time_timing-start_time_timing)*1000} milliseconds"
