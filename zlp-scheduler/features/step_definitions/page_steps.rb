@@ -13,6 +13,10 @@ Then(/^I should see the (.+) page$/) do |page_name|
     expect(current_path).to eq "/admin/view_cohort_semester"
   elsif page_name == 'view result'
     expect(current_path).to eq "/admin/view_result"
+  # the test route for test cohort.
+  # may need to change the string after eq
+  elsif page_name == 'Test Cohort'
+    expect(current_path).to eq "/admin/cohort/1"
   else
     fail("not valid page name")
   end

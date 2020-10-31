@@ -18,7 +18,10 @@
                 %tr
                     %td#specialTableData 
                         %form
-                            = link_to c.name, view_cohort_semester_path(c.name), :class => 'button_link'
+                            = c 
+                            = c. name 
+                            = view_cohort_semester_path(c)
+                            = link_to "Test Cohort", view_cohort_semester_path(c), :class => 'button_link'
 - else
     %li
         = link_to "Login", 'login', :class => 'btn-submit'
