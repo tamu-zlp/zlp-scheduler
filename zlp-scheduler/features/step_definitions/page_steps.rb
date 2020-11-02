@@ -13,3 +13,7 @@ Then(/^I should see the (.+) page$/) do |page_name|
     fail("not valid page name")
   end
 end
+
+When /I click the logo/ do
+  click_link("Tamu zlp logo", match: :first)
+end
