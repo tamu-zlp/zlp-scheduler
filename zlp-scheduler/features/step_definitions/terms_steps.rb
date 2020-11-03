@@ -35,6 +35,10 @@ When /I click "(.*)"/ do |action|
     click_link("#{action}", match: :first)
 end
 
+When /I click button "(.*)"/ do |action|
+    click_button("#{action}", match: :first)
+end
+
 
 When /I fill in the new term form( without cohorts)?/ do |cohorts|
     select("New Test Term", from: 'Term:')

@@ -9,7 +9,7 @@ Background: log in as an admin
   | Test Term       |
   | Extra Test Term |
   | New Test Term   |
-  And the active term is "Test Term"
+  And the active term is "New Test Term"
   And the following cohorts exist:
   | name   |
   | Apple  |

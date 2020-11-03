@@ -25,5 +25,5 @@ Scenario: View the Conflict page
   Then I should see the Test Cohort page
   And I click "Find Class Time"
   Then I should see the view result page
-  And I click "Choose" 
+  And I click button "Choose"
   Then I should see the view conflicts page
