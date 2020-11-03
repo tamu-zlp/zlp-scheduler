@@ -27,3 +27,8 @@ Scenario: Student should see closed page when in a non-active cohort
   And I am logged in
   When I click the logo
   Then I should see the closed page
+  
+Scenario: Clicking the logo link before logging in should reload the login page
+  Given I visit the index page
+  When I click the logo
+  Then I should see the login page
