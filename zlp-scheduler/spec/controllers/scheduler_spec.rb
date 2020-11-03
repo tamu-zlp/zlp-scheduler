@@ -96,8 +96,8 @@ describe "Scheduler" do
         end
         
         it "should generate a conflict db entry when a conflict is found" do
-            expect(@cohort.time_slots[45].conflicts.length).to eql(2)
-            # there would be two conflicts (course conflict and time preference conflict)
+            expect(@cohort.time_slots[45].conflicts.length).to eql(1)
+            # there would be one conflicts (course conflict)
         end
         it "Should have a cost which is the sum of all conflict costs" do
             expect(@cohort.time_slots[45].cost).to eql(1)
