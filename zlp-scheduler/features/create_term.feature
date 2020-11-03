@@ -9,7 +9,7 @@ Background: log in as an admin
   | Test Term       |
   | Extra Test Term |
   | New Test Term   |
-  And the active term is "New Test Term"
+  And the active term is "Test Term"
   And the following cohorts exist:
   | name   |
   | Apple  |
@@ -40,4 +40,3 @@ Scenario: Incomplete Form Redirects to Form Page
   Then I should see the new term page
   And I should see "Please select at least one cohort."
   And the term "New Test Term" should be selected
-  
