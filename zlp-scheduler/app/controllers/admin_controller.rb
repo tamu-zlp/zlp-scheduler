@@ -138,8 +138,9 @@ class AdminController < ApplicationController
   def view_result
     @cohort = Cohort.find(params[:cohort_id])
     Scheduler_2.Generate_time_slots(@cohort)
-    @results = TimeSlot.where(:was_conflict => false).order(:cost)
-    @conflict = TimeSlot.where(:was_conflict => true).order(:cost)
+    @date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
+    @results = TimeSlot.where(:was_conflict => false).order(:cost).limit(10)
+    @conflict = TimeSlot.where(:was_conflict => true).order(:cost).limit(10)
   end
   
   def view_conflicts
