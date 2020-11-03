@@ -28,4 +28,4 @@
           %td#specialTableData #{@date_dict[conf.day]} 
           %td#specialTableData #{conf.time.strftime("%H:%M")} - #{conf.time.advance(:hours => 2).strftime("%H:%M")}
           %td#specialTableData
-            = button_to "Choose", view_conflicts_path(@cohort.id), method: :get, form_class: "choosebtn"
+            = button_to "Details", view_conflicts_path(@cohort.id), method: :get, form_class: "detailbtn"
