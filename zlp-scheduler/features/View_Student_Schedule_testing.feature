@@ -6,7 +6,7 @@ Feature: display current term of schedules
 
   Scenario: show student's current schedule 
     Given Registered
-    And I am in the active cohort
+    And the current term is open
     And I am logged in
     And I should see the terms page
     Then I should see my schedules
