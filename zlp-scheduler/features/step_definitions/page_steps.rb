@@ -12,11 +12,20 @@ Then(/^I should see the (.+) page$/) do |page_name|
   elsif page_name == 'view cohort semester'
     expect(current_path).to eq "/admin/view_cohort_semester"
   elsif page_name == 'view result'
-    expect(current_path).to eq "/admin/view_result"
-  # the test route for test cohort.
-  # may need to change the string after eq
+    term = Term.find_by(:active => true)
+    active_cohort = Cohort.find_by(:name => 'Test Cohort')
+    active_cohort.term_id = term.id
+    expect(current_path).to eq "/admin/view_result/#{active_cohort.id}"
   elsif page_name == 'Test Cohort'
-    expect(current_path).to eq "/admin/cohort/1"
+    term = Term.find_by(:active => true)
+    active_cohort = Cohort.find_by(:name => 'Test Cohort')
+    active_cohort.term_id = term.id
+    expect(current_path).to eq "/admin/cohorts/#{active_cohort.id}"
+  elsif  page_name == 'view conflicts'
+    term = Term.find_by(:active => true)
+    active_cohort = Cohort.find_by(:name => 'Test Cohort')
+    active_cohort.term_id = term.id
+    expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}"
   else
     fail("not valid page name")
   end

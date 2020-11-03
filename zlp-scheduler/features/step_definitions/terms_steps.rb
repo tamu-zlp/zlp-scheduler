@@ -22,6 +22,7 @@ Given /"(.*)" is in the current term/ do |cohort|
     term = Term.find_by(:active => true)
     active_cohort = Cohort.find_by(:name => cohort)
     active_cohort.term_id = term.id
+    active_cohort.save
 end
 
 Given /I am logged in as an admin/ do
@@ -34,13 +35,6 @@ When /I click "(.*)"/ do |action|
     click_link("#{action}", match: :first)
 end
 
-When /I push "(.*)"/ do |name|
-    #this page define the routing used in click link
-    # will need a correct link address to find that cohort
-    cohort = Cohort.find_by(:name => name)
-    #cohort = Cohort.find(1)
-    click_link("#{cohort}", match: :first)
-end
 
 When /I fill in the new term form( without cohorts)?/ do |cohorts|
     select("New Test Term", from: 'Term:')
