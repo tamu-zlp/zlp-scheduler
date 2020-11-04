@@ -14,16 +14,10 @@ Background: log in as an admin
   And "Test Cohort" is in the current term
   And I am logged in as an admin
 
-Scenario: View the view result page
+Scenario: View the view result and conflicts page
   When I click "Test Cohort"
   Then I should see the Test Cohort page
-  And I click "Find Class Time"
+  When I click "Find Class Time"
   Then I should see the view result page
-
-Scenario: View the Conflict page
-  When I click "Test Cohort"
-  Then I should see the Test Cohort page
-  And I click "Find Class Time"
-  Then I should see the view result page
-  And I click button "Choose"
+  When I click button "Choose"
   Then I should see the view conflicts page
