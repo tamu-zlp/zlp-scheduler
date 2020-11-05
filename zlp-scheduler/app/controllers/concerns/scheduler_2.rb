@@ -52,7 +52,7 @@ class Scheduler_2
         #start_time_timing = Time.now
         @days.each do |day|
             #soft time preference
-            prior_of_day = Time.new(2020,12,9,0,0,0)
+            prior_of_day = Time.new(2020,12,9,8,0,0)
             later_of_day = Time.new(2020,12,9,20,0,0)
             current_time = prior_of_day
             
@@ -92,8 +92,6 @@ class Scheduler_2
                     end
                 end
                 
-             
-                @time_slot.cost = @total_cost
                 
                 #start_time = Time.now
                 @time_preference_cost = self.exponential_cost_function(current_time, start_of_day, end_of_day)
