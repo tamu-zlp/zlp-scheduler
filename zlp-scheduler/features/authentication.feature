@@ -55,3 +55,11 @@ Scenario: Administrator logout
   And I am logged in
   When I click on the log out link
   Then I should be redirected to the login page
+
+Scenario: A student Reset Password
+  Given I am a registered student
+  And I visit the index page
+  When I click on the forgot password link
+  And I fill in the password reset form
+  And I confirm the reset
+  Then I should see the reset instructions
