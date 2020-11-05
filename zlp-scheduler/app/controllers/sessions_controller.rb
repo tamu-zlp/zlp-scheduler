@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
           redirect_to '/'
           return
         end
-        flash[:notice] = 'Logged in !'
+        flash[:notice] = 'Logged in!'
       end
       session[:user_id] = @user.id
       @term = Term.find_by active: 1
