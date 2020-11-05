@@ -12,11 +12,9 @@
       %nav
         %ul
           - if logged_in?
-            %h1 Howdy, #{current_user.firstname}!
             %li= link_to "Log out", logout_path, method: "delete", :class => 'topright'
           - else
             %h1 Howdy!
-            %li= link_to "Log in", login_path, :class => 'topright'
       %div.container
         %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"}
         #main
