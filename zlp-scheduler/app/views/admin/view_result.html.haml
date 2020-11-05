@@ -1,34 +1,31 @@
 %html
   %head
-    %link{:href => "result.css", :rel => "stylesheet"}/
+    // %link{:href => "specialTable.css", :rel => "stylesheet"}
     %title Admin View Result
   %body
     %h1{:style => "text-align:center"} Algorithm Result
-    %h3{:style => "text-align:left"}
-      Non-conflicted Time Slots
+    %h3{:style => "text-align:left"} Non-conflicted Time Slots
     %table#resultTable
       %tr
-        %th#special_table_header Day
-        %th#special_table_header Time
-        %th#special_table_header Option
+        %th#specialTableHeader Day
+        %th#specialTableHeader Time
+        %th#specialTableHeader Option
       -@results.each do |result|
         %tr
-          %td#special_table_data #{result.day} 
-          %td#special_table_data #{result.time}
-          %td#special_table_data
-            %form
-              %button.choosebtn{:formaction => "view_conflicts"} Choose
+          %td#specialTableData #{@date_dict[result.day]} 
+          %td#specialTableData #{result.time.strftime("%H:%M")} - #{result.time.advance(:hours => 2).strftime("%H:%M")}
+          %td#specialTableData
+            = button_to "Choose", view_conflicts_path(@cohort.id), method: :get, form_class: "choosebtn"
     %h3{:style => "text-align:left"}
       Conflicted Time Slots
     %table#conflictTable
       %tr
-        %th#special_table_header Day
-        %th#special_table_header Time
-        %th#special_table_header Option
+        %th#specialTableHeader Day
+        %th#specialTableHeader Time
+        %th#specialTableHeader Option
       -@conflict.each do |conf|
         %tr
-          %td#special_table_data #{conf.day}
-          %td#special_table_data #{conf.time}
-          %td#special_table_data
-            %form
-              %button.detailbtn{:formaction => "view_conflicts"} Details
+          %td#specialTableData #{@date_dict[conf.day]} 
+          %td#specialTableData #{conf.time.strftime("%H:%M")} - #{conf.time.advance(:hours => 2).strftime("%H:%M")}
+          %td#specialTableData
+            = button_to "Details", view_conflicts_path(@cohort.id), method: :get, form_class: "detailbtn"

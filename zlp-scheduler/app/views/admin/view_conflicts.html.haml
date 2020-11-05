@@ -1,50 +1,24 @@
 !!!
 %html
   %head
-    %link{:href => "result.css", :rel => "stylesheet"}/
+    // %link{:href => "specialTable.css", :rel => "stylesheet"}
     %title Conflicted Detail
   %body
     %h1{:style => "text-align:center"} Conflicted Time Slot Details
     %table#conflictTable
       %tr
-        %th#special_table_header Student Name
-        %th#special_table_header Course
-        %th#special_table_header Mandatory
-        %th#special_table_header Option
+        %th#specialTableHeader Student Name
+        %th#specialTableHeader Course
+        %th#specialTableHeader Section
+        %th#specialTableHeader Mandatory
       %tr
-        %td#special_table_data Minh Dang
-        %td#special_table_data CSCE 606
-        %td#special_table_data Yes
-        %td#special_table_data
-          %form
-            %button.notifybtn{:formaction => "view_term_admin"} Notify
+        %td#specialTableData Minh Dang
+        %td#specialTableData CSCE 606
+        %td#specialTableData 01
+        %td#specialTableData Yes
       %tr
-        %td#special_table_data Minh Dang
-        %td#special_table_data CSCE 606
-        %td#special_table_data Yes
-        %td#special_table_data
-          %form
-            %button.notifybtn{:formaction => "view_term_admin"} Notify
-      %tr
-        %td#special_table_data Minh Dang
-        %td#special_table_data CSCE 606
-        %td#special_table_data No
-        %td#special_table_data
-          %form
-            %button.notifybtn{:formaction => "view_term_admin"} Notify
-      %tr
-        %td#special_table_data Minh Dang
-        %td#special_table_data CSCE 606
-        %td#special_table_data Yes
-        %td#special_table_data
-          %form
-            %button.notifybtn{:formaction => "view_term_admin"} Notify
-      %tr
-        %td#special_table_data Minh Dang
-        %td#special_table_data CSCE 606
-        %td#special_table_data No
-        %td#special_table_data
-          %form
-            %button.notifybtn{:formaction => ""} Notify
-    %form
-      %button.backbtn{:formaction => "view_result"} Back
+        %td#specialTableData Minh Dang
+        %td#specialTableData CSCE 606
+        %td#specialTableData 03
+        %td#specialTableData Yes
+    = button_to "Back", view_result_path(@cohort.id), method: :get, form_class: "backbtn"

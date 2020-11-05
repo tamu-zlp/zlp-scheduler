@@ -34,9 +34,11 @@ When /I click "(.*)"/ do |action|
     click_link("#{action}", match: :first)
 end
 
-When /I fill in the new term form/ do
-    select("New Test Term", from: 'Term')
-    select("Apple", from: 'cohort_select')
+When /I fill in the new term form( without cohorts)?/ do |cohorts|
+    select("New Test Term", from: 'Term:')
+    if not cohorts
+        select("Apple", from: 'cohort_select')
+    end
     click_button("Activate")
 end
 
@@ -58,4 +60,9 @@ Then /I should (not )?see "(.*)"/ do |is_not, string|
     else
         expect(page.body.match?(/#{string}/m)).to eq true
     end
+end
+
+Then /the term "(.*)" should be selected/ do |term|
+    selected_term = Term.find_by(:name => term)
+    expect(page.body.match?(/<option selected="selected" value="#{selected_term.id}">#{term}<\/option>/)).to eq true
 end

@@ -2,20 +2,21 @@ Before do
   # The current sessions_controller requires at least one active term
   @term = FactoryBot.create(:term, :active=>true)
   @term.save()
+  @cohort = FactoryBot.create(:cohort, :name => "Cohort")
 end
 
 Given(/^I am (not )?a registered (student|admin)$/) do |is_not, role|
   if is_not == nil
-    @user = FactoryBot.create(:user, :role=>role)
+    @user = FactoryBot.create(:user, :role=>role, :cohort_id => @cohort.id)
   else
     # Using build will not save record to db, so the user is not registered
-    @user = FactoryBot.build(:user, :role=>role)
+    @user = FactoryBot.build(:user, :role=>role, :cohort_id => @cohort.id)
   end
 end
 
 Then (/^I should (not )?be logged in$/) do |is_not|
   if is_not == nil
-    expect(page).to have_content("Logged in !")
+    expect(page).to have_content("Logged in!")
   else
     expect(page).to have_content("Email or password is invalid")
     expect(current_path).to eq "/"
@@ -49,7 +50,7 @@ Then("I should be redirected to the login page") do
   expect(current_path).to eq "/login"
 end
 
-Then(/^I am (not )?in the active cohort$/) do |is_not|
+Then(/^the current term is (not )?open$/) do |is_not|
   if is_not != nil
     @term.opendate = Date.current.tomorrow
     @term.closedate = Date.current.tomorrow
@@ -84,4 +85,9 @@ end
 Then('I should see the reset instructions') do
   expect(page).to have_content("Reset Password")
   expect(page).to have_content("Retype password")
+Given /I am (not )?in the active cohort$/ do |is_not|
+  if not is_not
+    @cohort.term_id = @term.id
+    @cohort.save
+  end
 end
