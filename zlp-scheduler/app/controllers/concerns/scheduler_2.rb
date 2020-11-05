@@ -26,14 +26,14 @@ class Scheduler_2
         max_cost = 100
         prior_alpha = -0.015
         prior_beta = 0.025
-        later_alpha = 0.01
-        later_beta = 0.07
+        later_alpha = 0.015
+        later_beta = 0.06
         # https://www.desmos.com/calculator
         
         if current_time < start_of_day
-            cost = max_cost - 1
-            # x = (current_time.to_f - start_of_day.to_f)/900
-            # cost = self.sigmoid_cost_fuc(max_cost, prior_alpha, prior_beta, x)
+            # cost = max_cost - 1
+            x = (current_time.to_f - start_of_day.to_f)/900
+            cost = self.sigmoid_cost_fuc(max_cost, prior_alpha, prior_beta, x)
         elsif current_time > end_of_day
             x = (current_time.to_f - end_of_day.to_f)/900
             cost = self.sigmoid_cost_fuc(max_cost, later_alpha, later_beta, x)
@@ -52,7 +52,7 @@ class Scheduler_2
         #start_time_timing = Time.now
         @days.each do |day|
             #soft time preference
-            prior_of_day = Time.new(2020,12,9,0,0,0)
+            prior_of_day = Time.new(2020,12,9,8,0,0)
             later_of_day = Time.new(2020,12,9,20,0,0)
             current_time = prior_of_day
             
@@ -92,24 +92,22 @@ class Scheduler_2
                     end
                 end
                 
-             
-                @time_slot.cost = @total_cost
                 
                 #start_time = Time.now
                 @time_preference_cost = self.exponential_cost_function(current_time, start_of_day, end_of_day)
-                @time_preference_mod = Conflict.new
-                @time_preference_mod.cost = @time_preference_cost
-                #start_time_save = Time.now
-                time_preferences.append(@time_preference_mod)
-                #end_time_save = Time.now
-                #end_time = Time.now
-                #puts "Time Elasped for time_preference #{(end_time-start_time)*1000} milliseconds saving took #{(end_time_save-start_time_save) *1000}"
-                #print(current_time)
-                #print("Time cost ", @time_preference_mod.cost,"\n")
-                @time_slot.conflicts.push(@time_preference_mod)
+                # @time_preference_mod = Conflict.new
+                # @time_preference_mod.cost = @time_preference_cost
+                # #start_time_save = Time.now
+                # time_preferences.append(@time_preference_mod)
+                # #end_time_save = Time.now
+                # #end_time = Time.now
+                # #puts "Time Elasped for time_preference #{(end_time-start_time)*1000} milliseconds saving took #{(end_time_save-start_time_save) *1000}"
+                # #print(current_time)
+                # #print("Time cost ", @time_preference_mod.cost,"\n")
+                # @time_slot.conflicts.push(@time_preference_mod)
                 
+                @time_slot.cost = @total_cost + @time_preference_cost #@time_preference_mod.cost
                 
-                @time_slot.cost = @total_cost + @time_preference_mod.cost
                 if @conflict.is_a? false.class
                     @time_slot.was_conflict = false
                 else
