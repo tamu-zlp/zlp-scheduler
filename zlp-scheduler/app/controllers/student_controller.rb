@@ -6,6 +6,7 @@ class StudentController < ApplicationController
     id = session[:user_id]
     @user = User.find(id)
     @term = Term.find_by active: 1;
+    @chosen_time = Cohort.find(@user.cohort_id).chosen_time
     if @user.schedules
       @schedules = @user.schedules
     else 

@@ -5,6 +5,10 @@
             %li#studentMenuBarOption
                 = link_to 'Add Schedule', add_schedule_path, :class => 'button_link'
     %h1#welcomeUser{:style => "text-align:center"} Howdy, #{@current_user.firstname}!
+    
+    - if @chosen_time.present?
+        #{@chosen_time}
+    
     %div#studentViewTermsDiv
         %table#studentTermTable
             %tr

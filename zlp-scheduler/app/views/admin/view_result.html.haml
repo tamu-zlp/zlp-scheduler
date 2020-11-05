@@ -15,7 +15,7 @@
           %td#specialTableData #{result.day} 
           %td#specialTableData #{result.time}
           %td#specialTableData
-            = button_to "Choose", view_conflicts_path(@cohort.id), method: :get, form_class: "choosebtn"
+            = button_to "Choose", select_time_path(@cohort.id,result.id), method: :post, form_class: "choosebtn"
     %h3{:style => "text-align:left"}
       Conflicted Time Slots
     %table#conflictTable

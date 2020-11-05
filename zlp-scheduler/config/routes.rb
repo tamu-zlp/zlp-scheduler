@@ -62,6 +62,8 @@ Rails.application.routes.draw do
   get 'admin/view_result/:cohort_id', to: 'admin#view_result', as: 'view_result'
   get 'admin/view_conflicts/:cohort_id', to: 'admin#view_conflicts', as: 'view_conflicts'
   
+  post 'admin/select_time/:cohort_id/:result_id', to: 'admin#select_time', as:'select_time'
+  
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -145,4 +145,13 @@ class AdminController < ApplicationController
   def view_conflicts
     @cohort = Cohort.find(params[:cohort_id])
   end
+  
+  def select_time
+    @cohort = Cohort.find(params[:cohort_id])
+    @time_selected = TimeSlot.find(params[:result_id])
+    @cohort.chosen_time = @time_selected.time
+    @cohort.save
+    print("Set Time")
+  end
+  
 end
