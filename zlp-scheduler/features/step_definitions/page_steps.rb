@@ -1,5 +1,4 @@
 Then(/^I should see the (.+) page$/) do |page_name|
-
   if page_name == 'closed'
     expect(current_path).to eq "/student/closed"
   elsif page_name == 'terms'
@@ -20,12 +19,11 @@ end
 Then(/^I should see the page for (.+)$/) do |page_name|
   term = Term.find_by(:active => true)
   active_cohort = Cohort.find_by(:name => 'Test Cohort')
-  active_cohort.term_id = term.id
   if page_name == 'view result'
     expect(current_path).to eq "/admin/view_result/#{active_cohort.id}"
   elsif page_name == 'Test Cohort'
     expect(current_path).to eq "/admin/cohorts/#{active_cohort.id}"
-  elsif  page_name == 'view conflicts'
+  elsif page_name == 'view conflicts'
     expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}"
   else
     fail("not valid page name")

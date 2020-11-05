@@ -19,5 +19,5 @@ Scenario: View the view result and page
   Then I should see the page for Test Cohort 
   When I click "Find Class Time"
   Then I should see the page for view result 
-  When I click button "Details"
+  When I click button "Choose"
   Then I should see the page for view conflicts 
