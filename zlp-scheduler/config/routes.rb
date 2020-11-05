@@ -61,7 +61,7 @@ Rails.application.routes.draw do
   
   get 'admin/view_result/:cohort_id', to: 'admin#view_result', as: 'view_result'
   get 'admin/view_conflicts/:cohort_id', to: 'admin#view_conflicts', as: 'view_conflicts'
-  
+  get 'admin/run_algorithm', to: 'admin#run_algorithm', as: 'run_algorithm'
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

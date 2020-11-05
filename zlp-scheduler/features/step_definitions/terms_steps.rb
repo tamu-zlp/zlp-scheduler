@@ -36,6 +36,7 @@ When /I click "(.*)"/ do |action|
 end
 
 When /I click button "(.*)"/ do |action|
+    puts page.body
     click_button("#{action}", match: :first)
 end
 
