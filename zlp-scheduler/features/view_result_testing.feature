@@ -16,8 +16,8 @@ Background: log in as an admin
 
 Scenario: View the view result and page
   When I click "Test Cohort"
-  Then I should see the page for Test Cohort 
+  Then I should see the view cohort page for Test Cohort 
   When I click "Find Class Time"
-  Then I should see the page for view result 
+  Then I should see the view result page for Test Cohort
   When I click button "Choose"
-  Then I should see the page for view conflicts 
+  Then I should see the view conflicts page for Test Cohort

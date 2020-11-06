@@ -16,12 +16,12 @@ Then(/^I should see the (.+) page$/) do |page_name|
   end
 end
 
-Then(/^I should see the page for (.+)$/) do |page_name|
+Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
   term = Term.find_by(:active => true)
-  active_cohort = Cohort.find_by(:name => 'Test Cohort')
+  active_cohort = Cohort.find_by(:name => cohort_name)
   if page_name == 'view result'
     expect(current_path).to eq "/admin/view_result/#{active_cohort.id}"
-  elsif page_name == 'Test Cohort'
+  elsif page_name == 'view cohort'
     expect(current_path).to eq "/admin/cohorts/#{active_cohort.id}"
   elsif page_name == 'view conflicts'
     expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}"
