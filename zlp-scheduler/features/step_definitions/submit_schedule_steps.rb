@@ -48,32 +48,27 @@ Then ('I click the added schedule') do
   click_link(@test_schedule_name)
 end
 
-def select_course_info(i, if_course_num, if_course_sec, mandatory)
+def select_option_in_dropdown(target, rec)
   
-  rec = []
-  dropdown_list = page.driver.browser.find_element(:id, 'dept_select_'+i)
+  dropdown_list = page.driver.browser.find_element(:id, target)
   options = dropdown_list.find_elements(tag_name: 'option')
   #options.each { |option| print(option.text)}
   department_selected = options[rand(1...options.length)].text # Start from idx 1, avoid blank
-  select(department_selected, from: 'dept_select_'+i)
+  select(department_selected, from: target)
   rec.append(department_selected)
+end  
+
+def select_course_info(i, if_course_num, if_course_sec, mandatory)
+  
+  rec = []
+  select_option_in_dropdown('dept_select_'+i, rec)
   
   if if_course_num
-    dropdown_list = page.driver.browser.find_element(:id, 'course_num_select_'+i)
-    options = dropdown_list.find_elements(tag_name: 'option')
-    #options.each { |option| print(option.text)}
-    course_selected = options[rand(1...options.length)].text # Start from idx 1, avoid blank
-    select(course_selected, from: 'course_num_select_'+i)
-    rec.append(course_selected)
+    select_option_in_dropdown('course_num_select_'+i, rec)
   end
   
   if if_course_num and if_course_sec
-    dropdown_list = page.driver.browser.find_element(:id, 'section_num_select_'+i)
-    options = dropdown_list.find_elements(tag_name: 'option')
-    #options.each { |option| print(option.text)}
-    section_selected = options[rand(1...options.length)].text # Start from idx 1, avoid blank
-    select(section_selected, from: 'section_num_select_'+i)
-    rec.append(section_selected)
+    select_option_in_dropdown('section_num_select_'+i, rec)
   end
   
   if mandatory
