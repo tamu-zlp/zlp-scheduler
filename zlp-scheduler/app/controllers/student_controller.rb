@@ -82,12 +82,14 @@ class StudentController < ApplicationController
       @schedule = Schedule.new
       @schedule.update_attributes(:name => params[:schedule][:name])
       @user.schedules.push(@schedule)
+      warning_word = ""
       7.times do |n|
         subj_symb = "dept_id_#{n+1}".to_sym
         number_symb = "course_num_id_#{n+1}".to_sym
         section_symb = "section_num_id_#{n+1}".to_sym
         check_symb = "mand_#{n+1}".to_sym
-        if !(params[section_symb] == "")
+        #if !(params[section_symb] == "")
+        if params[subj_symb] != "" and params[number_symb]!= "" and params[section_symb]!=""
           subj = Subject.find(params[subj_symb]).subject_code
           @course = Course.where(:abbreviated_subject => subj, :course_number => params[number_symb], :section_number => params[section_symb], :term_id => @term.id)
           @schedule.courses.push(@course)
@@ -98,7 +100,7 @@ class StudentController < ApplicationController
           end
         end
       end
-      flash[:notice] = 'Schedule added!'
+      flash[:notice] = 'Schedule added!' + warning_word
       redirect_to view_terms_path
     end
   end
