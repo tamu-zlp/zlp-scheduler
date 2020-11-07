@@ -36,11 +36,11 @@ Scenario: Add Administrator
   And I click "Add Administrator"
   And I fill in the add admin form
   Then I should see the manage administrators page
-  And I should see "(Something filled in from the form)"
+  And I should see "blah@tamu.edu</td>"
   
 Scenario: Added administrator can claim account
   When I click "Manage Administrators"
-  And I click "Add Administraor"
+  And I click "Add Administrator"
   And I fill in the add admin form
   And I click on the log out link
   And I click "New User?"
