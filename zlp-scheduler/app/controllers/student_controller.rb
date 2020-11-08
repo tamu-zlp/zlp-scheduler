@@ -88,7 +88,11 @@ class StudentController < ApplicationController
         number_symb = "course_num_id_#{n+1}".to_sym
         section_symb = "section_num_id_#{n+1}".to_sym
         check_symb = "mand_#{n+1}".to_sym
-        #if !(params[section_symb] == "")
+        
+        if (params[subj_symb] != "" and params[number_symb] == "") or (params[subj_symb] != "" and params[section_symb] == "")
+          warning_word = " Courses without course number or section number will not be added in the schedule!"
+        end
+        
         if params[subj_symb] != "" and params[number_symb]!= "" and params[section_symb]!=""
           subj = Subject.find(params[subj_symb]).subject_code
           @course = Course.where(:abbreviated_subject => subj, :course_number => params[number_symb], :section_number => params[section_symb], :term_id => @term.id)
