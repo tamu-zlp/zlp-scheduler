@@ -1,11 +1,19 @@
 class StudentController < ApplicationController
   
    before_action :require_student, only: [:view_terms, :add_schedule, :update_courses, :update_sections, :create_schedule, :view_schedule,:delete_schedule]  
+
+  def in_open_term?
+    cohort = Cohort.find(@user.cohort_id)
+    return DateTime.current >= @term.opendate && DateTime.current < @term.closedate && cohort.term_id == @term.id
+  end
   
   def view_terms
     id = session[:user_id]
     @user = User.find(id)
     @term = Term.find_by active: 1;
+    if not in_open_term?
+      redirect_to closed_path and return
+    end
     if @user.schedules
       @schedules = @user.schedules
     else 
