@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
           redirect_to '/'
           return
         end
-        flash[:notice] = 'Logged in !'
+        flash[:notice] = 'Logged in!'
       end
       session[:user_id] = @user.id
       @term = Term.find_by active: 1
@@ -26,12 +26,7 @@ class SessionsController < ApplicationController
       if current_user.admin?
         redirect_to view_term_admin_path
       else
-        user_cohort = Cohort.find(current_user.cohort_id)
-        if DateTime.current >= @term.opendate && DateTime.current < @term.closedate && user_cohort.term_id == @term.id
-          redirect_to '/student/view_terms' 
-        else
-          redirect_to '/student/closed' 
-        end
+        redirect_to '/student/view_terms' 
       end
     end 
     
@@ -40,4 +35,3 @@ class SessionsController < ApplicationController
       redirect_to '/login', :notice => "Logged out!" 
     end
 end
-
