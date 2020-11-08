@@ -16,7 +16,7 @@ end
 
 Then (/^I should (not )?be logged in$/) do |is_not|
   if is_not == nil
-    expect(page).to have_content("Logged in!")
+    expect(page).to have_content("Logged in !")
   else
     expect(page).to have_content("Email or password is invalid")
     expect(current_path).to eq "/"
@@ -72,7 +72,7 @@ When('I fill in the sign up form') do
   fill_in "user[password_confirmation]", :with => @user.password
   click_button("Sign up")end
 
-When('I fill in the password reset form') do
+And('I fill in the password reset form') do
   fill_in "email", :with => @user.email
   click_button("Reset Password")
 end
@@ -85,6 +85,8 @@ end
 Then('I should see the reset instructions') do
   expect(page).to have_content("Reset Password")
   expect(page).to have_content("Retype password")
+end
+
 Given /I am (not )?in the active cohort$/ do |is_not|
   if not is_not
     @cohort.term_id = @term.id
