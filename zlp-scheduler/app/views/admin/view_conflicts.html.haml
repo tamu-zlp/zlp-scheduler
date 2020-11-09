@@ -10,15 +10,11 @@
         %th#specialTableHeader Course
         %th#specialTableHeader Section
         %th#specialTableHeader Mandatory
-      %tr
-        %td#specialTableData Minh Dang
-        %td#specialTableData CSCE 606
-        %td#specialTableData 01
-        %td#specialTableData Yes
-      %tr
-        %td#specialTableData Minh Dang
-        %td#specialTableData CSCE 606
-        %td#specialTableData 03
-        %td#specialTableData Yes
+      -@final_result.each do |result|
+        %tr
+          %td#specialTableData #{result[0]}
+          %td#specialTableData #{result[1]}
+          %td#specialTableData #{result[2]}
+          %td#specialTableData #{@mandatory_dict[result[3]]}
     // = button_to "Back", view_result_path(@cohort.id), method: :get, form_class: "backbtn"
     = link_to 'Return to Result Page', 'javascript:history.go(-1);', class: "specialBack"

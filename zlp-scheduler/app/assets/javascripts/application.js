@@ -19,8 +19,8 @@
 
 setTimeout(function() {
     $('#notice').fadeOut('fast');
-}, 1000);
+}, 1500);
 
 setTimeout(function() {
     $('#warning').fadeOut('fast');
-}, 1000);
+}, 1500);
