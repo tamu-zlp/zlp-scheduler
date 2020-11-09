@@ -99,15 +99,11 @@ class UsersController < ApplicationController
         if @term.nil?
           Term.ImportTermList!
         end
-        # if current_user.admin?
-        #   redirect_to view_term_admin_path, :notice => "Logged in !" 
-        # else
-        #   if DateTime.current >= @term.opendate && DateTime.current < @term.closedate
-        #     redirect_to '/student/view_terms', :notice => "Logged in !" 
-        #   else
-        #     redirect_to '/student/closed', :notice => "Logged in !" 
-        #   end 
-        # end
+        if current_user.admin?
+          redirect_to view_term_admin_path, :notice => "Logged in!" 
+        else
+          redirect_to '/student/view_terms', :notice => "Logged in!"
+        end
       end
     end  
   

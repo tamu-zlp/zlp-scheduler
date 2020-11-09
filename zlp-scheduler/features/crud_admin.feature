@@ -10,10 +10,6 @@ Background: log in as an admin
   | Extra Test Term |
   | New Test Term   |
   And the active term is "Test Term"
-  And the following cohorts exist:
-  | name   |
-  | Apple  |
-  | Banana |
   And I am logged in as an admin
   
 Scenario: View the Manage Administrators page
@@ -46,7 +42,7 @@ Scenario: Added administrator can claim account
   And I click "New User?"
   And I fill out the new user form
   Then I should see the admin terms page
-  And I should see "Howdy, (Name)!"
+  And I should see "Howdy, John!"
   
 Scenario: Edit Administrator Cancel Button
   When I click "Manage Administrators"
