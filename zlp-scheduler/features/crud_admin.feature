@@ -55,5 +55,5 @@ Scenario: Edit Administrator
   And I click "Edit"
   And I edit the administrator
   Then I should see the manage administrators page
-  And I should see "(edited information)"
+  And I should see "Smith"
   

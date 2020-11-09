@@ -16,3 +16,8 @@ When /^I fill out the new user form/ do
     fill_in "user_password_confirmation", with: "1234"
     click_button("Sign up")
 end
+
+When /^I edit the administrator/ do
+    fill_in "user_lastname", with: "Smith"
+    click_button("Update")
+end
