@@ -91,6 +91,7 @@ class AdminController < ApplicationController
     
     @cohort = Cohort.find(params[:id])
     @users = @cohort.users
+
     date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
     if @cohort.chosen_time.present?
       chosen_timeslot = TimeSlot.find(@cohort.chosen_time)
