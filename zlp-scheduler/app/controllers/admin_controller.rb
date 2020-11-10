@@ -88,8 +88,12 @@ class AdminController < ApplicationController
   end
   
   def view_cohort_semester
+    
     @cohort = Cohort.find(params[:id])
     @users = @cohort.users
+    chosen_time_start = Cohort.find(@users.first().cohort_id).chosen_time
+    chosen_time_end = chosen_time_start.advance(:hours => 2)
+    @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M")
   end
   
   def delete_cohort
@@ -112,7 +116,7 @@ class AdminController < ApplicationController
     @admins = User.where(:role => 'admin')
     if @admins.length == 1
       flash[:warning] = "There must be at least 1 administrator at all times."
-      redirect_to manage_administrators_path
+      redirect_to manage_administrators_path and return
     end
     id = session[:user_id]
     @user = User.find(id)
@@ -126,8 +130,7 @@ class AdminController < ApplicationController
       redirect_to manage_administrators_path
     end
   end
-  
-  
+
   def optimize
     generator = MatrixGenerator.new
     schedules = generator.get_all_schedules(User.all)
@@ -135,15 +138,51 @@ class AdminController < ApplicationController
     @scheduler.optimize
   end
   
-  def view_result
+  def run_algorithm
     @cohort = Cohort.find(params[:cohort_id])
     Scheduler_2.Generate_time_slots(@cohort)
+    flash[:notice] = "The algorithm is finished!"
+    redirect_to view_cohort_semester_path(params[:cohort_id])
+  end
+  
+  def view_result
+    @cohort = Cohort.find(params[:cohort_id])
+    # Scheduler_2.Generate_time_slots(@cohort)
     @date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
     @results = TimeSlot.where(:was_conflict => false).order(:cost).limit(10)
-    @conflict = TimeSlot.where(:was_conflict => true).order(:cost).limit(10)
+    @conflicts = TimeSlot.where(:was_conflict => true).order(:cost).limit(10)
   end
   
   def view_conflicts
     @cohort = Cohort.find(params[:cohort_id])
+    @final_result = []
+    @conflict = TimeSlot.find(params[:conflict_id]).conflicts
+    @mandatory_dict = {false => "False", true => "True"}
+    @conflict.each do |conf|
+      if conf.user_id.present?
+        student = User.find(conf.user_id)
+        name = student.firstname + ' ' + student.lastname
+        
+        course = Course.find(conf.course_id)
+        subject = Subject.find(course.subject_id).subject_code
+        final_subject = subject + ' ' + course.course_number.to_s
+        section_number = Course.find(conf.user_id).section_number
+        
+        
+        schedule_to_course = ScheduleToCourse.find_by(schedule_id: conf.schedule_id, course_id: course.id)
+        mandatory_value = schedule_to_course.mandatory
+        
+        result = [name, final_subject, section_number, mandatory_value]
+        @final_result.append(result)
+      end
+    end
   end
+  
+  def select_time
+    @cohort = Cohort.find(params[:cohort_id])
+    @time_selected = TimeSlot.find(params[:result_id])
+    @cohort.chosen_time = @time_selected.time
+    @cohort.save
+  end
+  
 end

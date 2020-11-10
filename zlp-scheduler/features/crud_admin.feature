@@ -57,3 +57,9 @@ Scenario: Edit Administrator
   Then I should see the manage administrators page
   And I should see "Smith"
   
+Scenario: Can't delete only admin
+  When I click "Manage Administrators"
+  And I click "Delete"
+  Then I should see the manage administrators page
+  And I should see "There must be at least 1 administrator at all times."
+  
