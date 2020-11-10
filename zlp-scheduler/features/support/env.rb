@@ -9,6 +9,15 @@ SimpleCov.start 'rails'
 
 require 'cucumber/rails'
 
+Selenium::WebDriver::Firefox::Binary.path = "/usr/bin/firefox"
+#Selenium::WebDriver.logger.level = :debug
+#Selenium::WebDriver.logger.output = 'selenium.log'
+Capybara.register_driver :firefox_headless do |app|
+  options = ::Selenium::WebDriver::Firefox::Options.new
+  options.args << '--headless'
+  Capybara::Selenium::Driver.new(app, browser: :firefox, options: options)
+end
+Capybara.javascript_driver = :firefox_headless
 # frozen_string_literal: true
 
 # Capybara defaults to CSS3 selectors rather than XPath.
