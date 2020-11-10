@@ -183,7 +183,6 @@ class AdminController < ApplicationController
     @time_selected = TimeSlot.find(params[:result_id])
     @cohort.chosen_time = @time_selected.time
     @cohort.save
-    print("Set Time")
   end
   
 end
