@@ -12,10 +12,11 @@
         %th#specialTableHeader Option
       -@results.each do |result|
         %tr
-          %td#specialTableData #{result.day} 
-          %td#specialTableData #{result.time}
+          %td#specialTableData #{@date_dict[result.day]} 
+          %td#specialTableData #{result.time.strftime("%H:%M")} - #{result.time.advance(:hours => 2).strftime("%H:%M")}
           %td#specialTableData
             = button_to "Choose", select_time_path(@cohort.id,result.id), method: :post, form_class: "choosebtn"
+
     %h3{:style => "text-align:left"}
       Conflicted Time Slots
     %table#conflictTable
@@ -23,9 +24,9 @@
         %th#specialTableHeader Day
         %th#specialTableHeader Time
         %th#specialTableHeader Option
-      -@conflict.each do |conf|
+      -@conflicts.each do |conf|
         %tr
-          %td#specialTableData #{conf.day}
-          %td#specialTableData #{conf.time}
+          %td#specialTableData #{@date_dict[conf.day]} 
+          %td#specialTableData #{conf.time.strftime("%H:%M")} - #{conf.time.advance(:hours => 2).strftime("%H:%M")}
           %td#specialTableData
-            = button_to "Choose", view_conflicts_path(@cohort.id), method: :get, form_class: "choosebtn"
+            = button_to "Details", view_conflicts_path(@cohort.id, conf.id), method: :get, form_class: "detailbtn"
