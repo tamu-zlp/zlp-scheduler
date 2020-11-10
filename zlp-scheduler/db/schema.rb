@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20201103011810) do
     t.datetime "updated_at",    null: false
     t.integer  "term_id"
     t.integer  "time_slots_id"
-    t.datetime "chosen_time"
+    t.integer  "chosen_time"
     t.index ["time_slots_id"], name: "index_cohorts_on_time_slots_id", using: :btree
   end
 
