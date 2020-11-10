@@ -1,5 +1,9 @@
 %div#viewCohortDiv
     %h1{:style => "text-align:center"} #{@cohort.name}
+    
+    - if @chosen_time.present?
+        #{@chosen_time}
+        
     %table#resultTable
         %tr
             %th#specialTableHeader Name
@@ -13,5 +17,7 @@
                     - else
                         No
 %div#viewCohortDiv
-    = link_to "Find Class Time" , view_result_path(@cohort.id), :class => 'button_link'
+    -if @cohort.time_slots.present?
+        = link_to "Find Class Time" , view_result_path(@cohort.id), :class => 'button_link'
+    = link_to "Run Algorithm" , run_algorithm_path(@cohort.id), :class => 'button_link', method: :post
     = link_to "Back to Home", view_term_admin_path, :class => 'button_link'

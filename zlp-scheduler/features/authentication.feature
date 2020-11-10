@@ -63,3 +63,26 @@ Scenario: Administrator logout
   And I am logged in
   When I click on the log out link
   Then I should be redirected to the login page
+
+Scenario: A Student Reset Password Success
+  Given I am a registered student
+  And I visit the index page
+  When I click on the forgot password link
+  And I fill in the password reset form
+  Then I should receive an email
+  When I confirm the reset
+  Then I should see the reset instructions
+
+Scenario: A Unregistered Student Reset Password Failed
+  Given I am not a registered student
+  And I visit the index page
+  When I click on the forgot password link
+  And I fill in the password reset form
+  And I should receive no email
+
+# Scenario: A Registered User Can Claim His Account
+# Scenario: A Registered User Cannot Claim His Account when UIN and Email not match
+# Scenario: A Unregistered User Cannot Claim His Account
+# Scenario: A Registered User Cannot Claim His account with a Weak Password
+# Scenario: An Unclaimed Account Cannot Login
+# Scenario: An Unclaimed Account Cannot Reset Password

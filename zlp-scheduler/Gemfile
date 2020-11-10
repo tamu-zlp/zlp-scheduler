@@ -59,6 +59,9 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'simplecov', :require => false
+  gem 'email_spec'
+  gem 'sendgrid-ruby'
+  gem 'selenium-webdriver'
 end
 
 group :development do

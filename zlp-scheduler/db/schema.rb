@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201007185206) do
+ActiveRecord::Schema.define(version: 20201103011810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20201007185206) do
     t.datetime "updated_at",    null: false
     t.integer  "term_id"
     t.integer  "time_slots_id"
+    t.datetime "chosen_time"
     t.index ["time_slots_id"], name: "index_cohorts_on_time_slots_id", using: :btree
   end
 

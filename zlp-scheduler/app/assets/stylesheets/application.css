@@ -574,3 +574,15 @@ h3 {
   color: black;
   text-align: center;
 }
+
+/*admin/view_conflicts*/
+.specialBack {
+    position:relative;
+    top: 20px;
+    float: right;
+    background-color: transparent;
+    border: white;
+    color: white;
+    text-align: center;
+    font-size: 20px
+}

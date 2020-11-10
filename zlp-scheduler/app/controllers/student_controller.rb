@@ -11,6 +11,9 @@ class StudentController < ApplicationController
     id = session[:user_id]
     @user = User.find(id)
     @term = Term.find_by active: 1;
+    chosen_time_start = Cohort.find(@user.cohort_id).chosen_time
+    chosen_time_end = chosen_time_start.advance(:hours => 2)
+    @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M")
     if not in_open_term?
       redirect_to closed_path and return
     end
@@ -90,12 +93,18 @@ class StudentController < ApplicationController
       @schedule = Schedule.new
       @schedule.update_attributes(:name => params[:schedule][:name])
       @user.schedules.push(@schedule)
+      warning_word = ""
       7.times do |n|
         subj_symb = "dept_id_#{n+1}".to_sym
         number_symb = "course_num_id_#{n+1}".to_sym
         section_symb = "section_num_id_#{n+1}".to_sym
         check_symb = "mand_#{n+1}".to_sym
-        if !(params[section_symb] == "")
+        
+        if (params[subj_symb] != "" and params[number_symb] == "") or (params[subj_symb] != "" and params[section_symb] == "")
+          warning_word = " Courses without course number or section number will not be added in the schedule!"
+        end
+        
+        if params[subj_symb] != "" and params[number_symb]!= "" and params[section_symb]!=""
           subj = Subject.find(params[subj_symb]).subject_code
           @course = Course.where(:abbreviated_subject => subj, :course_number => params[number_symb], :section_number => params[section_symb], :term_id => @term.id)
           @schedule.courses.push(@course)
@@ -106,7 +115,7 @@ class StudentController < ApplicationController
           end
         end
       end
-      flash[:notice] = 'Schedule added!'
+      flash[:notice] = 'Schedule added!' + warning_word
       redirect_to view_terms_path
     end
   end

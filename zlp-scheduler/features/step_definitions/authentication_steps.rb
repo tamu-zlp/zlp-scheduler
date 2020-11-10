@@ -58,6 +58,35 @@ Then(/^the current term is (not )?open$/) do |is_not|
   end
 end
 
+When('I click on the signup link') do
+  click_link('New User?')
+end
+
+When('I click on the forgot password link') do
+  click_link('Forgot Password?')
+end
+
+When('I fill in the sign up form') do
+  fill_in "user[uin]", :with => @user.uin
+  fill_in "user[email]", :with => @user.email
+  fill_in "user[password_confirmation]", :with => @user.password
+  click_button("Sign up")end
+
+And('I fill in the password reset form') do
+  fill_in "email", :with => @user.email
+  click_button("Reset Password")
+end
+
+When('I confirm the reset') do
+  open_email(@user.email)
+  visit_in_email("Reset password")
+end
+
+Then('I should see the reset instructions') do
+  expect(page).to have_content("Reset Password")
+  expect(page).to have_content("Retype password")
+end
+
 Given /I am (not )?in the active cohort$/ do |is_not|
   if not is_not
     @cohort.term_id = @term.id
