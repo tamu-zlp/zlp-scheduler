@@ -1,5 +1,9 @@
 %div#viewCohortDiv
     %h1{:style => "text-align:center"} #{@cohort.name}
+    
+    - if @chosen_time.present?
+        #{@chosen_time}
+        
     %table#resultTable
         %tr
             %th#specialTableHeader Name

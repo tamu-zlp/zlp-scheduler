@@ -88,8 +88,12 @@ class AdminController < ApplicationController
   end
   
   def view_cohort_semester
+    
     @cohort = Cohort.find(params[:id])
     @users = @cohort.users
+    chosen_time_start = Cohort.find(@users.first().cohort_id).chosen_time
+    chosen_time_end = chosen_time_start.advance(:hours => 2)
+    @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M")
   end
   
   def delete_cohort
@@ -173,4 +177,12 @@ class AdminController < ApplicationController
       end
     end
   end
+  
+  def select_time
+    @cohort = Cohort.find(params[:cohort_id])
+    @time_selected = TimeSlot.find(params[:result_id])
+    @cohort.chosen_time = @time_selected.time
+    @cohort.save
+  end
+  
 end
