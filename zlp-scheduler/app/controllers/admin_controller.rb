@@ -155,6 +155,7 @@ class AdminController < ApplicationController
     @conflict = TimeSlot.find(params[:conflict_id]).conflicts
     @mandatory_dict = {false => "False", true => "True"}
     @conflict.each do |conf|
+      puts conflict.id
       if conf.user_id.present?
         student = User.find(conf.user_id)
         name = student.firstname + ' ' + student.lastname

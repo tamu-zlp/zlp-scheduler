@@ -22,11 +22,15 @@ Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
   term = Term.find_by(:active => true)
   active_cohort = Cohort.find_by(:name => cohort_name)
   if page_name == 'view result'
+    puts page.body
     expect(current_path).to eq "/admin/view_result/#{active_cohort.id}"
   elsif page_name == 'view cohort'
     expect(current_path).to eq "/admin/cohorts/#{active_cohort.id}"
   elsif page_name == 'view conflicts'
-    expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}"
+    #timeslot = TimeSlot.find_by(:time => DateTime.new(2001,2,3,8,0,6,'-05:00'), :cohort_id => active_cohort.id)
+    timeslot = TimeSlot.where(:cohort_id => active_cohort.id).order(:cost).limit(1).first
+    puts timeslot.time
+    expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}/#{timeslot.id+1}"
   else
     fail("not valid page name")
   end
