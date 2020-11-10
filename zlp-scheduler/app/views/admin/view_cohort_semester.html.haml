@@ -2,7 +2,7 @@
     %h1{:style => "text-align:center"} #{@cohort.name}
     
     - if @chosen_time.present?
-        #{@chosen_time}
+        %p{:style => "color:white;"} #{@chosen_time}
         
     %table#resultTable
         %tr

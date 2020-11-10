@@ -92,8 +92,10 @@ class AdminController < ApplicationController
     @cohort = Cohort.find(params[:id])
     @users = @cohort.users
     chosen_time_start = Cohort.find(@users.first().cohort_id).chosen_time
-    chosen_time_end = chosen_time_start.advance(:hours => 2)
-    @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M")
+    if chosen_time_start.present?
+      chosen_time_end = chosen_time_start.advance(:hours => 2)
+      @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M")
+    end
   end
   
   def delete_cohort
