@@ -63,3 +63,11 @@ Scenario: Can't delete only admin
   Then I should see the manage administrators page
   And I should see "There must be at least 1 administrator at all times."
   
+Scenario: Admin deletes themselves
+  When I click "Manage Administrators"
+  And I click "Add Administrator"
+  And I fill in the add admin form
+  And I click "Delete"
+  Then I should see the login page
+  And I should see "You have deleted yourself."
+  

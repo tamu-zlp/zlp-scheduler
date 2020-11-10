@@ -124,6 +124,7 @@ class AdminController < ApplicationController
     if @user == @admin
       @admin.destroy
       flash[:warning] = "You have deleted yourself."
+      session[:user_id] = nil
       redirect_to "/"
     else
       flash[:notice] = "Administrator deleted!"
