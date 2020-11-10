@@ -21,3 +21,8 @@ When /^I edit the administrator/ do
     fill_in "user_lastname", with: "Smith"
     click_button("Update")
 end
+
+When /^I delete the new admin$/ do
+    user = User.find_by(:email => "blah@tamu.edu")
+    click_link("Delete", :href => "/admins/#{user.id}")
+end

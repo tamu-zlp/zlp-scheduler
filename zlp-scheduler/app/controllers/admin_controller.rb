@@ -127,6 +127,7 @@ class AdminController < ApplicationController
       session[:user_id] = nil
       redirect_to "/"
     else
+      @admin.destroy
       flash[:notice] = "Administrator deleted!"
       redirect_to manage_administrators_path
     end

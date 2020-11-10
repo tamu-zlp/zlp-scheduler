@@ -71,3 +71,12 @@ Scenario: Admin deletes themselves
   Then I should see the login page
   And I should see "You have deleted yourself."
   
+Scenario: Delete other admin
+  When I click "Manage Administrators"
+  And I click "Add Administrator"
+  And I fill in the add admin form
+  And I delete the new admin
+  Then I should see the manage administrators page
+  And I should see "Administrator deleted!"
+  And I should not see "blah@tamu.edu"
+  
