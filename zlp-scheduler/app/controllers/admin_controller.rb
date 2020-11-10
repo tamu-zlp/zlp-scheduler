@@ -91,9 +91,14 @@ class AdminController < ApplicationController
     
     @cohort = Cohort.find(params[:id])
     @users = @cohort.users
-    chosen_time_start = Cohort.find(@users.first().cohort_id).chosen_time
-    chosen_time_end = chosen_time_start.advance(:hours => 2)
-    @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M")
+    date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
+    if @cohort.chosen_time.present?
+      chosen_timeslot = TimeSlot.find(@cohort.chosen_time)
+      puts chosen_timeslot.id
+      chosen_time_start = chosen_timeslot.time
+      chosen_time_end = chosen_time_start.advance(:hours => 2)
+      @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M") + " " + date_dict[chosen_timeslot.day]
+    end
   end
   
   def delete_cohort
@@ -181,8 +186,9 @@ class AdminController < ApplicationController
   def select_time
     @cohort = Cohort.find(params[:cohort_id])
     @time_selected = TimeSlot.find(params[:result_id])
-    @cohort.chosen_time = @time_selected.time
+    @cohort.chosen_time = @time_selected.id
     @cohort.save
+    
   end
   
 end
