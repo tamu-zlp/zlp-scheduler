@@ -30,7 +30,7 @@ Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
     #timeslot = TimeSlot.find_by(:time => DateTime.new(2001,2,3,8,0,6,'-05:00'), :cohort_id => active_cohort.id)
     timeslot = TimeSlot.where(:cohort_id => active_cohort.id).order(:cost).limit(1).first
     puts timeslot.time
-    expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}/#{timeslot.id+1}"
+    expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}/#{timeslot.id}"
   else
     fail("not valid page name")
   end
