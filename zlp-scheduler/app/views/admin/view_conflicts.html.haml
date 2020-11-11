@@ -16,5 +16,5 @@
           %td#specialTableData #{result[1]}
           %td#specialTableData #{result[2]}
           %td#specialTableData #{@mandatory_dict[result[3]]}
-    // = button_to "Back", view_result_path(@cohort.id), method: :get, form_class: "backbtn"
-    = link_to 'Return to Result Page', 'javascript:history.go(-1);', class: "specialBack"
+    = button_to "Back", view_result_path(@cohort.id), method: :get, form_class: "backbtn"
+    // = link_to 'Return to Result Page', 'javascript:history.go(-1);', class: "specialBack"
