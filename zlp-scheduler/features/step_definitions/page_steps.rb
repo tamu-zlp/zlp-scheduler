@@ -13,6 +13,26 @@ Then(/^I should see the (.+) page$/) do |page_name|
     expect(current_path).to eq "/admin/manage_administrators"
   elsif page_name == 'login'
     expect(current_path).to eq "/"
+  elsif page_name == 'view cohort semester'
+    expect(current_path).to eq "/admin/view_cohort_semester"
+  else
+    fail("not valid page name")
+  end
+end
+
+Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
+  term = Term.find_by(:active => true)
+  active_cohort = Cohort.find_by(:name => cohort_name)
+  if page_name == 'view result'
+    expect(current_path).to eq "/admin/view_result/#{active_cohort.id}"
+  elsif page_name == 'view cohort'
+    expect(current_path).to eq "/admin/cohorts/#{active_cohort.id}"
+  elsif page_name == 'select time' 
+    timeslot = TimeSlot.where(:cohort_id => active_cohort.id, :was_conflict => false).order(:cost).limit(1).first
+    expect(current_path).to eq "/admin/select_time/#{active_cohort.id}/#{timeslot.id}"
+  elsif page_name == 'view conflicts'
+    timeslot = TimeSlot.where(:cohort_id => active_cohort.id).order(:cost).limit(1).first
+    expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}/#{timeslot.id}"
   else
     fail("not valid page name")
   end

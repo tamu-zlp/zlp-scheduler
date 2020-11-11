@@ -22,6 +22,7 @@ Given /"(.*)" is in the current term/ do |cohort|
     term = Term.find_by(:active => true)
     active_cohort = Cohort.find_by(:name => cohort)
     active_cohort.term_id = term.id
+    active_cohort.save
 end
 
 Given /I am logged in as an admin/ do
@@ -33,6 +34,11 @@ end
 When /I click "(.*)"/ do |action|
     click_link("#{action}", match: :first)
 end
+
+When /I click button "(.*)"/ do |action|
+    click_button("#{action}", match: :first)
+end
+
 
 When /I fill in the new term form( without cohorts)?/ do |cohorts|
     select("New Test Term", from: 'Term:')
