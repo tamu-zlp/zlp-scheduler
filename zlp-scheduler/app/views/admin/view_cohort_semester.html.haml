@@ -2,7 +2,7 @@
     %h1{:style => "text-align:center"} #{@cohort.name}
     
     - if @chosen_time.present?
-        %p{:style => "color:white;"} #{@chosen_time}
+        %p#chosenTime The meeting time for this term is #{@chosen_time}
         
     %table#resultTable
         %tr
