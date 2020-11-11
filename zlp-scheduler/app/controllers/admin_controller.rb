@@ -121,7 +121,7 @@ class AdminController < ApplicationController
     @admins = User.where(:role => 'admin')
     if @admins.length == 1
       flash[:warning] = "There must be at least 1 administrator at all times."
-      redirect_to manage_administrators_path
+      redirect_to manage_administrators_path and return
     end
     id = session[:user_id]
     @user = User.find(id)
@@ -129,8 +129,10 @@ class AdminController < ApplicationController
     if @user == @admin
       @admin.destroy
       flash[:warning] = "You have deleted yourself."
+      session[:user_id] = nil
       redirect_to "/"
     else
+      @admin.destroy
       flash[:notice] = "Administrator deleted!"
       redirect_to manage_administrators_path
     end

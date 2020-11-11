@@ -25,7 +25,7 @@ Given /"(.*)" is in the current term/ do |cohort|
 end
 
 Given /I am logged in as an admin/ do
-    @user = FactoryBot.create(:user, :role => "admin")
+    @user = FactoryBot.create(:user, :role => "admin", :firstname => "Jane", :lastname => "Doe")
     visit "/"
     fill_login_form
 end
