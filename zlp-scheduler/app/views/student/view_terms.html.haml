@@ -7,7 +7,7 @@
     %h1#welcomeUser{:style => "text-align:center"} Howdy, #{@current_user.firstname}!
     
     - if @chosen_time.present?
-        %p{:style => "color:white;"} #{@chosen_time}
+        %p#chosenTime The meeting time for this term is #{@chosen_time}
     
     %div#studentViewTermsDiv
         %table#studentTermTable
