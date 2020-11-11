@@ -20,4 +20,7 @@
                     = f.text_field :uin, :value => @user.uin
         %br
         = f.submit "Update", :class => 'button_link'
-        = link_to "Cancel", manage_cohorts_path, :class => 'button_link'
+        - if @user.admin?
+            = link_to "Cancel", manage_administrators_path, :class => 'button_link'
+        - else
+            = link_to "Cancel", manage_cohorts_path, :class => 'button_link'
