@@ -46,13 +46,13 @@ class UsersController < ApplicationController
   
   def import_from_excel
     begin
-      file = params[:file]
-      if !file
+      if !params[:file]
         record_message = "Import Failed : File is not chosen"
       elsif params[:name].empty?
         record_message = "Import Failed : Cohort name is not assigned"
       else
         # Retreive the extension of the file
+        file = params[:file]
         file_ext = File.extname(file.original_filename)
         # raise "Unknown file type: #{file.original_filename}" unless [".xls", ".xlsx"].include?(file_ext)
         if [".xls", ".xlsx"].include?(file_ext)
