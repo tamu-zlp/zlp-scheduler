@@ -45,10 +45,9 @@ class UsersController < ApplicationController
   end
   
   def import_from_excel
-    file = nil
     file = params[:file]
     begin
-      if !params[:file]
+      if !file
         record_message = "Import Failed : File is not chosen"
       elsif params[:name].empty?
         record_message = "Import Failed : Cohort name is not assigned"
