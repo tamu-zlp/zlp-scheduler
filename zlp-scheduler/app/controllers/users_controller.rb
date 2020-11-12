@@ -45,8 +45,8 @@ class UsersController < ApplicationController
   end
   
   def import_from_excel
-    file = params[:file]
     begin
+      file = params[:file]
       if !file
         record_message = "Import Failed : File is not chosen"
       elsif params[:name].empty?
