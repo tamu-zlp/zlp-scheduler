@@ -4,6 +4,9 @@ class StudentController < ApplicationController
 
   def in_open_term?
     cohort = Cohort.find(@user.cohort_id)
+    if !@term.opendate
+      return false
+    end
     return DateTime.current >= @term.opendate && DateTime.current < @term.closedate && cohort.term_id == @term.id
   end
   
