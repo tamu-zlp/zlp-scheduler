@@ -3,19 +3,20 @@
     
     - if @chosen_time.present?
         %p#chosenTime The meeting time for this term is #{@chosen_time}
-        
-    %table#resultTable
-        %tr
-            %th#specialTableHeader Name
-            %th#specialTableHeader Schedules Added
-        - @users.each do |user|
+    
+    %div#tableWrapper
+        %table#resultTable
             %tr
-                %td#specialTableData #{user.firstname} #{user.lastname}
-                %td#specialTableData
-                    - if (user.schedules != [])
-                        Yes
-                    - else
-                        No
+                %th#specialTableHeader Name
+                %th#specialTableHeader Schedules Added
+            - @users.each do |user|
+                %tr
+                    %td#specialTableData #{user.firstname} #{user.lastname}
+                    %td#specialTableData
+                        - if (user.schedules != [])
+                            Yes
+                        - else
+                            No
 %div#viewCohortDiv
     -if @cohort.time_slots.present?
         = link_to "Find Class Time" , view_result_path(@cohort.id), :class => 'button_link'
