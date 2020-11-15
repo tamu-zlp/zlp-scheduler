@@ -3,7 +3,7 @@ class Scheduler_2
     
     def self.is_conflict?(day,current_time,schedule)
         schedule.courses.each do |course|
-            if course.meeting_days.include? day
+            if course.meeting_days.present? and course.meeting_days.include? day
                 if course.meetingtime_start.in_time_zone(-5).strftime("%H%M") <= current_time.strftime("%H%M") and current_time.strftime("%H%M") <= course.meetingtime_end.in_time_zone(-5).strftime("%H%M")
                     return course
                 elsif course.meetingtime_start.in_time_zone(-5).strftime("%H%M") <= current_time.advance(:hours => 2).strftime("%H%M") and current_time.advance(:hours => 2).strftime("%H%M") <= course.meetingtime_end.in_time_zone(-5).strftime("%H%M")
@@ -66,6 +66,7 @@ class Scheduler_2
                 @time_slot.time = current_time
                 @total_cost = 0
                 @conflict = false
+                @true_conflict = false
                 
                 cohort.users.each do |student|
                     
@@ -74,7 +75,7 @@ class Scheduler_2
                             if @conflict.is_a? false.class
                                 break
                             else
-                                #print(@conflict)
+                                print(@conflict)
                                 #start_time = Time.now
                                 @conflict_mod = Conflict.new
                                 @conflict_mod.user = student
@@ -90,6 +91,10 @@ class Scheduler_2
                             end
 
                     end
+                    if not @conflict.is_a? false.class or @true_conflict == true
+                        @true_conflict = true
+                    end
+                    
                 end
                 
                 
@@ -108,7 +113,7 @@ class Scheduler_2
                 
                 @time_slot.cost = @total_cost + @time_preference_cost #@time_preference_mod.cost
                 
-                if @conflict.is_a? false.class
+                if not @true_conflict
                     @time_slot.was_conflict = false
                 else
                     #print("Set Conflict")
