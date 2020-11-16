@@ -75,7 +75,7 @@ class Scheduler_2
                             if @conflict.is_a? false.class
                                 break
                             else
-                                print(@conflict)
+                                #print(@conflict)
                                 #start_time = Time.now
                                 @conflict_mod = Conflict.new
                                 @conflict_mod.user = student
