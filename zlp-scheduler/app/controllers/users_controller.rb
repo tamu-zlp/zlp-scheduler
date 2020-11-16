@@ -45,29 +45,40 @@ class UsersController < ApplicationController
   end
   
   def import_from_excel
-     file = params[:file]
-     @cohort = Cohort.new
-     @cohort.update_attributes(:name => params[:name])
     begin
-      # Retreive the extension of the file
-      file_ext = File.extname(file.original_filename)
-      raise "Unknown file type: #{file.original_filename}" unless [".xls", ".xlsx"].include?(file_ext)
-      spreadsheet = (file_ext == ".xls") ? Roo::Excel.new(file.path) : Roo::Excelx.new(file.path)
-      header = spreadsheet.row(1)
-      ## We are iterating from row 2 because we have left row one for header
-      (2..spreadsheet.last_row).each do |i|
-        @user = User.new
-        puts spreadsheet.row(i)[0]
-        @user.firstname = spreadsheet.row(i)[0]
-        @user.lastname = spreadsheet.row(i)[1]
-        @user.uin = spreadsheet.row(i)[2]
-        @user.email = spreadsheet.row(i)[3]
-        @user.role = 'student'
-        @user.password = "Temp"
-        @user.save
-        @cohort.users.push(@user)
-    end
-    flash[:notice] = "Records Imported"
+      file = params[:file]
+      if !file
+        record_message = "Import Failed : File is not chosen"
+      elsif params[:name].empty?
+        record_message = "Import Failed : Cohort name is not assigned"
+      else
+        # Retreive the extension of the file
+        file_ext = File.extname(file.original_filename)
+        # raise "Unknown file type: #{file.original_filename}" unless [".xls", ".xlsx"].include?(file_ext)
+        if [".xls", ".xlsx"].include?(file_ext)
+          @cohort = Cohort.new
+          @cohort.update_attributes(:name => params[:name])
+          spreadsheet = (file_ext == ".xls") ? Roo::Excel.new(file.path) : Roo::Excelx.new(file.path)
+          header = spreadsheet.row(1)
+          ## We are iterating from row 2 because we have left row one for header
+          (2..spreadsheet.last_row).each do |i|
+            @user = User.new
+            puts spreadsheet.row(i)[0]
+            @user.firstname = spreadsheet.row(i)[0]
+            @user.lastname = spreadsheet.row(i)[1]
+            @user.uin = spreadsheet.row(i)[2]
+            @user.email = spreadsheet.row(i)[3]
+            @user.role = 'student'
+            @user.password = "Temp"
+            @user.save
+            @cohort.users.push(@user)
+          end
+          record_message = "Records Imported"
+        else
+          record_message = "Import Failed :" + "Unknown file type: #{file.original_filename}"
+        end
+      end
+    flash[:notice] = record_message
     redirect_to manage_cohorts_path
     end
   end
