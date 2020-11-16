@@ -21,7 +21,7 @@ Then(/^I should see the (.+) page$/) do |page_name|
 end
 
 Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
-  term = Term.find_by(:active => true)
+   # term = Term.find_by(:active => true)
   active_cohort = Cohort.find_by(:name => cohort_name)
   if page_name == 'view result'
     expect(current_path).to eq "/admin/view_result/#{active_cohort.id}"
@@ -37,6 +37,8 @@ Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
     fail("not valid page name")
   end
 end
+
+
 
 When /I click the logo/ do
   click_link("Tamu zlp logo", match: :first)

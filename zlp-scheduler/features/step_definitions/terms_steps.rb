@@ -39,6 +39,12 @@ When /I click button "(.*)"/ do |action|
     click_button("#{action}", match: :first)
 end
 
+When(/^I go back$/) do
+    active_cohort = Cohort.find_by(:name => "Test Cohort")
+    visit "/admin/cohorts/#{active_cohort.id}"
+    # page.go_back
+    # page.evaluate_script('window.history.back()')
+end
 
 When /I fill in the new term form( without cohorts)?/ do |cohorts|
     select("New Test Term", from: 'Term:')
@@ -71,4 +77,14 @@ end
 Then /the term "(.*)" should be selected/ do |term|
     selected_term = Term.find_by(:name => term)
     expect(page.body.match?(/<option selected="selected" value="#{selected_term.id}">#{term}<\/option>/)).to eq true
+end
+
+
+
+Then /^I should see time slot selected for (.*)$/ do |cohort|
+    active_cohort = Cohort.find_by(:name => cohort)
+    result = TimeSlot.where(:cohort_id => active_cohort.id, :was_conflict => false).order(:cost).limit(1).first
+    expect(page.body.match?(/#{result.time.strftime("%H:%M")} - #{result.time.advance(:hours => 2).strftime("%H:%M")}/m)).to eq true  
+    @date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
+    expect(page.body.match?(/#{@date_dict[result.day]}/m)).to eq true
 end
