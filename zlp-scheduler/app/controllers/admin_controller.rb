@@ -36,6 +36,7 @@ class AdminController < ApplicationController
       end
       
       Term.update_all active: false
+      @term = Term.find(params[:term][:name])
       if @term.update_attributes(:active => true)
         @cohorts = params[:Cohorts]
         @cohorts.each do |c|
