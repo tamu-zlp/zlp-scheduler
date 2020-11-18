@@ -356,17 +356,20 @@ select {
     text-align: center
 }
 
-#customDropDownDiv table, #customDropDownDiv input[type="checkbox"] {
-    display: none
+[id*="customDropDownDiv"] table, [id*="customDropDownDiv"] input[type="checkbox"] {
+    display: none;
 }
 
-#customDropDownDiv input:checked ~ table {
-    display: table
+[id*="customDropDownDiv"] input:checked ~ table {
+    display: table;
 }
 
-#customDropDownDiv {
+[id*="customDropDownDiv"] {
+    position:relative;
     background-color: #4BA12F;
-    line-height: 40px
+    line-height: 40px;
+    overflow-y: auto;
+    height: 40px
 }
 
 #manageCohortLabel {
@@ -515,18 +518,29 @@ select {
 }
 
 /* result and conflict table css file */
+#tableWrapper {
+  overflow-y: auto; 
+  height: 350px;   
+}
+
 #resultTable, #conflictTable, #userTable, #adminTable, #termTable, #studentTermTable, #studentScheduleTable {
   width: 100%;
+  height: 50%;
+  position: relative;
   table-layout: fixed;
-  border: 1px solid white
+  border: 1px solid white;
+  overflow-y: auto; 
 }
 
 #termTable, #studentTermTable, #studentScheduleTable {
   width: 50%;
+  height: 50%;
+  position: relative;
   table-layout: fixed;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid white
+  border: 1px solid white;
+  overflow-y: auto; 
 }
 
 #specialTableHeader {
@@ -535,7 +549,9 @@ select {
   font-size: 15px;
   text-align: center;
   color: white;
-  background-color: green
+  background-color: green;
+  position: sticky;
+  top: 0;
 }
 
 #specialTableData {
@@ -551,6 +567,12 @@ select {
 #resultTable tr:hover td, #conflictTable tr:hover td, #termTable tr:hover td, #adminTable tr:hover td, #studentScheduleTable tr:hover td{
   background-color: rgb(51, 49, 190)
 }
+
+#resultTable tb {
+  height: 50%;
+  overflow-y: auto; 
+}
+
 
 h3 {
   position: relative;
