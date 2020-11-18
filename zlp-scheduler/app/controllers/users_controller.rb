@@ -44,14 +44,12 @@ class UsersController < ApplicationController
     redirect_to :back
   end
   
-  def import_from_excel
-     file = params[:file]
-     @cohort = Cohort.new
-     @cohort.update_attributes(:name => params[:name])
-    begin
-      # Retreive the extension of the file
-      file_ext = File.extname(file.original_filename)
-      raise "Unknown file type: #{file.original_filename}" unless [".xls", ".xlsx"].include?(file_ext)
+  def save_records(file)
+    file_ext = File.extname(file.original_filename)
+    # raise "Unknown file type: #{file.original_filename}" unless [".xls", ".xlsx"].include?(file_ext)
+    if [".xls", ".xlsx"].include?(file_ext)
+      @cohort = Cohort.new
+      @cohort.update_attributes(:name => params[:name])
       spreadsheet = (file_ext == ".xls") ? Roo::Excel.new(file.path) : Roo::Excelx.new(file.path)
       header = spreadsheet.row(1)
       ## We are iterating from row 2 because we have left row one for header
@@ -66,8 +64,25 @@ class UsersController < ApplicationController
         @user.password = "Temp"
         @user.save
         @cohort.users.push(@user)
+      end
+      flash[:notice] = "Records Imported"
+    else
+      flash[:warning] = "Import Failed : " + "Unknown file type: #{file.original_filename}"
     end
-    flash[:notice] = "Records Imported"
+    # return record_message
+  end
+  
+  def import_from_excel
+    begin
+      file = params[:file]
+      if !file
+        flash[:warning] = "Import Failed : File is not chosen"
+      elsif params[:name].empty?
+        flash[:warning] = "Import Failed : Cohort name is not assigned"
+      else
+        # Retreive the extension of the file
+        save_records(file)
+      end
     redirect_to manage_cohorts_path
     end
   end

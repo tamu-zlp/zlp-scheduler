@@ -1,10 +1,19 @@
+Given /The "(.*)" terms exist/ do |term|
+    
+    #@term = Term.create(term)
+    @term = Term.create(:name=>term)
+    @term.opendate = Date.current.yesterday
+    @term.closedate = Date.current.tomorrow
+    @term.active = true
+end
 
 Given(/^Registered student and Create term and courses$/) do
  
   Capybara.server = :webrick
+  
   @testing_department = ["ABC","DEF","GHI","JKL","MNO","PQR","STU"]
  
-  @cohort = FactoryBot.create(:cohort, :name=>"Test Cohort", :term_id=>@term.id)
+  @cohort = FactoryBot.create(:cohort, :name=>"Apple", :term_id=>@term.id)
   @cohort.save()
 
   @user = FactoryBot.create(:user, :role=>"student", :cohort_id=>@cohort.id)
@@ -20,7 +29,7 @@ Given(/^Registered student and Create term and courses$/) do
     end
     @subject.save()
   end
-  
+ 
   @fake_schedule_name = []
   
 end
@@ -160,4 +169,12 @@ Then ("I should see added course information") do
   
   expect(page).to have_xpath(".//tr", count: @record.length + 1)
   #print(page.all("#studentScheduleTable tr").count)
+end
+
+Then ("I should see Yes and No") do
+  
+  expect(page).to have_xpath(".//tr", count: 3)
+  expect(page.body.match?("Yes")).to eq true
+  expect(page.body.match?("No")).to eq true
+  
 end
