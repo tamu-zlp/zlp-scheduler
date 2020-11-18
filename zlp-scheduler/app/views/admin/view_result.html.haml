@@ -9,11 +9,13 @@
       %tr
         %th#specialTableHeader Day
         %th#specialTableHeader Time
+        %th#specialTableHeader Cost
         %th#specialTableHeader Option
       -@results.each do |result|
         %tr
           %td#specialTableData #{@date_dict[result.day]} 
           %td#specialTableData #{result.time.strftime("%H:%M")} - #{result.time.advance(:hours => 2).strftime("%H:%M")}
+          %td#specialTableData #{result.cost}
           %td#specialTableData
             = button_to "Choose", select_time_path(@cohort.id,result.id), method: :post, form_class: "choosebtn"
 
@@ -23,10 +25,13 @@
       %tr
         %th#specialTableHeader Day
         %th#specialTableHeader Time
+        %th#specialTableHeader Cost
         %th#specialTableHeader Option
+        
       -@conflicts.each do |conf|
         %tr
           %td#specialTableData #{@date_dict[conf.day]} 
           %td#specialTableData #{conf.time.strftime("%H:%M")} - #{conf.time.advance(:hours => 2).strftime("%H:%M")}
+          %td#specialTableData #{conf.cost}
           %td#specialTableData
             = button_to "Details", view_conflicts_path(@cohort.id, conf.id), method: :get, form_class: "detailbtn"
