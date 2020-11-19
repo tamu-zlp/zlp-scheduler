@@ -31,6 +31,12 @@ Given /I am logged in as an admin/ do
     fill_login_form
 end
 
+Given /I am logged in as an student/ do
+    @user = FactoryBot.create(:user, :role => "student", :firstname => "Jane", :lastname => "Doe")
+    visit "/"
+    fill_login_form
+end
+
 When /I click "(.*)"/ do |action|
     click_link("#{action}", match: :first)
 end
@@ -39,9 +45,11 @@ When /I click button "(.*)"/ do |action|
     click_button("#{action}", match: :first)
 end
 
-When(/^I go back$/) do
-    active_cohort = Cohort.find_by(:name => "Test Cohort")
-    visit "/admin/cohorts/#{active_cohort.id}"
+When(/^I go to (.*) page$/) do |page_name|
+    if page_name == "view cohort"
+        active_cohort = Cohort.find_by(:name => "Test Cohort")
+        visit "/admin/cohorts/#{active_cohort.id}"
+    end
     # page.go_back
     # page.evaluate_script('window.history.back()')
 end

@@ -23,7 +23,7 @@ Scenario: View the view result and non-conflict result
   Then I should see the view result page for Test Cohort
   When I click button "Choose"
   Then I should see the select time page for Test Cohort
-  When I go back
+  When I go to view cohort page
   Then I should see the view cohort page for Test Cohort 
   Then I should see time slot selected for Test Cohort 
   
@@ -33,7 +33,8 @@ Scenario: View the view result and non-conflict result
   And I click "Find Class Time"
   And I click button "Details"
   Then I should see the view conflicts for Test Cohort
-  And I click "Return to "
+  And I click "Back"
+  Then I should see the view result page for Test Cohort
   
 
 

@@ -39,6 +39,12 @@ Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
 end
 
 
+When /^I am at (.+) page$/ do |page_name|
+  if page_name == "view_terms"
+    expect(current_path).to eq "/student/view_terms"
+  end
+end
+
 
 When /I click the logo/ do
   click_link("Tamu zlp logo", match: :first)
