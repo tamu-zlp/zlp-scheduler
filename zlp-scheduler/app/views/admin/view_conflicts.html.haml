@@ -4,17 +4,18 @@
     %title Conflicted Detail
   %body
     %h1{:style => "text-align:center"} Conflicted Time Slot Details
-    %table#conflictTable
-      %tr
-        %th#specialTableHeader Student Name
-        %th#specialTableHeader Course
-        %th#specialTableHeader Section
-        %th#specialTableHeader Mandatory
-      -@final_result.each do |result|
+    %div#tableWrapper
+      %table#conflictTable
         %tr
-          %td#specialTableData #{result[0]}
-          %td#specialTableData #{result[1]}
-          %td#specialTableData #{result[2]}
-          %td#specialTableData #{@mandatory_dict[result[3]]}
+          %th#specialTableHeader Student Name
+          %th#specialTableHeader Course
+          %th#specialTableHeader Section
+          %th#specialTableHeader Mandatory
+        -@final_result.each do |result|
+          %tr
+            %td#specialTableData #{result[0]}
+            %td#specialTableData #{result[1]}
+            %td#specialTableData #{result[2]}
+            %td#specialTableData #{@mandatory_dict[result[3]]}
     = button_to "Back", view_result_path(@cohort.id), method: :get, form_class: "backbtn"
     // = link_to 'Return to Result Page', 'javascript:history.go(-1);', class: "specialBack"
