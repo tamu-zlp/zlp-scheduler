@@ -35,7 +35,7 @@ Scenario: View the view result and non-conflict result
   And I click "Find Class Time"
   And I click button "Details"
   Then I should see the view conflicts page for Admin Test Cohort
-  And I click "Back"
+  And I click button "Back"
   Then I should see the view result page for Admin Test Cohort
   
 

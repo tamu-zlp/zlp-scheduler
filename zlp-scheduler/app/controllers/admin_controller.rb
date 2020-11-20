@@ -173,7 +173,7 @@ class AdminController < ApplicationController
         course = Course.find(conf.course_id)
         subject = Subject.find(course.subject_id).subject_code
         final_subject = subject + ' ' + course.course_number.to_s
-        section_number = Course.find(conf.user_id).section_number
+        section_number = course.section_number
         
         
         schedule_to_course = ScheduleToCourse.find_by(schedule_id: conf.schedule_id, course_id: course.id)
