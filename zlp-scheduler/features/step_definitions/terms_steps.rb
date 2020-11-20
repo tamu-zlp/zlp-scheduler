@@ -90,17 +90,7 @@ Then /the term "(.*)" should be selected/ do |term|
 end
 
 
-Then(/The term and cohort is opening$/) do
-    @term  = Term.find_by active: 1;
-    @term.opendate = Date.current.tomorrow
-    @term.closedate = Date.current.tomorrow
-    @term.save
-    @cohort.term_id = @term.id
-    @cohort.save
-  end
-
 Then /I should see time slot selected for (.*)$/ do |cohort|
-    puts page.body
     active_cohort = Cohort.find_by(:name => cohort)
     result = TimeSlot.where(:cohort_id => active_cohort.id, :was_conflict => false).order(:cost).limit(1).first
     expect(page.body.match?(/#{result.time.strftime("%H:%M")} - #{result.time.advance(:hours => 2).strftime("%H:%M")}/m)).to eq true  

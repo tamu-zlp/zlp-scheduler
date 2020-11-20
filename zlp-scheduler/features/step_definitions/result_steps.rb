@@ -1,20 +1,23 @@
-
-  Given('Student is created') do
-    @cohort = Cohort.find_by(:name => "Admin Test Cohort")
-    @user = FactoryBot.create(:user, :role=>"student", :cohort_id => @cohort.id)
-  end
-  
-  Given('I login back as a student') do
-      @cohort = Cohort.find_by(:name => "Admin Test Cohort")
-      @user = FactoryBot.create(:user, :role=>"student", :cohort_id => @cohort.id)
-      puts @user.email
-      puts @user.password
+  Given ('I login back as a student') do
+      create_student("Test Cohort")
       fill_in "Email", :with => @user.email
       fill_in "Password", :with => @user.password
       click_button("Log in")  
   end
-  Given('The schedule is added') do
-      @cohort = Cohort.find_by(:name => "Admin Test Cohort")
+  
+  Given ('The term is opened and cohort in it') do
+    @term  = Term.find_by active: 1
+    @term.opendate = Date.current.yesterday
+    @term.closedate = Date.current.tomorrow
+    @term.save;
+    @cohort =  Cohort.find_by(:name => "Test Cohort")
+    @cohort.term_id = @term.id
+    @cohort.save()
+  end
+  
+  Given ('The student has added his course to schedule') do
+      create_student("Test Cohort")
+      @cohort = Cohort.find_by(:name => "Test Cohort")
       @schedule = Schedule.new
       @schedule.update_attributes(:name => "test schedule")
       @subject = Subject.create!(subject_code: 'CHEN',subject_description:"Test", term_id: @term.id)
@@ -24,7 +27,9 @@
       @schedule.save
       @user.schedules.push(@schedule)   
       @user.save
-      puts @thecourse.first.id
-      
   end
   
+  def create_student(cohort_Name)
+      @cohort = Cohort.find_by(:name => cohort_Name)
+      @user = FactoryBot.create(:user, :role=>"student", :cohort_id => @cohort.id)
+  end

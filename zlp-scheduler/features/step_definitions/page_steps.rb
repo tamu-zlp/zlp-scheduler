@@ -21,7 +21,7 @@ Then(/^I should see the (.+) page$/) do |page_name|
 end
 
 Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
-   # term = Term.find_by(:active => true)
+  term = Term.find_by(:active => true)
   active_cohort = Cohort.find_by(:name => cohort_name)
   if page_name == 'view result'
     expect(current_path).to eq "/admin/view_result/#{active_cohort.id}"
@@ -29,7 +29,6 @@ Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
     expect(current_path).to eq "/admin/cohorts/#{active_cohort.id}"
   elsif page_name == 'view conflicts'
     timeslot = TimeSlot.where(:cohort_id => active_cohort.id,:was_conflict => true).order(cost: :asc,id: :asc).limit(1).first
-    puts timeslot
     expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}/#{timeslot.id}"
   else
     fail("not valid page name")
