@@ -27,10 +27,8 @@ Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
     expect(current_path).to eq "/admin/view_result/#{active_cohort.id}"
   elsif page_name == 'view cohort'
     expect(current_path).to eq "/admin/cohorts/#{active_cohort.id}"
-  elsif page_name == 'select time' 
-    timeslot = TimeSlot.where(:cohort_id => active_cohort.id, :was_conflict => false).order(:cost).limit(1).first
-    expect(current_path).to eq "/admin/select_time/#{active_cohort.id}/#{timeslot.id}"
   elsif page_name == 'view conflicts'
+    puts page.body
     timeslot = TimeSlot.where(:cohort_id => active_cohort.id).order(:cost).limit(1).first
     expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}/#{timeslot.id}"
   else
