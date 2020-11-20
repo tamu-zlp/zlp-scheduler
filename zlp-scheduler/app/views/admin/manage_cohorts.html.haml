@@ -2,10 +2,10 @@
     = javascript_include_tag 'application'
     %h1{:style => "text-align:center"} Manage Cohorts
     - @cohorts.each do |c|
-        // %div{:class => "custom_drop_down"}
-        %div#customDropDownDiv
+        // %div#customDropDownDiv
+        %div{:id => "customDropDownDiv_#{c.id}"}
             - id = c.id
-            %input{:type => "checkbox", :id => id}
+            %input{:type => "checkbox", :id => id, :onchange => "changeHeight(this.id)"}
             %label#manageCohortLabel{:for => id} #{c.name}
             = link_to 'Delete Current Cohort', delete_cohort_path(c), method: :delete, data: {confirm: 'Are you sure?'}, :id => 'rightButtonCohort'
             %table#resultTable

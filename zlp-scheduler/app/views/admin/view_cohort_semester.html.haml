@@ -3,21 +3,23 @@
     
     - if @chosen_time.present?
         %p#chosenTime The meeting time for this term is #{@chosen_time}
-        
-    %table#resultTable
-        %tr
-            %th#specialTableHeader Name
-            %th#specialTableHeader Schedules Added
-        - @users.each do |user|
+    
+    %div#tableWrapper
+        %table#resultTable
             %tr
-                %td#specialTableData #{user.firstname} #{user.lastname}
-                %td#specialTableData
-                    - if (user.schedules != [])
-                        Yes
-                    - else
-                        No
-%div#viewCohortDiv
+                %th#specialTableHeader Name
+                %th#specialTableHeader Schedules Added
+            - @users.each do |user|
+                %tr
+                    %td#specialTableData #{user.firstname} #{user.lastname}
+                    %td#specialTableData
+                        - if (user.schedules != [])
+                            Yes
+                        - else
+                            No
+                            
     -if @cohort.time_slots.present?
         = link_to "Find Class Time" , view_result_path(@cohort.id), :class => 'button_link'
-    = link_to "Run Algorithm" , run_algorithm_path(@cohort.id), :class => 'button_link', method: :post
+        
+    = link_to "Run Algorithm" , run_algorithm_path(@cohort.id), :class => 'button_link', method: :post, :data => {disable_with: "<i>The algorithm is running...</i>"}
     = link_to "Back to Home", view_term_admin_path, :class => 'button_link'

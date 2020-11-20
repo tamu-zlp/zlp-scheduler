@@ -36,6 +36,7 @@ class AdminController < ApplicationController
       end
       
       Term.update_all active: false
+      @term = Term.find(params[:term][:name])
       if @term.update_attributes(:active => true)
         @cohorts = params[:Cohorts]
         @cohorts.each do |c|
@@ -154,7 +155,6 @@ class AdminController < ApplicationController
   
   def view_result
     @cohort = Cohort.find(params[:cohort_id])
-    # Scheduler_2.Generate_time_slots(@cohort)
     @date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
     @results = TimeSlot.where(:was_conflict => false, :cohort_id => @cohort.id).order(cost: :asc,id: :asc).limit(200)
     @conflicts = TimeSlot.where(:was_conflict => true, :cohort_id => @cohort.id).order(cost: :asc,id: :asc).limit(100)
@@ -189,8 +189,16 @@ class AdminController < ApplicationController
     @cohort = Cohort.find(params[:cohort_id])
     @time_selected = TimeSlot.find(params[:result_id])
     @cohort.chosen_time = @time_selected.id
-    @cohort.save
     
+    chosen_day = @time_selected.day
+    chosen_time_start = @time_selected.time
+    chosen_time_end = chosen_time_start.advance(:hours => 2)
+    date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
+    time_display = chosen_time_start.time.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M") + " " + date_dict[chosen_day]
+    
+    flash[:notice] = "The time slot for this cohort had been updated to " + time_display
+    redirect_to view_result_path(params[:cohort_id])
+    @cohort.save
   end
   
 end
