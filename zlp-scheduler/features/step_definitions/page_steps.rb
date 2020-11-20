@@ -28,8 +28,8 @@ Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
   elsif page_name == 'view cohort'
     expect(current_path).to eq "/admin/cohorts/#{active_cohort.id}"
   elsif page_name == 'view conflicts'
-    puts page.body
     timeslot = TimeSlot.where(:cohort_id => active_cohort.id).order(:cost).limit(1).first
+    puts timeslot
     expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}/#{timeslot.id}"
   else
     fail("not valid page name")

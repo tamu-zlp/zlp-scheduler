@@ -92,6 +92,7 @@ end
 
 
 Then /I should see time slot selected for (.*)$/ do |cohort|
+    puts page.body
     active_cohort = Cohort.find_by(:name => cohort)
     result = TimeSlot.where(:cohort_id => active_cohort.id, :was_conflict => false).order(:cost).limit(1).first
     expect(page.body.match?(/#{result.time.strftime("%H:%M")} - #{result.time.advance(:hours => 2).strftime("%H:%M")}/m)).to eq true  

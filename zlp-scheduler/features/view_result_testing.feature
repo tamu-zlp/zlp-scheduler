@@ -39,6 +39,11 @@ Scenario: View the view result and non-conflict result
   Then I should see the view result page for Admin Test Cohort
   
 
-
-
-
+Scenario: student view the result
+  When I click "Admin Test Cohort"
+  And I click "Run Algorithm"
+  And I click "Find Class Time"
+  And I click button "Choose"
+  And I click on the log out link
+  And I login back as a student
+  Then I should see time slot selected for Admin Test Cohort
