@@ -92,4 +92,5 @@ Given /I am (not )?in the active cohort$/ do |is_not|
     @cohort.term_id = @term.id
     @cohort.save
   end
+  puts @cohort.name
 end

@@ -90,6 +90,14 @@ Then /the term "(.*)" should be selected/ do |term|
 end
 
 
+Then(/The term and cohort is opening$/) do
+    @term  = Term.find_by active: 1;
+    @term.opendate = Date.current.tomorrow
+    @term.closedate = Date.current.tomorrow
+    @term.save
+    @cohort.term_id = @term.id
+    @cohort.save
+  end
 
 Then /I should see time slot selected for (.*)$/ do |cohort|
     puts page.body
@@ -101,6 +109,5 @@ Then /I should see time slot selected for (.*)$/ do |cohort|
 end
 
 Then /I should see my class time/ do 
-    puts page.body
     expect(page.body.match?(/meeting time/m)).to eq true  
 end

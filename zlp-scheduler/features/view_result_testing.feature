@@ -45,5 +45,6 @@ Scenario: student view the result
   And I click "Find Class Time"
   And I click button "Choose"
   And I click on the log out link
+  And The term and cohort is opening
   And I login back as a student
   Then I should see time slot selected for Admin Test Cohort
