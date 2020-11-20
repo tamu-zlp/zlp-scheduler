@@ -22,7 +22,7 @@ Scenario: View the view result and non-conflict result
   When I click "Find Class Time"
   Then I should see the view result page for Test Cohort
   When I click button "Choose"
-  Then I should see the select time page for Test Cohort
+  Then I should see the view result page for Test Cohort
 
 
 

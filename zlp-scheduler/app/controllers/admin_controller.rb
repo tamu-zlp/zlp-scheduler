@@ -5,7 +5,7 @@ class AdminController < ApplicationController
   
   def view_term_admin
     @term = Term.find_by active: 1;
-    @cohorts = @term.cohorts
+    @cohorts = @term.cohorts.order(name: :asc)
   end
   
   def open_semester
@@ -18,7 +18,7 @@ class AdminController < ApplicationController
     else
       @term = Term.find_by active: 1;
     end
-    @cohorts = Cohort.all
+    @cohorts = Cohort.all.order(name: :asc)
     @cohort_names = []
     @cohorts.each do |s|
       @cohort_names.push(s.name)
@@ -82,7 +82,7 @@ class AdminController < ApplicationController
   end
   
   def manage_cohorts 
-    @cohorts = Cohort.all
+    @cohorts = Cohort.all.order(name: :asc)
   end
   
   def add_cohort
@@ -91,7 +91,7 @@ class AdminController < ApplicationController
   def view_cohort_semester
     
     @cohort = Cohort.find(params[:id])
-    @users = @cohort.users
+    @users = @cohort.users.order(lastname: :asc)
 
     date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
     if @cohort.chosen_time.present?
@@ -111,7 +111,7 @@ class AdminController < ApplicationController
   end
   
   def manage_administrators
-    @admins = User.where(:role => 'admin')
+    @admins = User.where(:role => 'admin').order(lastname: :asc)
   end
   
   def add_admin

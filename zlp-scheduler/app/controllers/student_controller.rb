@@ -60,7 +60,7 @@ class StudentController < ApplicationController
       subj = Subject.find(params[:dept_id])
       # map to name and id for use in our options_for_select
       @term = Term.find_by active: 1;
-      @courses = Course.where(:abbreviated_subject => subj.subject_code, :term_id => @term.id)
+      @courses = Course.where(:abbreviated_subject => subj.subject_code, :term_id => @term.id).order(course_number: :asc)
       @course_options = [];
       @courses.each do |c|
         @course_options.push(c.course_number)
@@ -80,7 +80,7 @@ class StudentController < ApplicationController
       course_num = params[:course_num_id]
       # map to name and id for use in our options_for_select
       @term = Term.find_by active: 1;
-      @sections = Course.where(:abbreviated_subject => subj.subject_code, :course_number => course_num, :term_id => @term.id)
+      @sections = Course.where(:abbreviated_subject => subj.subject_code, :course_number => course_num, :term_id => @term.id).order(section_number: :asc)
       @section_options = [];
       @sections.each do |c|
         @section_options.push(c.section_number)
