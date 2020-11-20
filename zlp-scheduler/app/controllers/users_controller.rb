@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     @user.destroy
     
     flash[:notice] = 'User deleted!'
-    redirect_to :back
+    redirect_to manage_cohorts_path()
   end
   
   def save_records(file)
