@@ -43,7 +43,9 @@ class UsersController < ApplicationController
     @user.destroy
     
     flash[:notice] = 'User deleted!'
-    redirect_to :back
+    redirect_to manage_cohorts_path()
+    #redirect_back(fallback_location: root_path)
+    #redirect_to :back
   end
   
   def save_records(file)

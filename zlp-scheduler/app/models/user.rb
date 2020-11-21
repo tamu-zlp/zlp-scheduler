@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
   validates :email, uniqueness: true
-  has_many :schedules
+  has_many :schedules, dependent: :destroy
   has_one :cohort
   
   #takes care of caps/spaces inconsistency in email during registration
