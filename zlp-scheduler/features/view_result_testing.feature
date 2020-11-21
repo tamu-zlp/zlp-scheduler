@@ -35,7 +35,6 @@ Scenario: View the view result and non-conflict result
   Then I should see the view conflicts page for Test Cohort
   And I click button "Back"
   Then I should see the view result page for Test Cohort
-  
 
 Scenario: student view the result
   When I click "Test Cohort"

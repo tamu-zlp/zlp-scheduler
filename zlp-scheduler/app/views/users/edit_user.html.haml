@@ -15,7 +15,7 @@
                 %td#specialTableData
                     = f.text_field :lastname, :value => @user.lastname
                 %td#specialTableData
-                    = f.text_field :email, :value => @user.email
+                    = f.email_field :email, :placeholder => "Email", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :value => @user.email
                 %td#specialTableData
                     = f.text_field :uin, :value => @user.uin
         %br

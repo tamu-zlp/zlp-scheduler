@@ -10,11 +10,12 @@
         %p#chosenTime The meeting time for this term is #{@chosen_time}
     
     %div#studentViewTermsDiv
+        %h3{:style => "text-align:center", :color => "green"} You may add up to three schedules for this term. Please add them in the order of preference (first schedule added is the highest preferred).
         %table#studentTermTable
             %tr
                 %th#specialTableHeader{:colspan => "2", :class => 'tooltip'} 
                     #{@term.name}
-                    %span{:class => 'tooltiptext'}You may add up to three schedules for this term. Please add them in the order of preference (first schedule added is the highest preferred).
+                    // %span{:class => 'tooltiptext'}You may add up to three schedules for this term. Please add them in the order of preference (first schedule added is the highest preferred).
             %tr
                 %th#specialTableHeader Schedule
                 %th#specialTableHeader Option

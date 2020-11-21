@@ -36,3 +36,5 @@
             %td#specialTableData #{conf.cost}
             %td#specialTableData
               = button_to "Details", view_conflicts_path(@cohort.id, conf.id), method: :get, form_class: "detailbtn"
+    %p{:style => "text-align:right"}
+      = link_to "Back", view_cohort_semester_path(@cohort.id), :class => 'button_link'

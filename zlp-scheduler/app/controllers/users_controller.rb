@@ -1,21 +1,23 @@
 class UsersController < ApplicationController
-  
+  before_action :require_admin, only: %i[edit_user delete_user save_records import_from_excel create]
+
   def new
     @user = User.new
   end
-  
+
   def add_cohort
     @cohort = Cohort.new
   end
-  
+
   def download_excel_example
     send_file "#{Rails.root}/app/assets/docs/example.xlsx", x_sendfile: true
   end
-  
+
   def edit_user
+    redirect_to '/' unless current_user.admin?
     @user = User.find(params[:id])
   end
-  
+
   def patch_user
     @user = User.find(params[:id])
     @user.firstname = params[:user][:firstname]
@@ -99,32 +101,29 @@ class UsersController < ApplicationController
     redirect_to manage_administrators_path
   end
 
-    
-    def update_user
-      #check if there is a record for them in users
-      @user = User.where(:email => params[:user][:email], :uin => params[:user][:uin], :role => params[:user][:role])
-      if @user.empty?
-        flash[:warning] = "The director has not registered your email."
-        redirect_to '/signup' 
+  def update_user
+    # check if there is a record for them in users
+    @user = User.where(email: params[:user][:email], uin: params[:user][:uin], role: params[:user][:role])
+    if @user.empty?
+      flash[:warning] = 'The director has not registered your email.'
+      redirect_to '/signup'
+    else
+      @user[0].update_attributes(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
+      @user[0].save
+      session[:user_id] = @user[0].id
+      @term = Term.find_by active: 1
+      Term.ImportTermList! if @term.nil?
+      if current_user.admin?
+        redirect_to view_term_admin_path, notice: 'Logged in!'
       else
-        @user[0].update_attributes(:password => params[:user][:password], :password_confirmation => params[:user][:password_confirmation])
-        @user[0].save
-        session[:user_id] = @user[0].id
-        @term = Term.find_by active: 1
-        if @term.nil?
-          Term.ImportTermList!
-        end
-        if current_user.admin?
-          redirect_to view_term_admin_path, :notice => "Logged in!" 
-        else
-          redirect_to '/student/view_terms', :notice => "Logged in!"
-        end
+        redirect_to '/student/view_terms', notice: 'Logged in!'
       end
-    end  
-  
-    private
-      def user_params
-        params.require(:user).permit(:role, :uin, :lastname, :firstname, :email, :password, :password_confirmation)
-      end 
-    
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:role, :uin, :lastname, :firstname, :email, :password, :password_confirmation)
+  end
 end
