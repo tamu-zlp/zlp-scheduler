@@ -28,12 +28,20 @@ Then (/^I should see the (.+) page for (.+)$/) do |page_name, cohort_name|
   elsif page_name == 'view cohort'
     expect(current_path).to eq "/admin/cohorts/#{active_cohort.id}"
   elsif page_name == 'view conflicts'
-    timeslot = TimeSlot.where(:cohort_id => active_cohort.id).order(:cost).limit(1).first
+    timeslot = TimeSlot.where(:cohort_id => active_cohort.id,:was_conflict => true).order(cost: :asc,id: :asc).limit(1).first
     expect(current_path).to eq "/admin/view_conflicts/#{active_cohort.id}/#{timeslot.id}"
   else
     fail("not valid page name")
   end
 end
+
+
+When /^I am at (.+) page$/ do |page_name|
+  if page_name == "view_terms"
+    expect(current_path).to eq "/student/view_terms"
+  end
+end
+
 
 When /I click the logo/ do
   click_link("Tamu zlp logo", match: :first)
