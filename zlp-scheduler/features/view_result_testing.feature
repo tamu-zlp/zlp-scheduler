@@ -1,5 +1,5 @@
 Feature: As an admin, I can choose a time slot for course time
-  and viwe the result I have chosen.
+  and view the result I have chosen.
   As a student, I will see the result the admin has chosen. 
   
 
