@@ -15,6 +15,8 @@ Then(/^I should see the (.+) page$/) do |page_name|
     expect(current_path).to eq "/"
   elsif page_name == 'view cohort semester'
     expect(current_path).to eq "/admin/view_cohort_semester"
+  elsif page_name == 'manage cohorts'
+    expect(current_path).to eq "/admin/manage_cohorts"
   else
     fail("not valid page name")
   end
