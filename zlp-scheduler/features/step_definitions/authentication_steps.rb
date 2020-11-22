@@ -87,6 +87,18 @@ Then('I should see the reset instructions') do
   expect(page).to have_content("Retype password")
 end
 
+When (/^I wait (\d+) (\w+)$/) do |time_amount, time_units|
+  Timecop.travel time_amount.send(time_units.to_sym)
+end
+
+Then('I should see the password reset error') do
+  expect(page).to have_content("Email is not registered")
+end
+
+Then('I should see the password reset has expired') do
+  expect(page).to have_content("Password reset has expired")
+end
+
 Given /I am (not )?in the active cohort$/ do |is_not|
   if not is_not
     @cohort.term_id = @term.id

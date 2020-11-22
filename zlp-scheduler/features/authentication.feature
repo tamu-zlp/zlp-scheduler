@@ -78,8 +78,18 @@ Scenario: A Unregistered Student Reset Password Failed
   And I visit the index page
   When I click on the forgot password link
   And I fill in the password reset form
-  And I should receive no email
+  Then I should receive no email
+  And I should see the password reset error
 
+Scenario: A Student Reset Password expired
+  Given I am a registered student
+  And I visit the index page
+  When I click on the forgot password link
+  And I fill in the password reset form
+  Then I should receive an email
+  And I wait 2 hours
+  When I confirm the reset
+  Then I should see the password reset has expired
 # Scenario: A Registered User Can Claim His Account
 # Scenario: A Registered User Cannot Claim His Account when UIN and Email not match
 # Scenario: A Unregistered User Cannot Claim His Account
