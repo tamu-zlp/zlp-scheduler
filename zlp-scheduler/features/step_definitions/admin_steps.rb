@@ -32,9 +32,7 @@ When /I click the label "(.*)"/ do |text|
 end
 
 When /I want to delete specific student/ do
-    
     user = User.find_by(:cohort_id => @cohort.id)
-    
     click_link("Delete", :href => "/users/#{user.id}")
 end
 
@@ -43,28 +41,14 @@ When /I want to delete specific cohort/ do
 end
 
 When /I edit "(.*)" in the page/ do |word| 
-   
    dic = {"firstname"=>"user_firstname", "lastname"=>"user_lastname", "valid-email"=>"user_email","invalid-email"=>"user_email","existed-email"=>"user_email","Uin"=>"user_uin"}
    val = {"firstname"=>"Corgi_Dog", "lastname"=>"Corgi_M", "valid-email"=>"corgi_mocha@tamu.edu","invalid-email"=>"corgi_mocha@gmail.com","existed-email"=>@user.email,"Uin"=>"999999999"}
    fill_in dic[word], with: val[word]
    @route = current_path
-   
 end
 
 When /I should remain in the same page/ do
     expect(current_path).to eq @route
-end
-
-When /I click confirm in dialog/ do
-    
-    while true do
-      begin
-        page.driver.browser.switch_to.alert.accept
-      rescue Selenium::WebDriver::Error::NoSuchAlertError
-        break
-      end
-    end
-    
 end
 
 When /I see the message "(.*)"/ do |text|
