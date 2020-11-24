@@ -114,20 +114,17 @@ class UsersController < ApplicationController
       @user.errors.add(:email, 'is already claimed before')
       render 'new'
     else
-      @user.update_attributes(password: params[:user][:password],
-                              password_confirmation: params[:user][:password_confirmation],
-                              activate: true)
+      @user.update_attributes(password: params[:user][:password], activate: true,
+                              password_confirmation: params[:user][:password_confirmation])
       if @user.save
         session[:user_id] = @user.id
         @term = Term.find_by active: 1
         term.ImportTermList! if @term.nil?
         if current_user.admin?
-          redirect_to view_term_admin_path, :notice => "Logged in!" 
+          redirect_to view_term_admin_path, notice: 'You have claimed your account'
         else
-          redirect_to '/student/view_terms', :notice => "Logged in!"
+          redirect_to '/student/view_terms', notice: 'You have claimed your account'
         end
-        Term.ImportTermList! if @term.nil?
-        flash[:notice] = 'You have claimed your account'
       else
         render 'new'
       end
