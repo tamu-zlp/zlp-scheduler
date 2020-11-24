@@ -64,6 +64,7 @@ class UsersController < ApplicationController
         @user.email = spreadsheet.row(i)[3]
         @user.role = 'student'
         @user.password = "Temp"
+        @user.actiave = false
         @user.save
         @cohort.users.push(@user)
       end
@@ -97,26 +98,38 @@ class UsersController < ApplicationController
     @user.uin = params[:user][:uin]
     @user.role = 'admin'
     @user.password = "Temp"
+    @user.activate = false
     @user.save
     redirect_to manage_administrators_path
   end
 
   def update_user
     # check if there is a record for them in users
-    @user = User.where(email: params[:user][:email], uin: params[:user][:uin], role: params[:user][:role])
-    if @user.empty?
-      flash[:warning] = 'The director has not registered your email.'
-      redirect_to '/signup'
+    @user = User.find_by(email: params[:user][:email], uin: params[:user][:uin])
+    if @user.nil?
+      @user = User.new
+      @user.errors.add(:email, 'not registered or UIN not matched')
+      render 'new'
+    elsif @user.activate?
+      @user.errors.add(:email, 'is already claimed before')
+      render 'new'
     else
-      @user[0].update_attributes(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
-      @user[0].save
-      session[:user_id] = @user[0].id
-      @term = Term.find_by active: 1
-      Term.ImportTermList! if @term.nil?
-      if current_user.admin?
-        redirect_to view_term_admin_path, notice: 'Logged in!'
+      @user.update_attributes(password: params[:user][:password],
+                              password_confirmation: params[:user][:password_confirmation],
+                              activate: true)
+      if @user.save
+        session[:user_id] = @user.id
+        @term = Term.find_by active: 1
+        term.ImportTermList! if @term.nil?
+        if current_user.admin?
+          redirect_to view_term_admin_path, :notice => "Logged in!" 
+        else
+          redirect_to '/student/view_terms', :notice => "Logged in!"
+        end
+        Term.ImportTermList! if @term.nil?
+        flash[:notice] = 'You have claimed your account'
       else
-        redirect_to '/student/view_terms', notice: 'Logged in!'
+        render 'new'
       end
     end
   end

@@ -18,7 +18,7 @@ Then (/^I should (not )?be logged in$/) do |is_not|
   if is_not == nil
     expect(page).to have_content("Logged in!")
   else
-    expect(page).to have_content("Email or password is invalid")
+    page.should have_content(/Email or password is invalid|You should claim your account/)
     expect(current_path).to eq "/"
   end
 end
@@ -58,10 +58,6 @@ Then(/^the current term is (not )?open$/) do |is_not|
   end
 end
 
-When('I click on the signup link') do
-  click_link('New User?')
-end
-
 When('I click on the forgot password link') do
   click_link('Forgot Password?')
 end
@@ -70,7 +66,8 @@ When('I fill in the sign up form') do
   fill_in "user[uin]", :with => @user.uin
   fill_in "user[email]", :with => @user.email
   fill_in "user[password_confirmation]", :with => @user.password
-  click_button("Sign up")end
+  click_button("Sign up")
+end
 
 And('I fill in the password reset form') do
   fill_in "email", :with => @user.email
@@ -97,6 +94,26 @@ end
 
 Then('I should see the password reset has expired') do
   expect(page).to have_content("Password reset has expired")
+end
+
+Given('the following user exist:') do |user_table|
+  user_table.hashes.each do |u|
+    @user = FactoryBot.create(:user, uin: u['uin'], email: u['email'],
+                                     role: 'student', cohort_id: @cohort.id,
+                                     activate: u['activate'] == 'true')
+  end
+end
+
+When('I enters {string} in {string} field') do |string, string2|
+  fill_in(format('user[%s]', string2), with: string)
+end
+
+Then /I should (not )?see information "(.*)"/ do |is_not, string|
+  if is_not
+    expect(page).to have_no_content(string)
+  else
+    expect(page).to have_content(string)
+  end
 end
 
 Given /I am (not )?in the active cohort$/ do |is_not|

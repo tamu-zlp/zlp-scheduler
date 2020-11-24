@@ -90,9 +90,28 @@ Scenario: A Student Reset Password expired
   And I wait 2 hours
   When I confirm the reset
   Then I should see the password reset has expired
-# Scenario: A Registered User Can Claim His Account
-# Scenario: A Registered User Cannot Claim His Account when UIN and Email not match
-# Scenario: A Unregistered User Cannot Claim His Account
-# Scenario: A Registered User Cannot Claim His account with a Weak Password
-# Scenario: An Unclaimed Account Cannot Login
-# Scenario: An Unclaimed Account Cannot Reset Password
+
+Scenario Outline: Claim Acoout - possible combinations
+  Given the following user exist:
+  | uin       | email                  | password | retype | activate |
+  | 000000001 | new_account@tamu.edu   | aaaa     | aaaa   | false    |
+  | 000000005 | old_account@tamu.edu   | aaaa     | aaaa   | true     |
+
+  And I visit the index page
+  And I click "New User?"
+  And I enters "<uin>" in "uin" field
+  And I enters "<email>" in "email" field
+  And I enters "<password>" in "password" field
+  And I enters "<retype>" in "password_confirmation" field
+  And I click button "Sign up"
+  Then I should see information "<information>"
+
+  Examples: 
+  | uin       | email                  | password | retype | information                                  |
+  | 000000001 |  new_account@tamu.edu  | aaaa     | aaaa   | You have claimed your account                |
+  | 000000002 |  new_account@tamu.edu  | aaaa     | aaaa   | Email not registered or UIN not matched      |
+  | 000000001 |  wrongaccount@tamu.edu | aaaa     | aaaa   | Email not registered or UIN not matched      |
+  | 000000002 |  wrongaccount@tamu.edu | aaaa     | aaaa   | Email not registered or UIN not matched      |
+  | 000000001 |  new_account@tamu.edu  | aa       | aa     | Password is too short                        |
+  | 000000001 |  new_account@tamu.edu  | aaaa     | bbbb   | Password confirmation doesn't match Password |
+  | 000000005 |  old_account@tamu.edu  | aaaa     | aaaa   | Email is already claimed before              |
