@@ -55,6 +55,7 @@ class UsersController < ApplicationController
       spreadsheet = (file_ext == ".xls") ? Roo::Excel.new(file.path) : Roo::Excelx.new(file.path)
       header = spreadsheet.row(1)
       ## We are iterating from row 2 because we have left row one for header
+      error_rows = []
       (2..spreadsheet.last_row).each do |i|
         @user = User.new
         puts spreadsheet.row(i)[0]
@@ -65,10 +66,14 @@ class UsersController < ApplicationController
         @user.role = 'student'
         @user.password = "Temp"
         @user.activate = false
-        @user.save
+        error_rows.append(i) unless @user.save
         @cohort.users.push(@user)
       end
-      flash[:notice] = "Records Imported"
+      if error_rows.empty?
+        flash[:notice] = "Records Imported"
+      else
+        flash[:warning] = format('Records Imported, but row %s has error', error_rows)
+      end
     else
       flash[:warning] = "Import Failed : " + "Unknown file type: #{file.original_filename}"
     end
@@ -99,7 +104,7 @@ class UsersController < ApplicationController
     @user.role = 'admin'
     @user.password = "Temp"
     @user.activate = false
-    @user.save
+    flash[:warning] = @user.errors.full_messages unless @user.save
     redirect_to manage_administrators_path
   end
 

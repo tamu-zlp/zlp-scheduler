@@ -33,6 +33,17 @@ Scenario: Add Administrator
   And I fill in the add admin form
   Then I should see the manage administrators page
   And I should see "blah@tamu.edu</td>"
+
+Scenario: Add Administrator twice will see error
+  When I click "Manage Administrators"
+  And I click "Add Administrator"
+  And I fill in the add admin form
+  Then I should see the manage administrators page
+  And I should see "blah@tamu.edu</td>"
+  Then I click "Add Administrator"
+  And I fill in the add admin form
+  Then I should see the manage administrators page
+  And I should see "Email has already been taken"
   
 Scenario: Added administrator can claim account
   When I click "Manage Administrators"
