@@ -2,11 +2,8 @@ class User < ApplicationRecord
   has_secure_password
   has_many :schedules, dependent: :destroy
   has_one :cohort
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates :email, presence: true,
-                    format: { with: VALID_EMAIL_REGEX },
                     uniqueness: true
-
   validates :password, presence: true,
                        length: { within: 4..20 },
                        confirmation: true,

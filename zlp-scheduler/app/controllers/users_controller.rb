@@ -64,7 +64,7 @@ class UsersController < ApplicationController
         @user.email = spreadsheet.row(i)[3]
         @user.role = 'student'
         @user.password = "Temp"
-        @user.actiave = false
+        @user.activate = false
         @user.save
         @cohort.users.push(@user)
       end
