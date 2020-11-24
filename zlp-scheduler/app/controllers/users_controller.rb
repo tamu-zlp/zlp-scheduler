@@ -46,6 +46,18 @@ class UsersController < ApplicationController
     redirect_to manage_cohorts_path()
   end
   
+  def create_temp_student(row)
+    user = User.new
+    user.firstname = row[0]
+    user.lastname = row[1]
+    user.uin = row[2]
+    user.email = row[3]
+    user.role = 'student'
+    user.password = 'Temp'
+    user.activate = false
+    user
+  end
+
   def save_records(file)
     file_ext = File.extname(file.original_filename)
     # raise "Unknown file type: #{file.original_filename}" unless [".xls", ".xlsx"].include?(file_ext)
@@ -57,15 +69,7 @@ class UsersController < ApplicationController
       ## We are iterating from row 2 because we have left row one for header
       error_rows = []
       (2..spreadsheet.last_row).each do |i|
-        @user = User.new
-        puts spreadsheet.row(i)[0]
-        @user.firstname = spreadsheet.row(i)[0]
-        @user.lastname = spreadsheet.row(i)[1]
-        @user.uin = spreadsheet.row(i)[2]
-        @user.email = spreadsheet.row(i)[3]
-        @user.role = 'student'
-        @user.password = "Temp"
-        @user.activate = false
+        @user = create_temp_student(spreadsheet.row(i))
         error_rows.append(i) unless @user.save
         @cohort.users.push(@user)
       end
