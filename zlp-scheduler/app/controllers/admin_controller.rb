@@ -171,6 +171,7 @@ class AdminController < ApplicationController
         name = student.firstname + ' ' + student.lastname
         
         course = Course.find(conf.course_id)
+        time = course.meetingtime_start.strftime("%H:%M")  + " - " + course.meetingtime_end.strftime("%H:%M") 
         subject = Subject.find(course.subject_id).subject_code
         final_subject = subject + ' ' + course.course_number.to_s
         section_number = course.section_number
@@ -179,7 +180,7 @@ class AdminController < ApplicationController
         schedule_to_course = ScheduleToCourse.find_by(schedule_id: conf.schedule_id, course_id: course.id)
         mandatory_value = schedule_to_course.mandatory
         
-        result = [name, final_subject, section_number, mandatory_value]
+        result = [name, final_subject, section_number, time, mandatory_value]
         @final_result.append(result)
       end
     end
