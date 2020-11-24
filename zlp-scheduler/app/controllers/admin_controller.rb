@@ -180,7 +180,7 @@ class AdminController < ApplicationController
         schedule_to_course = ScheduleToCourse.find_by(schedule_id: conf.schedule_id, course_id: course.id)
         mandatory_value = schedule_to_course.mandatory
         
-        result = [name, final_subject, section_number, mandatory_value, time]
+        result = [name, final_subject, section_number, time, mandatory_value]
         @final_result.append(result)
       end
     end
