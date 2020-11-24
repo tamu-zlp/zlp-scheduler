@@ -55,7 +55,7 @@ class UsersController < ApplicationController
     user.role = 'student'
     user.password = 'Temp'
     user.activate = false
-    user
+    return user
   end
 
   def save_records(file)
