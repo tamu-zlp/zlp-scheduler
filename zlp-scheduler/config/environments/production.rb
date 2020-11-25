@@ -93,5 +93,5 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
 
   # host needs to be chnaged when on heroku put the heroku url
-  config.action_mailer.default_url_options = { host: ENV['HEROKU_URL:'] }
+  config.action_mailer.default_url_options = { host: ENV['HEROKU_URL'] }
 end
