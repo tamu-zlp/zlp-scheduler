@@ -187,6 +187,18 @@ label, input[type ='text'] {
     margin-bottom: 20px;
 }
 
+/* Disable arrows in number field of UIN */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
 [id^="dept_select"], [id^="course_num_select"], [id^="section_num_select"] {
     min-width: 50px;
 }
@@ -246,11 +258,26 @@ label, input[type ='text'] {
 	margin-top:50px;	
 	width:500px;
 	background-color: rgba(255,255,255, 1);
-	padding-bottom:20px;
+	padding-bottom:60px;
 	padding-top:2px;
-	padding-left: 6px;
+	padding-left: 15px;
 	border-radius: 18px;
-	box-shadow: 5px 5px 5px #888888;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+.Register_Form ul {
+    text-align: left;
+}
+
+.Register_Form .form_label {
+    display: block;
+    margin: 10px auto;
+}
+
+.Register_Form .form_input {
+    display: block;
+    margin: auto;
+    margin-bottom: 15px;
 }
 
 .Input_Large{

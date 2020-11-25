@@ -13,9 +13,9 @@
                 %td#specialTableData
                     = f.text_field :lastname
                 %td#specialTableData
-                    = f.text_field :email
+                    = f.email_field :email, :placeholder => "netid@tamu.edu", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :required => true
                 %td#specialTableData
-                    = f.text_field :uin
+                    = f.number_field :uin
         %br
         = f.submit "Create", :class => 'button_link'
         = link_to "Cancel", manage_administrators_path, :class => 'button_link'

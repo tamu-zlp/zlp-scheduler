@@ -46,6 +46,18 @@ class UsersController < ApplicationController
     redirect_to manage_cohorts_path()
   end
   
+  def create_temp_student(row)
+    user = User.new
+    user.firstname = row[0]
+    user.lastname = row[1]
+    user.uin = row[2]
+    user.email = row[3]
+    user.role = 'student'
+    user.password = 'Temp'
+    user.activate = false
+    return user
+  end
+
   def save_records(file)
     file_ext = File.extname(file.original_filename)
     # raise "Unknown file type: #{file.original_filename}" unless [".xls", ".xlsx"].include?(file_ext)
@@ -55,19 +67,17 @@ class UsersController < ApplicationController
       spreadsheet = (file_ext == ".xls") ? Roo::Excel.new(file.path) : Roo::Excelx.new(file.path)
       header = spreadsheet.row(1)
       ## We are iterating from row 2 because we have left row one for header
+      error_rows = []
       (2..spreadsheet.last_row).each do |i|
-        @user = User.new
-        puts spreadsheet.row(i)[0]
-        @user.firstname = spreadsheet.row(i)[0]
-        @user.lastname = spreadsheet.row(i)[1]
-        @user.uin = spreadsheet.row(i)[2]
-        @user.email = spreadsheet.row(i)[3]
-        @user.role = 'student'
-        @user.password = "Temp"
-        @user.save
+        @user = create_temp_student(spreadsheet.row(i))
+        error_rows.append(i) unless @user.save
         @cohort.users.push(@user)
       end
-      flash[:notice] = "Records Imported"
+      if error_rows.empty?
+        flash[:notice] = "Records Imported"
+      else
+        flash[:warning] = format('Records Imported, but row %s has error', error_rows)
+      end
     else
       flash[:warning] = "Import Failed : " + "Unknown file type: #{file.original_filename}"
     end
@@ -97,26 +107,35 @@ class UsersController < ApplicationController
     @user.uin = params[:user][:uin]
     @user.role = 'admin'
     @user.password = "Temp"
-    @user.save
+    @user.activate = false
+    flash[:warning] = @user.errors.full_messages unless @user.save
     redirect_to manage_administrators_path
   end
 
   def update_user
     # check if there is a record for them in users
-    @user = User.where(email: params[:user][:email], uin: params[:user][:uin], role: params[:user][:role])
-    if @user.empty?
-      flash[:warning] = 'The director has not registered your email.'
-      redirect_to '/signup'
+    @user = User.find_by(email: params[:user][:email], uin: params[:user][:uin])
+    if @user.nil?
+      @user = User.new
+      @user.errors.add(:email, 'not registered or UIN not matched')
+      render 'new'
+    elsif @user.activate?
+      @user.errors.add(:email, 'is already claimed before')
+      render 'new'
     else
-      @user[0].update_attributes(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
-      @user[0].save
-      session[:user_id] = @user[0].id
-      @term = Term.find_by active: 1
-      Term.ImportTermList! if @term.nil?
-      if current_user.admin?
-        redirect_to view_term_admin_path, notice: 'Logged in!'
+      @user.update_attributes(password: params[:user][:password], activate: true,
+                              password_confirmation: params[:user][:password_confirmation])
+      if @user.save
+        session[:user_id] = @user.id
+        @term = Term.find_by active: 1
+        term.ImportTermList! if @term.nil?
+        if current_user.admin?
+          redirect_to view_term_admin_path, notice: 'You have claimed your account'
+        else
+          redirect_to '/student/view_terms', notice: 'You have claimed your account'
+        end
       else
-        redirect_to '/student/view_terms', notice: 'Logged in!'
+        render 'new'
       end
     end
   end
