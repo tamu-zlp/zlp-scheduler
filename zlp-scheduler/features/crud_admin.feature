@@ -63,7 +63,16 @@ Scenario: Added administrator can not login without claim account
   And I login with the new user account
   Then I should not be logged in
   And I should see information "You should claim your account first"
-  
+
+Scenario: Added administrator can not reset password without claim account
+  When I click "Manage Administrators"
+  And I click "Add Administrator"
+  And I fill in the add admin form
+  And I click on the log out link
+  When I click on the forgot password link
+  And I fill in the new user email
+  And I should see information "You should claim your account first"
+
 Scenario: Edit Administrator Cancel Button
   When I click "Manage Administrators"
   And I click "Edit"

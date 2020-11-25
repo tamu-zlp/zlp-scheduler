@@ -21,6 +21,11 @@ When(/^I login with the new user account/) do
     click_button('Log in')
 end
 
+And('I fill in the new user email') do
+    fill_in 'email', with: 'blah@tamu.edu'
+    click_button('Reset Password')
+end
+
 When /^I edit the administrator/ do
     fill_in "user_lastname", with: "Smith"
     click_button("Update")

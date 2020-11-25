@@ -7,8 +7,13 @@ class PasswordResetsController < ApplicationController
   def create
     @user = User.find_by_email(params[:email])
     if @user
-      @user.send_password_reset
-      redirect_to '/', notice: 'Email sent with password reset instructions'
+      if @user.activate == false
+        flash[:login_errors] = ['You should claim your account first']
+        redirect_to '/'
+      else
+        @user.send_password_reset
+        redirect_to '/', notice: 'Email sent with password reset instructions'
+      end
     else
       flash[:warning] = 'Email is not registered'
       render :new
