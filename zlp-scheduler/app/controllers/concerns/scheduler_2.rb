@@ -76,6 +76,8 @@ class Scheduler_2
                         @conflict = self.is_conflict?(day,current_time,schedule)
                             if @conflict.is_a? false.class
                                 break
+                            elsif @conflict.kind_of?(Array) && @conflict.length == 0
+                                next
                             else
                                 #print(@conflict)
                                 #start_time = Time.now
