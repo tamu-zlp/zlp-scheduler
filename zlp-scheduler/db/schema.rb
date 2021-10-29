@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_044850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cohorts", force: :cascade do |t|
+  create_table "cohorts", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_044850) do
     t.index ["time_slots_id"], name: "index_cohorts_on_time_slots_id"
   end
 
-  create_table "conflicts", force: :cascade do |t|
+  create_table "conflicts", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "cost"
     t.integer "course_id"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_044850) do
     t.index ["user_id"], name: "index_conflicts_on_user_id"
   end
 
-  create_table "courses", force: :cascade do |t|
+  create_table "courses", id: :serial, force: :cascade do |t|
     t.string "full_subject"
     t.string "abbreviated_subject"
     t.string "course_name"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_044850) do
     t.index ["term_id"], name: "index_courses_on_term_id"
   end
 
-  create_table "schedule_to_courses", force: :cascade do |t|
+  create_table "schedule_to_courses", id: :serial, force: :cascade do |t|
     t.integer "schedule_id"
     t.integer "course_id"
     t.datetime "created_at", null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_044850) do
     t.index ["schedule_id"], name: "index_schedule_to_courses_on_schedule_id"
   end
 
-  create_table "schedules", force: :cascade do |t|
+  create_table "schedules", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_044850) do
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
-  create_table "subjects", force: :cascade do |t|
+  create_table "subjects", id: :serial, force: :cascade do |t|
     t.string "subject_code"
     t.string "subject_description"
     t.integer "term_id"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_044850) do
     t.index ["term_id"], name: "index_subjects_on_term_id"
   end
 
-  create_table "terms", force: :cascade do |t|
+  create_table "terms", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "opendate"
     t.datetime "closedate"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_044850) do
     t.index ["term_code"], name: "index_terms_on_term_code", unique: true
   end
 
-  create_table "time_slots", force: :cascade do |t|
+  create_table "time_slots", id: :serial, force: :cascade do |t|
     t.datetime "time"
     t.integer "cost"
     t.boolean "was_conflict"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_044850) do
     t.index ["conflicts_id"], name: "index_time_slots_on_conflicts_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.integer "uin"
     t.string "lastname", null: false
     t.string "firstname", null: false
