@@ -9,7 +9,7 @@ SimpleCov.start 'rails'
 
 require 'cucumber/rails'
 
-Selenium::WebDriver::Firefox::Binary.path = "/usr/bin/firefox"
+# Selenium::WebDriver::Firefox::Binary.path = "/usr/bin/firefox"
 #Selenium::WebDriver.logger.level = :debug
 #Selenium::WebDriver.logger.output = 'selenium.log'
 Capybara.register_driver :firefox_headless do |app|
