@@ -80,6 +80,9 @@ rake db:drop db:create db:migrate db:seed
 rails s
 ```
 
+The test user name and password is specified in `seeds.rb`, you can also create your own test data.
+The email features is currently disabled, it requires to setup SendGrid API key.
+
 ### Run Cucumber tests
 
 ```sh
