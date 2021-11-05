@@ -56,7 +56,7 @@ sudo apt-get install firefox
 ```sh
 git clone git@github.com:tamu-zlp/zlp-scheduler.git
 cd zlp-scheduler/zlp-scheduler
-gem install bundler:2.1.22
+gem install bundler:2.2.22
 ```
 
 ### Install required gems
@@ -87,6 +87,14 @@ The email features is currently disabled, it requires to setup SendGrid API key.
 
 ```sh
 cucumber features
+```
+
+### Run Unit tests
+
+We test the algorithm using unit test.
+
+```sh
+rspec spec/controllers
 ```
 
 ### Contribute the source code
