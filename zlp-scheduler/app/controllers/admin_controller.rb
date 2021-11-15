@@ -202,4 +202,16 @@ class AdminController < ApplicationController
     @cohort.save
   end
   
+  def student_schedule_status 
+    @cohorts = Cohort.all.order(name: :asc)
+    
+    if params[:selected_cohort]
+      @selected_cohort = Cohort.find(params[:selected_cohort][:id])
+    else
+      @selected_cohort = @cohorts[0];
+    end
+    
+    @schedule_user_ids = Schedule.all.map {|s| s.user_id}
+  end
+  
 end

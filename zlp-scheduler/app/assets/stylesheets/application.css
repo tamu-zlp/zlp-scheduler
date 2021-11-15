@@ -550,7 +550,7 @@ select {
   height: 350px;   
 }
 
-#resultTable, #conflictTable, #userTable, #adminTable, #termTable, #studentTermTable, #studentScheduleTable {
+#resultTable, #conflictTable, #userTable, #adminTable, #termTable, #studentTermTable, #studentScheduleTable, #studentScheduleStatusTable {
   width: 100%;
   height: 50%;
   position: relative;

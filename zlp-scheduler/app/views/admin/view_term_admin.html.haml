@@ -10,6 +10,8 @@
                     = link_to "Manage Cohorts", manage_cohorts_path, :class => 'button_link'
                 %li#adminMenuBarOption
                     = link_to "Manage Administrators", manage_administrators_path, :class => 'button_link'
+                %li#adminMenuBarOption
+                    = link_to "Student Status", student_schedule_status_path, :class => 'button_link'
         %h1#welcomeUser{:style => "text-align:center"} Howdy, #{@current_user.firstname}!
         %table#termTable
             %tr

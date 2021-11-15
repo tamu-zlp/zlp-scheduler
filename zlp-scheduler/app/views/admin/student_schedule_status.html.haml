@@ -1,0 +1,28 @@
+%div#studentStatusDiv
+    = javascript_include_tag 'application'
+    %h1{:style => "text-align:center"} Student Status
+    
+    = form_for :selected_cohort, :url => {:controller => 'admin', :action => 'student_schedule_status'}, :method => :get do |f|
+        %label#cohortLabel{:for => "selected_cohort"} Cohort:
+        = f.collection_select :id, @cohorts, :id, :name, {:selected => @selected_cohort.id}
+        = f.submit "Select", :class => 'button_link'
+    
+    %br
+    %br
+    
+    %table#studentScheduleStatusTable
+        %tr
+            %th#specialTableHeader First Name
+            %th#specialTableHeader Last Name
+            %th#specialTableHeader Schedule Status
+        - @selected_cohort.users.each do |u|
+            %tr
+                %td#specialTableData #{u.firstname}
+                %td#specialTableData #{u.lastname}
+                %td#specialTableData #{@schedule_user_ids.include?(u.id) ? 'Uploaded': 'Missing'}
+                
+
+%div{:class => 'centered_links'}   
+    //****Change later
+    = link_to "Create New Cohort", add_cohort_path, :class => 'button_link'
+    = link_to "Back to Home", view_term_admin_path, :class => 'button_link'

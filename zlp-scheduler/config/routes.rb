@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'admin/student_schedule_status', to: 'admin#student_schedule_status', as: 'student_schedule_status'
   #get 'users/index'
   
   get '/' => 'sessions#new'

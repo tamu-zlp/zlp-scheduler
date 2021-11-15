@@ -198,24 +198,24 @@ create_schedule(@user,"Test 2", kiersten_classes)
         @user.cohort_id = @cohort.id
         @user.save
         
-valentina_classes = [
-        {:abbreviated_subject => "NUEN", :course_number => 309, :section_number => 500, :term_id => @term.id},
-        {:abbreviated_subject => "MATH", :course_number => 152, :section_number => 523, :term_id => @term.id},
-        {:abbreviated_subject => "THAR", :course_number => 201, :section_number => 500, :term_id => @term.id},
-        {:abbreviated_subject => "NUEN", :course_number => 301, :section_number => 500, :term_id => @term.id},
-        {:abbreviated_subject => "ISEN", :course_number => 210, :section_number => 501, :term_id => @term.id}
-]
-create_schedule(@user,"Test 1", valentina_classes)
+# valentina_classes = [
+#         {:abbreviated_subject => "NUEN", :course_number => 309, :section_number => 500, :term_id => @term.id},
+#         {:abbreviated_subject => "MATH", :course_number => 152, :section_number => 523, :term_id => @term.id},
+#         {:abbreviated_subject => "THAR", :course_number => 201, :section_number => 500, :term_id => @term.id},
+#         {:abbreviated_subject => "NUEN", :course_number => 301, :section_number => 500, :term_id => @term.id},
+#         {:abbreviated_subject => "ISEN", :course_number => 210, :section_number => 501, :term_id => @term.id}
+# ]
+# create_schedule(@user,"Test 1", valentina_classes)
 
-valentina_classes = [
-        {:abbreviated_subject => "NUEN", :course_number => 309, :section_number => 501, :term_id => @term.id},
-        {:abbreviated_subject => "MATH", :course_number => 152, :section_number => 522, :term_id => @term.id},
-        {:abbreviated_subject => "THAR", :course_number => 201, :section_number => 500, :term_id => @term.id},
-        {:abbreviated_subject => "NUEN", :course_number => 301, :section_number => 200, :term_id => @term.id},
-        {:abbreviated_subject => "CHEN", :course_number => 482, :section_number => 200, :term_id => @term.id},
-        {:abbreviated_subject => "ISEN", :course_number => 210, :section_number => 501, :term_id => @term.id}
-]
-create_schedule(@user,"Test 2", valentina_classes)
+# valentina_classes = [
+#         {:abbreviated_subject => "NUEN", :course_number => 309, :section_number => 501, :term_id => @term.id},
+#         {:abbreviated_subject => "MATH", :course_number => 152, :section_number => 522, :term_id => @term.id},
+#         {:abbreviated_subject => "THAR", :course_number => 201, :section_number => 500, :term_id => @term.id},
+#         {:abbreviated_subject => "NUEN", :course_number => 301, :section_number => 200, :term_id => @term.id},
+#         {:abbreviated_subject => "CHEN", :course_number => 482, :section_number => 200, :term_id => @term.id},
+#         {:abbreviated_subject => "ISEN", :course_number => 210, :section_number => 501, :term_id => @term.id}
+# ]
+# create_schedule(@user,"Test 2", valentina_classes)
         
 
 #print(@terms)
