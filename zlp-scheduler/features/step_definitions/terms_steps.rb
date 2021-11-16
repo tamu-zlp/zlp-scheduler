@@ -77,7 +77,6 @@ When /I fill in the open term form/ do
 end
 
 Then /I should (not )?see "(.*)"/ do |is_not, string|
-    puts page.body
     
     if is_not
         expect(page.body.match?(/#{string}/m)).to eq false
