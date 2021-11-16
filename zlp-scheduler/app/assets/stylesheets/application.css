@@ -600,6 +600,37 @@ select {
   overflow-y: auto; 
 }
 
+#studentActionItem {
+    color: #fff;
+    font-size: 15px;
+    border-bottom: 1px solid #fff;
+    padding: 20px 10px;
+    text-align: left;
+    font-family: serif;
+    vertical-align: middle;
+}
+
+#studentActionItem * {
+   vertical-align: middle; 
+}
+
+#studentActionItem #studentActionStudentName {
+    font-weight: bold;
+}
+
+#studentActionItem #studentActionAction {
+    font-weight: bold;
+}
+
+#studentActionItem #studentActionScheduleName {
+    font-weight: bold;
+}
+
+#studentActionItem #studentActionDate {
+    float: right;
+}
+
+
 
 h3 {
   position: relative;
@@ -643,3 +674,9 @@ h3 {
     font-size: 20px
 }
 
+
+.icon{
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+}
