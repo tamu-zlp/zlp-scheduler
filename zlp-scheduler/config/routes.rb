@@ -65,5 +65,7 @@ Rails.application.routes.draw do
   post 'admin/select_time/:cohort_id/:result_id', to: 'admin#select_time', as:'select_time'
   post 'admin/run_algorithm/:cohort_id', to: 'admin#run_algorithm', as: 'run_algorithm'
   
+  get 'admin/student_actions', to: 'admin#student_actions', as: 'student_actions'
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
