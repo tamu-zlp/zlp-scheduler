@@ -23,3 +23,8 @@
         
     = link_to "Run Algorithm" , run_algorithm_path(@cohort.id), :class => 'button_link', method: :post, :data => {disable_with: "<i>The algorithm is running...</i>"}
     = link_to "Back to Home", view_term_admin_path, :class => 'button_link'
+    
+    -if @cohort.modi.nil? || @cohort.modi?
+        = link_to "Disable Student Modification" , change_access_path(@cohort.id), :class => 'button_link'
+    -else
+        = link_to "Enable Student Modification" , change_access_path(@cohort.id), :class => 'button_link'

@@ -14,10 +14,10 @@ class StudentController < ApplicationController
     id = session[:user_id]
     @user = User.find(id)
     @term = Term.find_by active: 1;
-    cohort = Cohort.find(@user.cohort_id)
+    @cohort = Cohort.find(@user.cohort_id)
     date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
-    if cohort.chosen_time.present?
-      chosen_timeslot = TimeSlot.find(cohort.chosen_time)
+    if @cohort.chosen_time.present?
+      chosen_timeslot = TimeSlot.find(@cohort.chosen_time)
       chosen_time_start = chosen_timeslot.time
       chosen_time_end = chosen_time_start.advance(:hours => 2)
       @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M") + " " + date_dict[chosen_timeslot.day]
