@@ -6,6 +6,6 @@ class StudentAction < ApplicationRecord
   end
   
   def readable_date
-    created_at.strftime('%I:%M%p %m/%d/%Y')
+    created_at.in_time_zone("America/Chicago").strftime('%I:%M%p %m/%d/%Y')
   end
 end

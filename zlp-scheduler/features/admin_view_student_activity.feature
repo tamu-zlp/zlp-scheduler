@@ -14,6 +14,7 @@ Background: Create Term and Cohort
  And I should see the admin terms page
  And I should see "Term open dates updated."
  Then I click "Log out"
+ 
  Given I am logged in as an admin
  And I follow "Student Actions"
  And I should see "Student Actions"
