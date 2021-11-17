@@ -47,6 +47,7 @@ class Scheduler_2
     def self.Generate_time_slots(cohort)
         
         TimeSlot.where(:cohort_id => cohort.id).destroy_all
+        cohort.chosen_time = nil
         conflict_mods = Array.new
         time_preferences = Array.new
         time_slots = Array.new

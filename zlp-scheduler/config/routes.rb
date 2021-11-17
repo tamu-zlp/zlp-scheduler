@@ -66,5 +66,7 @@ Rails.application.routes.draw do
   post 'admin/run_algorithm/:cohort_id', to: 'admin#run_algorithm', as: 'run_algorithm'
   get 'admin/change_access_path/:cohort_id', to: 'admin#change_access', as: 'change_access'
   
+  get 'admin/student_actions', to: 'admin#student_actions', as: 'student_actions'
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

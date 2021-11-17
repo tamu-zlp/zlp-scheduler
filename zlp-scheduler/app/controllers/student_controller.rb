@@ -11,6 +11,7 @@ class StudentController < ApplicationController
   end
   
   def view_terms
+    puts '=============='
     id = session[:user_id]
     @user = User.find(id)
     @term = Term.find_by active: 1;
@@ -124,6 +125,14 @@ class StudentController < ApplicationController
           end
         end
       end
+      
+      action = StudentAction.new
+      action.user_id = @user.id
+      action.schedule_name = @schedule.name
+      action.schedule_id = @schedule.id
+      action.action = 0
+      action.save
+      
       flash[:notice] = 'Schedule added!' + warning_word
       redirect_to view_terms_path
     end
@@ -142,6 +151,12 @@ class StudentController < ApplicationController
   def delete_schedule 
     @schedule = Schedule.find(params[:id])
     @schedule.destroy
+    
+    action = StudentAction.new()
+    action.user_id = session[:user_id]
+    action.schedule_name = @schedule.name
+    action.action = 1
+    action.save()
     
     flash[:notice] = 'Schedule deleted!'
     redirect_to view_terms_path

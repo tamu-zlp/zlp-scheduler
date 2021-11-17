@@ -77,6 +77,15 @@ ActiveRecord::Schema.define(version: 2021_11_17_053916) do
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
+  create_table "student_actions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "action"
+    t.string "schedule_name"
+    t.integer "schedule_id"
+    t.integer "user_id"
+  end
+
   create_table "subjects", id: :serial, force: :cascade do |t|
     t.string "subject_code"
     t.string "subject_description"

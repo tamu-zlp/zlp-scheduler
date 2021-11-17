@@ -214,4 +214,8 @@ class AdminController < ApplicationController
     @cohort.save
   end
   
+  def student_actions
+    @actions = StudentAction.all.order(created_at: :desc)
+  end
+  
 end
