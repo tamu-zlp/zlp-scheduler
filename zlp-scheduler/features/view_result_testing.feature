@@ -26,7 +26,18 @@ Scenario: View the view result and non-conflict result
   And I go to view cohort page for Test Cohort
   Then I should see the view cohort page for Test Cohort 
   Then I should see time slot selected for Test Cohort 
-  
+
+Scenario: Run Algorithm Twice
+  When I click "Test Cohort"
+  When I click "Run Algorithm"
+  When I click "Find Class Time"
+  When I click button "Choose"
+  And I go to view cohort page for Test Cohort
+  Then I should see the view cohort page for Test Cohort
+  Then I should see time slot selected for Test Cohort
+  When I click "Run Algorithm"
+  Then I should see the view cohort page for Test Cohort
+
 Scenario: View the view result and non-conflict result
   When I click "Test Cohort"
   And I click "Run Algorithm"
