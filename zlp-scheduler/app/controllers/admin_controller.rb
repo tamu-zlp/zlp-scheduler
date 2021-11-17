@@ -153,6 +153,18 @@ class AdminController < ApplicationController
     redirect_to view_cohort_semester_path(params[:cohort_id])
   end
   
+  def change_access
+    @cohort = Cohort.find(params[:cohort_id])
+    if @cohort.modi.nil? || @cohort.modi?
+      @cohort.update_attributes(:modi => false)
+      flash[:notice] = "Student Modification Disabled"
+    else
+      @cohort.update_attributes(:modi => true)
+      flash[:notice] = "Student Modification Enabled"
+    end
+    redirect_to view_cohort_semester_path(params[:cohort_id])
+  end
+  
   def view_result
     @cohort = Cohort.find(params[:cohort_id])
     @date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
