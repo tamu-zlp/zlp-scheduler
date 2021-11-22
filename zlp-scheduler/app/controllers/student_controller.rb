@@ -1,6 +1,6 @@
 class StudentController < ApplicationController
   
-   before_action :require_student, only: [:view_terms, :add_schedule, :update_courses, :update_sections, :create_schedule, :view_schedule,:delete_schedule]  
+   before_action :require_student, only: [:view_terms, :add_schedule, :update_courses, :update_sections, :create_schedule, :view_schedule, :delete_schedule, :edit_schedule]  
 
   def in_open_term?
     cohort = Cohort.find(@user.cohort_id)
@@ -142,6 +142,38 @@ class StudentController < ApplicationController
     @schedule = Schedule.find(params[:id])
     @courses = @schedule.courses
     @associations = ScheduleToCourse.where(:schedule_id => @schedule.id)
+  end
+  
+  def edit_schedule
+    id = session[:user_id]
+    @user = User.find(id)
+    
+    #form stuff for creating a new schedule
+    @schedule = Schedule.new
+    
+    @term = Term.find_by active: 1;
+    @subjects = @term.subjects
+    @subjects = @subjects.uniq
+    @course_options = [];
+    @section_options = [];
+    
+    #information of current schedule to load into form
+    @current_schedule = Schedule.find(params[:id])
+    @courses = @current_schedule.courses
+    @associations = ScheduleToCourse.where(:schedule_id => @current_schedule.id)
+    
+    @cur_mand = []
+    @cur_subject = []
+    @cur_course = []
+    @cur_section = []
+    
+    @courses.each do |course|
+      @cur_mand.push((@associations.find_by course_id: course.id).mandatory == true)
+      @cur_subject.push(course.subject.subject_code)
+      @cur_course.push(course.course_number)
+      @cur_section.push(course.section_number)
+    end
+    
   end
   
   def schedule_params
