@@ -169,7 +169,7 @@ class StudentController < ApplicationController
     
     @courses.each do |course|
       @cur_mand.push((@associations.find_by course_id: course.id).mandatory == true)
-      @cur_subject.push(course.subject.subject_code)
+      @cur_subject.push((@subjects.index{|item| item.subject_code == course.subject.subject_code}||-1)+1)
       @cur_course.push(course.course_number)
       @cur_section.push(course.section_number)
     end
