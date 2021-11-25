@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2021_11_24_185356) do
     t.integer "time_slots_id"
     t.integer "chosen_time"
     t.boolean "modi"
-    t.integer "flag"
+    t.integer "flag", default: 0
     t.index ["time_slots_id"], name: "index_cohorts_on_time_slots_id"
   end
 
