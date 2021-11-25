@@ -94,12 +94,18 @@ class AdminController < ApplicationController
     @users = @cohort.users.order(lastname: :asc)
 
     date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
-    if @cohort.chosen_time.present?
+    if @cohort.chosen_time.present? and @cohort.flag!=1
       chosen_timeslot = TimeSlot.find(@cohort.chosen_time)
       chosen_time_start = chosen_timeslot.time
       chosen_time_end = chosen_time_start.advance(:hours => 2)
+      @damn = 0
       @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M") + " " + date_dict[chosen_timeslot.day]
     end
+    if @cohort.chosen_time.present? and @cohort.flag == 1
+      flash[:notice] = "You may want to run the algorithm again"
+      @damn = 1
+    end
+    
   end
   
   def delete_cohort
@@ -148,6 +154,8 @@ class AdminController < ApplicationController
   
   def run_algorithm
     @cohort = Cohort.find(params[:cohort_id])
+    @cohort.flag = 0
+    @cohort.save()
     Scheduler_2.Generate_time_slots(@cohort)
     flash[:notice] = "The algorithm is finished!"
     redirect_to view_cohort_semester_path(params[:cohort_id])

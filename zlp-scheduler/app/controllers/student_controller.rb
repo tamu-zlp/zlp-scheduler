@@ -43,6 +43,12 @@ class StudentController < ApplicationController
       redirect_to view_terms_path
     end
     
+    @cohort = Cohort.find(@user.cohort_id)
+    #date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
+    if @cohort.chosen_time.present? and @cohort.flag==0
+      @cohort.flag = 1
+      @cohort.save()
+    end
     @schedule = Schedule.new
     
     @term = Term.find_by active: 1;
@@ -150,7 +156,18 @@ class StudentController < ApplicationController
   
   def delete_schedule 
     @schedule = Schedule.find(params[:id])
-    @schedule.destroy
+    id = session[:user_id]
+    @user = User.find(id)
+    #@term = Term.find_by active: 1;
+    @cohort = Cohort.find(@user.cohort_id)
+    #date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
+    if @cohort.chosen_time.present? and @cohort.flag==0
+      @schedule.destroy
+      @cohort.flag = 1
+      @cohort.save()
+    else
+      @schedule.destroy
+    end
     
     action = StudentAction.new()
     action.user_id = session[:user_id]
