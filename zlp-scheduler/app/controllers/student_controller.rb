@@ -44,11 +44,12 @@ class StudentController < ApplicationController
     end
     
     @cohort = Cohort.find(@user.cohort_id)
-    #date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
-    if @cohort.chosen_time.present? and @cohort.flag==0
+    
+    if @cohort.chosen_time.present? and @cohort.flag == 0
       @cohort.flag = 1
       @cohort.save()
     end
+    
     @schedule = Schedule.new
     
     @term = Term.find_by active: 1;
@@ -155,23 +156,20 @@ class StudentController < ApplicationController
   end
   
   def delete_schedule 
-    @schedule = Schedule.find(params[:id])
-    id = session[:user_id]
-    @user = User.find(id)
-    #@term = Term.find_by active: 1;
-    @cohort = Cohort.find(@user.cohort_id)
-    #date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
-    if @cohort.chosen_time.present? and @cohort.flag==0
-      @schedule.destroy
-      @cohort.flag = 1
-      @cohort.save()
-    else
-      @schedule.destroy
+    schedule = Schedule.find(params[:id])
+    schedule.destroy
+    
+    user = User.find(session[:user_id])
+    cohort = Cohort.find(user.cohort_id)
+    
+    if cohort.chosen_time.present? and cohort.flag == 0
+      cohort.flag = 1
+      cohort.save()
     end
     
     action = StudentAction.new()
     action.user_id = session[:user_id]
-    action.schedule_name = @schedule.name
+    action.schedule_name = schedule.name
     action.action = 1
     action.save()
     

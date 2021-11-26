@@ -1,10 +1,10 @@
 %div#viewCohortDiv
     %h1{:style => "text-align:center"} #{@cohort.name}
     
-    - if @damn == 0
+    - if @chosen_time
         %p#chosenTime The meeting time for this term is #{@chosen_time}
-    - if @damn==1
-        %p#chosenTime One or many students updated their schedule after you selected a time. Please run the algorithm again #{@chosen_time}
+    - if @schedule_change_warning
+        %p#scheduleChangeWarning One or more students updated their schedule after you selected a time. Please run the algorithm again
     %div#tableWrapper
         %table#resultTable
             %tr
