@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_053916) do
+ActiveRecord::Schema.define(version: 2021_11_24_185356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_11_17_053916) do
     t.integer "time_slots_id"
     t.integer "chosen_time"
     t.boolean "modi"
+    t.integer "flag", default: 0
     t.index ["time_slots_id"], name: "index_cohorts_on_time_slots_id"
   end
 
