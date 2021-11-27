@@ -19,7 +19,7 @@
                         - else
                             No
                             
-    -if @cohort.time_slots.present?
+    -if @cohort.time_slots.present? && !@schedule_change_warning
         = link_to "Find Class Time" , view_result_path(@cohort.id), :class => 'button_link'
         
     = link_to "Run Algorithm" , run_algorithm_path(@cohort.id), :class => 'button_link', method: :post, :data => {disable_with: "<i>The algorithm is running...</i>"}

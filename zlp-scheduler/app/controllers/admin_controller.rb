@@ -102,7 +102,6 @@ class AdminController < ApplicationController
       @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M") + " " + date_dict[chosen_timeslot.day]
       
       if @cohort.flag == 1
-        flash[:notice] = "You may want to run the algorithm again"
         @schedule_change_warning = true
       end
     end
