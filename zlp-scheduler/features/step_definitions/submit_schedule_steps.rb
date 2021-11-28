@@ -31,7 +31,6 @@ Given(/^Registered student and Create term and courses$/) do
   end
  
   @fake_schedule_name = []
-  
 end
 
 Then /I should see (.*) schedule in the table/ do |row_num|
@@ -53,6 +52,10 @@ Then ('I click cancel button') do
   click_link("Cancel")
 end
 
+Then('I click edit schedule button') do
+  click_link('Edit Schedule')
+end
+
 Then ('I click the added schedule') do
   click_link(@test_schedule_name)
 end
@@ -68,40 +71,31 @@ def select_option_in_dropdown(target, rec)
 end  
 
 def select_course_info(i, if_course_num, if_course_sec, mandatory)
-  
   rec = []
-  select_option_in_dropdown('dept_select_'+i, rec)
-  
-  if if_course_num
-    select_option_in_dropdown('course_num_select_'+i, rec)
-  end
-  
-  if if_course_num and if_course_sec
-    select_option_in_dropdown('section_num_select_'+i, rec)
-  end
-  
-  if mandatory
-    check "mand_"+ i
-  end
+  select_option_in_dropdown('dept_select_' + i, rec)
+  select_option_in_dropdown('course_num_select_' + i, rec) if if_course_num
+  select_option_in_dropdown('section_num_select_' + i, rec) if if_course_num and if_course_sec
 
-  return rec
-  
+  check 'mand_' + i if mandatory
+  rec
 end
 
 
-Then ("I fill in my courses") do
-  
+Then('I fill in my courses') do
   @test_schedule_name = Faker::Name.last_name
-  fill_in "Schedule Name:", :with => @test_schedule_name
-  
+  fill_in 'Schedule Name:', with: @test_schedule_name
+
   @record = []
   i = 1
-  while i <= 3 do
+  while i <= 3
     madatory = [true, false].sample
-    @record.append(select_course_info(i.to_s, true, true, madatory))
+    r = select_course_info(i.to_s, true, true, madatory)
+    next if @record.include? r
+
+    r.append(madatory)
+    @record.append(r)
     i += 1
   end
-  #print(@record)
 end
 
 Then ("I fill in courses without select course number or section number randomly") do
@@ -116,22 +110,19 @@ Then ("I fill in courses without select course number or section number randomly
   
   @record = []
   i = 1
-  while i <= 4 do
+  while i <= 4
     mandatory = [true, false].sample
     num_sel = [true, false].sample
     sec_sel = [true, false].sample
     r = select_course_info(i.to_s, num_sel, sec_sel, mandatory)
-    if r.length == 3
-      @record.append(r)
-    end
+    next unless r.length == 3 and !@record.include? r
+    r.append(madatory)
+    @record.append(r)
     i += 1
-    #print(num_sel,sec_sel)
   end
-  #print(@record)
 end
 
 Then ("I fill in my courses without filling schedule name") do
-  
   @record = []
   i = 1
   while i <= 3 do
@@ -139,7 +130,6 @@ Then ("I fill in my courses without filling schedule name") do
     @record.append(select_course_info(i.to_s, true, true, mandatory))
     i += 1
   end
-  #print(@record)
 end
 
 Given('I should see added schedule') do
@@ -152,12 +142,10 @@ Given('I should see added schedule') do
   
 end
 
-Then ("I should see added course information") do
-  #print(@record.length+1)
+def check_record_on_page
   if @record != []
     @record.each do |rec|
-      rec.each do |info|
-        #print(info)
+      rec[0..2].each do |info|
         if page.respond_to? :should
           page.should have_content(info)
         else
@@ -166,15 +154,41 @@ Then ("I should see added course information") do
       end
     end
   end
-  
-  expect(page).to have_xpath(".//tr", count: @record.length + 1)
-  #print(page.all("#studentScheduleTable tr").count)
+end
+
+Then('I should see added course information') do
+  check_record_on_page
+  expect(page).to have_xpath('.//tr', count: @record.uniq.length + 1)
 end
 
 Then ("I should see Yes and No") do
-  
   expect(page).to have_xpath(".//tr", count: 3)
   expect(page.body.match?("Yes")).to eq true
   expect(page.body.match?("No")).to eq true
-  
+end
+
+Then('I should see added course information for edit') do
+  check_record_on_page
+  (0..6).each do |i|
+    if i < @record.size
+      raise unless find("#dept_select_#{i + 1}").value.eql? (@testing_department.index(@record[i][0]) + 1).to_s
+
+      expect(page).to have_select("course_num_select_#{i + 1}", selected: @record[i][1])
+      expect(page).to have_select("section_num_select_#{i + 1}", selected: @record[i][2])
+      if @record[i][3]
+        expect(page.find("#mand_#{i + 1}")).to be_checked
+      else
+        expect(page.find("#mand_#{i + 1}")).not_to be_checked
+      end
+    else
+      expect(page).to have_select("dept_select_#{i + 1}", selected: '')
+      expect(page).to have_select("course_num_select_#{i + 1}", selected: '')
+      expect(page).to have_select("section_num_select_#{i + 1}", selected: '')
+      expect(page.find("#mand_#{i + 1}")).not_to be_checked
+    end
+  end
+end
+
+When(/^I wait for (\d+) seconds?$/) do |secs|
+  sleep secs.to_i
 end

@@ -57,3 +57,15 @@ Scenario: Submit Schedule without filling schedule name
   And I fill in my courses without filling schedule name
   And I click save schedule button 
   Then I should see "Schedule must include a name."
+
+@javascript
+Scenario: Edit a schedule
+  And I click add schedule button
+  And I fill in my courses
+  And I click save schedule button 
+  And I should see added schedule
+  And I click the added schedule
+  Then I should see added course information
+  When I click edit schedule button
+  When I wait for 2 seconds
+  Then I should see added course information for edit
