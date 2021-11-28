@@ -31,7 +31,9 @@ Rails.application.routes.draw do
   get 'student/update_sections', :as => 'update_sections'
   
   get 'student/edit_schedule_path/:id', to: 'student#edit_schedule', as: 'edit_schedule'
-  
+
+  patch 'student/edit_schedule_path/:id', to: 'student#create_schedule', as: 'edit_schedule_done'
+
   post '/schedules', to: 'student#create_schedule', as: 'schedules'
   delete '/schedules/:id', to: 'student#delete_schedule', as: 'delete_schedule'
   get '/schedules/:id', to: 'student#view_schedule', as: 'view_schedule'

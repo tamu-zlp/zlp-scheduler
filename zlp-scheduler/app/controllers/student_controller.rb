@@ -52,22 +52,31 @@ class StudentController < ApplicationController
     @section_options = [];
     
   end
-  
+
   def update_courses
     @select_id = params[:id]
-    if params[:dept_id].empty?
-      @course_options = [].insert(0, "")
-    else 
+    @course_options = ['']
+    @section_options = ['']
+    if params[:dept_id]
       subj = Subject.find(params[:dept_id])
-      # map to name and id for use in our options_for_select
-      @term = Term.find_by active: 1;
-      @courses = Course.where(:abbreviated_subject => subj.subject_code, :term_id => @term.id).order(course_number: :asc)
-      @course_options = [];
+      @term = Term.find_by active: 1
+      @courses = Course.where(abbreviated_subject: subj.subject_code,
+                              term_id: @term.id).order(course_number: :asc)
       @courses.each do |c|
         @course_options.push(c.course_number)
       end
       @course_options = @course_options.uniq
-      @course_options.insert(0, "")
+      if params[:schedule_id]
+        @schedule = Schedule.find(params[:schedule_id])
+        if @schedule
+          @select_course = @schedule.courses[@select_id.to_i - 1].course_number
+          @select_section = @schedule.courses[@select_id.to_i - 1].section_number
+          @courses.each do |c|
+            @section_options.push(c.section_number) if c.course_number == @select_course
+          end
+          @section_options = @section_options.uniq
+        end
+      end
     end
   end
   
@@ -93,13 +102,16 @@ class StudentController < ApplicationController
   
   def create_schedule
     id = session[:user_id]
+    is_create = params[:schedule][:id].nil?
     @user = User.find(id)
     if params[:schedule][:name] == ""
       flash[:warning] = 'Schedule must include a name.'
       redirect_to add_schedule_path
     else
-      #add courses to schedule, schedule to user
+      # add courses to schedule, schedule to user
       @term = Term.find_by active: 1;
+      
+      Schedule.destroy(params[:schedule][:id]) unless is_create
       @schedule = Schedule.new
       @schedule.update_attributes(:name => params[:schedule][:name])
       @user.schedules.push(@schedule)
@@ -113,27 +125,26 @@ class StudentController < ApplicationController
         if (params[subj_symb] != "" and params[number_symb] == "") or (params[subj_symb] != "" and params[section_symb] == "")
           warning_word = " Courses without course number or section number will not be added in the schedule!"
         end
-        
-        if params[subj_symb] != "" and params[number_symb]!= "" and params[section_symb]!=""
-          subj = Subject.find(params[subj_symb]).subject_code
-          @course = Course.where(:abbreviated_subject => subj, :course_number => params[number_symb], :section_number => params[section_symb], :term_id => @term.id)
-          @schedule.courses.push(@course)
-          if !params[check_symb].nil?
-            #update mandatory attribute
-            @sched_table = ScheduleToCourse.find_by course_id: @course.ids
-            @sched_table.update_attributes(:mandatory => true)
-          end
-        end
+        next if params[subj_symb].empty? or params[number_symb].empty? or params[section_symb].empty?
+        subj = Subject.find(params[subj_symb]).subject_code
+        @course = Course.find_by(abbreviated_subject: subj, course_number: params[number_symb],
+                                 section_number: params[section_symb], term_id: @term.id)
+        # prevent duplicate courses in the same schedule
+        next unless @schedule.courses.find_by(id: @course.id).nil?
+        @schedule.courses.push(@course)
+        next if params[check_symb].nil?
+        @schedule_course = ScheduleToCourse.find_by(course_id: @course.id, schedule: @schedule.id)
+        @schedule_course.update_attributes(:mandatory => true)
       end
-      
+
       action = StudentAction.new
       action.user_id = @user.id
       action.schedule_name = @schedule.name
       action.schedule_id = @schedule.id
-      action.action = 0
+      action.action = is_create ? 0 : 2 # ToDo: use enum to represent action
       action.save
       
-      flash[:notice] = 'Schedule added!' + warning_word
+      flash[:notice] = (is_create ? 'Schedule added!' : 'Schedule updated!') + warning_word
       redirect_to view_terms_path
     end
   end
@@ -143,37 +154,24 @@ class StudentController < ApplicationController
     @courses = @schedule.courses
     @associations = ScheduleToCourse.where(:schedule_id => @schedule.id)
   end
-  
+
   def edit_schedule
     id = session[:user_id]
     @user = User.find(id)
-    
-    #form stuff for creating a new schedule
-    @schedule = Schedule.new
-    
-    @term = Term.find_by active: 1;
-    @subjects = @term.subjects
-    @subjects = @subjects.uniq
-    @course_options = [];
-    @section_options = [];
-    
-    #information of current schedule to load into form
-    @current_schedule = Schedule.find(params[:id])
-    @courses = @current_schedule.courses
-    @associations = ScheduleToCourse.where(:schedule_id => @current_schedule.id)
-    
-    @cur_mand = []
+    @term = Term.find_by active: 1
+    @subjects = @term.subjects.uniq
+    @course_options = []
+    @section_options = []
+    # information of current schedule to load into form
+    @schedule = Schedule.find(params[:id])
+    @courses = @schedule.courses
+    @associations = ScheduleToCourse.where(schedule_id: @schedule.id)
     @cur_subject = []
-    @cur_course = []
-    @cur_section = []
-    
+    @cur_mand = []
     @courses.each do |course|
       @cur_mand.push((@associations.find_by course_id: course.id).mandatory == true)
-      @cur_subject.push((@subjects.index{|item| item.subject_code == course.subject.subject_code}||-1)+1)
-      @cur_course.push(course.course_number)
-      @cur_section.push(course.section_number)
+      @cur_subject.push((@subjects.index { |item| item.subject_code == course.subject.subject_code } || -1) + 1)
     end
-    
   end
   
   def schedule_params
