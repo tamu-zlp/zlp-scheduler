@@ -63,27 +63,27 @@ class StudentController < ApplicationController
     @select_id = params[:id]
     @course_options = ['']
     @section_options = ['']
-    if params[:dept_id]
-      subj = Subject.find(params[:dept_id])
-      @term = Term.find_by active: 1
-      @courses = Course.where(abbreviated_subject: subj.subject_code,
-                              term_id: @term.id).order(course_number: :asc)
+
+    return unless params[:dept_id]
+    subj = Subject.find(params[:dept_id])
+    @term = Term.find_by active: 1
+    @courses = Course.where(abbreviated_subject: subj.subject_code,
+                            term_id: @term.id).order(course_number: :asc)
+    @courses.each do |c|
+      @course_options.push(c.course_number)
+    end
+    @course_options = @course_options.uniq
+
+    return unless params[:schedule_id]
+    schedule = Schedule.find(params[:schedule_id])
+    schedule_courses = schedule.courses.order(abbreviated_subject: :asc, course_number: :asc)
+    if schedule
+      @select_course = schedule_courses[@select_id.to_i - 1].course_number
+      @select_section = schedule_courses[@select_id.to_i - 1].section_number
       @courses.each do |c|
-        @course_options.push(c.course_number)
+        @section_options.push(c.section_number) if c.course_number == @select_course
       end
-      @course_options = @course_options.uniq
-      if params[:schedule_id]
-        @schedule = Schedule.find(params[:schedule_id])
-        schedule_courses = @schedule.courses.order(abbreviated_subject: :asc, course_number: :asc)
-        if @schedule
-          @select_course = schedule_courses[@select_id.to_i - 1].course_number
-          @select_section = schedule_courses[@select_id.to_i - 1].section_number
-          @courses.each do |c|
-            @section_options.push(c.section_number) if c.course_number == @select_course
-          end
-          @section_options = @section_options.uniq
-        end
-      end
+      @section_options = @section_options.uniq
     end
   end
   
@@ -147,8 +147,9 @@ class StudentController < ApplicationController
       action.user_id = @user.id
       action.schedule_name = @schedule.name
       action.schedule_id = @schedule.id
+      action.action = is_create ? 0 : 2
       action.save
-      
+
       flash[:notice] = (is_create ? 'Schedule added!' : 'Schedule updated!') + warning_word
       user = User.find(session[:user_id])
       update_cohort_flag(user.cohort_id)

@@ -143,16 +143,14 @@ Given('I should see added schedule') do
 end
 
 def check_record_on_page
-  if @record != []
-    @record.each do |rec|
-      rec[0..2].each do |info|
-        if page.respond_to? :should
-          Capybara.using_wait_time(3) do
-            page.should have_content(info)
-          end
-        else
-          assert page.has_content?(info)
+  @record.each do |rec|
+    rec[0..2].each do |info|
+      if page.respond_to? :should
+        Capybara.using_wait_time(3) do
+          page.should have_content(info)
         end
+      else
+        assert page.has_content?(info)
       end
     end
   end
@@ -174,9 +172,6 @@ Then('I should see added course information for edit') do
   @record = @record.sort_by {|e| [e[0], e[1].length, e[1], e[2]]} unless @record.empty?
   (0..6).each do |i|
     if i < @record.size
-      if not find("#dept_select_#{i + 1}").value.eql? (@testing_department.index(@record[i][0]) + 1).to_s
-        byebug
-      end
       raise unless find("#dept_select_#{i + 1}").value.eql? (@testing_department.index(@record[i][0]) + 1).to_s
 
       expect(page).to have_select("course_num_select_#{i + 1}", selected: @record[i][1])
