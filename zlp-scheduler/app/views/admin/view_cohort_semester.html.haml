@@ -1,9 +1,10 @@
 %div#viewCohortDiv
     %h1{:style => "text-align:center"} #{@cohort.name}
     
-    - if @chosen_time.present?
+    - if @chosen_time
         %p#chosenTime The meeting time for this term is #{@chosen_time}
-    
+    - if @schedule_change_warning
+        %p#scheduleChangeWarning One or more students updated their schedule after you selected a time. Please run the algorithm again
     %div#tableWrapper
         %table#resultTable
             %tr
@@ -18,7 +19,7 @@
                         - else
                             No
                             
-    -if @cohort.time_slots.present?
+    -if @cohort.time_slots.present? && !@schedule_change_warning
         = link_to "Find Class Time" , view_result_path(@cohort.id), :class => 'button_link'
         
     = link_to "Run Algorithm" , run_algorithm_path(@cohort.id), :class => 'button_link', method: :post, :data => {disable_with: "<i>The algorithm is running...</i>"}

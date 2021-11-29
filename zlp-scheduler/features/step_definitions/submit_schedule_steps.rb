@@ -18,6 +18,7 @@ Given(/^Registered student and Create term and courses$/) do
 
   @user = FactoryBot.create(:user, :role=>"student", :cohort_id=>@cohort.id)
   @user.save()
+  @student = @user
   
   @testing_department.each do |test_subject|
     @subject = FactoryBot.create(:subject, :subject_code=>test_subject, :subject_description=>"Test", :term_id=>@term.id)

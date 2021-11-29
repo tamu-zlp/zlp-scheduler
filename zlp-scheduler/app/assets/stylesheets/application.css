@@ -478,6 +478,13 @@ select {
     font-size: 20px
 }
 
+#scheduleChangeWarning {
+    color: white;
+    text-align: center;
+    font-family: serif;
+    font-size: 20px
+}
+
 /*student/view_terms*/
 #studentViewTermsDiv {
     text-align: center 

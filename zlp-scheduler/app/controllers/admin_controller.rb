@@ -94,12 +94,18 @@ class AdminController < ApplicationController
     @users = @cohort.users.order(lastname: :asc)
 
     date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
+    
     if @cohort.chosen_time.present?
       chosen_timeslot = TimeSlot.find(@cohort.chosen_time)
       chosen_time_start = chosen_timeslot.time
       chosen_time_end = chosen_time_start.advance(:hours => 2)
       @chosen_time = chosen_time_start.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M") + " " + date_dict[chosen_timeslot.day]
+      
+      if @cohort.flag == 1
+        @schedule_change_warning = true
+      end
     end
+    
   end
   
   def delete_cohort
@@ -148,6 +154,8 @@ class AdminController < ApplicationController
   
   def run_algorithm
     @cohort = Cohort.find(params[:cohort_id])
+    @cohort.flag = 0
+    @cohort.save()
     Scheduler_2.Generate_time_slots(@cohort)
     flash[:notice] = "The algorithm is finished!"
     redirect_to view_cohort_semester_path(params[:cohort_id])
@@ -209,9 +217,10 @@ class AdminController < ApplicationController
     date_dict = { "M" => "Monday", "T" => "Tuesday", "W" => "Wednesday", "TR" => "Thursday", "F" => "Friday"}
     time_display = chosen_time_start.time.strftime("%H:%M") + " - " + chosen_time_end.strftime("%H:%M") + " " + date_dict[chosen_day]
     
-    flash[:notice] = "The time slot for this cohort had been updated to " + time_display
-    redirect_to view_result_path(params[:cohort_id])
     @cohort.save
+    
+    flash[:notice] = "The time slot for this cohort had been updated to " + time_display
+    redirect_to view_cohort_semester_path(params[:cohort_id])
   end
   
   def student_actions
