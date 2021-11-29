@@ -10,7 +10,7 @@
         %td#specialTableData
             = collection_select(nil, :dept_id_1,  @subjects,  :id, :subject_code, {:include_blank => true, :selected => @cur_subject.nil? ? nil : @cur_subject[0]}, {:id => 'dept_select_1'})
         %td#specialTableData
-            = collection_select(nil, :course_num_id_1, @course_options, :id, :course_number, {:include_blank => true, :selected => 1}, {:id => 'course_num_select_1'})
+            = collection_select(nil, :course_num_id_1, @course_options, :id, :course_number, {:include_blank => true}, {:id => 'course_num_select_1'})
         %td#specialTableData
             = collection_select(nil, :section_num_id_1, @section_options, :id, :course_number, {:include_blank => true}, {:id => 'section_num_select_1'})
         %td#specialTableData

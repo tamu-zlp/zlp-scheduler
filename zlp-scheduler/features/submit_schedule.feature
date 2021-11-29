@@ -67,5 +67,9 @@ Scenario: Edit a schedule
   And I click the added schedule
   Then I should see added course information
   When I click edit schedule button
-  When I wait for 2 seconds
   Then I should see added course information for edit
+  And I fill in my courses
+  And I click save schedule button 
+  And I should see added schedule
+  And I click the added schedule
+  Then I should see added course information

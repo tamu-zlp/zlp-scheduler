@@ -11,7 +11,6 @@ class StudentController < ApplicationController
   end
   
   def view_terms
-    puts '=============='
     id = session[:user_id]
     @user = User.find(id)
     @term = Term.find_by active: 1;
@@ -34,6 +33,14 @@ class StudentController < ApplicationController
     end
   end
   
+  def update_cohort_flag(cohort_id)
+    @cohort = Cohort.find(cohort_id)
+    if @cohort.chosen_time.present? and @cohort.flag == 0
+      @cohort.flag = 1
+      @cohort.save
+    end
+  end
+
   def add_schedule
     id = session[:user_id]
     @user = User.find(id)
@@ -42,14 +49,6 @@ class StudentController < ApplicationController
       flash[:warning] = "You may only add 3 schedules."
       redirect_to view_terms_path
     end
-    
-    @cohort = Cohort.find(@user.cohort_id)
-    
-    if @cohort.chosen_time.present? and @cohort.flag == 0
-      @cohort.flag = 1
-      @cohort.save()
-    end
-    
     @schedule = Schedule.new
     
     @term = Term.find_by active: 1;
@@ -75,9 +74,10 @@ class StudentController < ApplicationController
       @course_options = @course_options.uniq
       if params[:schedule_id]
         @schedule = Schedule.find(params[:schedule_id])
+        schedule_courses = @schedule.courses.order(abbreviated_subject: :asc, course_number: :asc)
         if @schedule
-          @select_course = @schedule.courses[@select_id.to_i - 1].course_number
-          @select_section = @schedule.courses[@select_id.to_i - 1].section_number
+          @select_course = schedule_courses[@select_id.to_i - 1].course_number
+          @select_section = schedule_courses[@select_id.to_i - 1].section_number
           @courses.each do |c|
             @section_options.push(c.section_number) if c.course_number == @select_course
           end
@@ -143,15 +143,16 @@ class StudentController < ApplicationController
         @schedule_course = ScheduleToCourse.find_by(course_id: @course.id, schedule: @schedule.id)
         @schedule_course.update_attributes(:mandatory => true)
       end
-
       action = StudentAction.new
       action.user_id = @user.id
       action.schedule_name = @schedule.name
       action.schedule_id = @schedule.id
-      action.action = is_create ? 0 : 2 # ToDo: use enum to represent action
       action.save
       
       flash[:notice] = (is_create ? 'Schedule added!' : 'Schedule updated!') + warning_word
+      user = User.find(session[:user_id])
+      update_cohort_flag(user.cohort_id)
+
       redirect_to view_terms_path
     end
   end
@@ -171,12 +172,12 @@ class StudentController < ApplicationController
     @section_options = []
     # information of current schedule to load into form
     @schedule = Schedule.find(params[:id])
-    @courses = @schedule.courses
-    @associations = ScheduleToCourse.where(schedule_id: @schedule.id)
+    courses = @schedule.courses.order(abbreviated_subject: :asc, course_number: :asc)
+    associations = ScheduleToCourse.where(schedule_id: @schedule.id)
     @cur_subject = []
     @cur_mand = []
-    @courses.each do |course|
-      @cur_mand.push((@associations.find_by course_id: course.id).mandatory == true)
+    courses.each do |course|
+      @cur_mand.push((associations.find_by course_id: course.id).mandatory == true)
       @cur_subject.push((@subjects.index { |item| item.subject_code == course.subject.subject_code } || -1) + 1)
     end
   end
@@ -185,18 +186,12 @@ class StudentController < ApplicationController
     params.require(:schedule).permit(:name, course_ids: [])
   end
   
-  def delete_schedule 
+  def delete_schedule
     schedule = Schedule.find(params[:id])
     schedule.destroy
-    
     user = User.find(session[:user_id])
-    cohort = Cohort.find(user.cohort_id)
-    
-    if cohort.chosen_time.present? and cohort.flag == 0
-      cohort.flag = 1
-      cohort.save()
-    end
-    
+    update_cohort_flag(user.cohort_id)
+
     action = StudentAction.new()
     action.user_id = session[:user_id]
     action.schedule_name = schedule.name

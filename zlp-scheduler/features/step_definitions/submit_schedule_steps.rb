@@ -84,14 +84,13 @@ end
 
 Then('I fill in my courses') do
   @test_schedule_name = Faker::Name.last_name
-  fill_in 'Schedule Name:', with: @test_schedule_name
-
+  fill_in 'schedule[name]', with: @test_schedule_name
   @record = []
   i = 1
   while i <= 3
     madatory = [true, false].sample
     r = select_course_info(i.to_s, true, true, madatory)
-    next if @record.include? r
+    next if @record.include? r + [true] or @record.include? r + [false]
 
     r.append(madatory)
     @record.append(r)
@@ -116,8 +115,9 @@ Then ("I fill in courses without select course number or section number randomly
     num_sel = [true, false].sample
     sec_sel = [true, false].sample
     r = select_course_info(i.to_s, num_sel, sec_sel, mandatory)
-    next unless r.length == 3 and !@record.include? r
-    r.append(madatory)
+    next if r.length != 3 or (@record.include? r + [true] or @record.include? r + [false])
+
+    r.append(mandatory)
     @record.append(r)
     i += 1
   end
@@ -134,7 +134,6 @@ Then ("I fill in my courses without filling schedule name") do
 end
 
 Given('I should see added schedule') do
-  #print(@test_schedule_name)
   if page.respond_to? :should
       page.should have_content(@test_schedule_name)
   else
@@ -148,7 +147,9 @@ def check_record_on_page
     @record.each do |rec|
       rec[0..2].each do |info|
         if page.respond_to? :should
-          page.should have_content(info)
+          Capybara.using_wait_time(3) do
+            page.should have_content(info)
+          end
         else
           assert page.has_content?(info)
         end
@@ -169,9 +170,13 @@ Then ("I should see Yes and No") do
 end
 
 Then('I should see added course information for edit') do
-  check_record_on_page
+  # We show the sorted courses on the web page
+  @record = @record.sort_by {|e| [e[0], e[1].length, e[1], e[2]]} unless @record.empty?
   (0..6).each do |i|
     if i < @record.size
+      if not find("#dept_select_#{i + 1}").value.eql? (@testing_department.index(@record[i][0]) + 1).to_s
+        byebug
+      end
       raise unless find("#dept_select_#{i + 1}").value.eql? (@testing_department.index(@record[i][0]) + 1).to_s
 
       expect(page).to have_select("course_num_select_#{i + 1}", selected: @record[i][1])
@@ -190,6 +195,3 @@ Then('I should see added course information for edit') do
   end
 end
 
-When(/^I wait for (\d+) seconds?$/) do |secs|
-  sleep secs.to_i
-end

@@ -47,3 +47,17 @@ Scenario: Admin check student deleted actions
   And I click "Student Actions" button
   And I should see "deleted"
   And I should see "schedule"
+
+@javascript
+Scenario: Admin check student edited actions
+  And I click the added schedule
+  Then I should see added course information
+  And I click edit schedule button
+  Then I should see added course information for edit
+  And I fill in my courses
+  And I click save schedule button 
+  And I click "Log out"
+  And I am logged in as an admin
+  And I click "Student Actions" button
+  Then I should see "edited"
+  And I should see "schedule"
