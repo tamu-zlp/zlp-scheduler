@@ -28,7 +28,7 @@ class StudentController < ApplicationController
     end
     if @user.schedules
       @schedules = @user.schedules
-    else 
+    else
       @schedules = []
     end
   end
@@ -117,9 +117,12 @@ class StudentController < ApplicationController
     else
       # add courses to schedule, schedule to user
       @term = Term.find_by active: 1;
-      
-      Schedule.destroy(params[:schedule][:id]) unless is_create
-      @schedule = Schedule.new
+      if is_create
+        @schedule = Schedule.new
+      else
+        @schedule = Schedule.find(params[:schedule][:id])
+        @schedule.courses.clear
+      end
       @schedule.update_attributes(:name => params[:schedule][:name])
       @user.schedules.push(@schedule)
       warning_word = ""
@@ -160,7 +163,7 @@ class StudentController < ApplicationController
   
   def view_schedule
     @schedule = Schedule.find(params[:id])
-    @courses = @schedule.courses
+    @courses = @schedule.courses.order(abbreviated_subject: :asc, course_number: :asc)
     @associations = ScheduleToCourse.where(:schedule_id => @schedule.id)
   end
 
