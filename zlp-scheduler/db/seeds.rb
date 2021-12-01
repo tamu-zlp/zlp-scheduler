@@ -40,7 +40,7 @@ end
 @course = Course.create!(subject_id: @subject.id, abbreviated_subject: "ISEN", course_number: 310, section_number: 501, term_id: @term.id, meetingtime_start: DateTime.new(2001,2,3,9,20,6,'-05:00'), meetingtime_end: DateTime.new(2001,2,3,10,10,6,'-05:00'), meeting_days: ['M','W','F']).save
 @course = Course.create!(subject_id: @subject.id, abbreviated_subject: "ISEN", course_number: 330, section_number: 901, term_id: @term.id, meetingtime_start: DateTime.new(2001,2,3,13,30,6,'-05:00'), meetingtime_end: DateTime.new(2001,2,3,14,45,6,'-05:00'), meeting_days: ['T','TR']).save
 @course = Course.create!(subject_id: @subject.id, abbreviated_subject: "ISEN", course_number: 320, section_number: 502, term_id: @term.id, meetingtime_start: DateTime.new(2001,2,3,14,20,6,'-05:00'), meetingtime_end: DateTime.new(2001,2,3,15,45,6,'-05:00'), meeting_days: ['M','W']).save
-@course = Course.create!(subject_id: @subject.id, abbreviated_subject: "ISEN", course_number: 210, section_number: 501, term_id: @term.id, meetingtime_start: DateTime.new(2001,2,3,8,0,6,'-05:00'), meetingtime_end: DateTime.new(2001,2,3,9,15,6,'-05:00'), meeting_days: ['M','W']).save
+@course = Course.create!(subject_id: @subject.id, abbreviated_subject: "ISEN", course_number: 210, section_number: 502, term_id: @term.id, meetingtime_start: DateTime.new(2001,2,3,8,0,6,'-05:00'), meetingtime_end: DateTime.new(2001,2,3,9,15,6,'-05:00'), meeting_days: ['M','W']).save
 
 @subject = Subject.create!(subject_code: "CHEN", subject_description:"CHEN Test", term_id: @term.id)
 
