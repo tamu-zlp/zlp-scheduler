@@ -65,12 +65,10 @@ When /I fill in the new term form( without cohorts)?/ do |cohorts|
 end
 
 When /I fill in the open term form/ do
-    Time::DATE_FORMATS[:month] = '%B'
-    option = DateTime.current.next_month.to_s(:month)
+    option = DateTime.current.next_month.strftime('%B')
     select(option, from: 'term_closedate_2i')
     if option == 'January'
-        Time::Date_FORMATS[:year] = '%Y'
-        year = DateTime.current.next_month.to_s(:year)
+        year = DateTime.current.next_month.strftime('%Y')
         select(year, from: 'term_closedate_1i')
     end
     click_button("Save")
