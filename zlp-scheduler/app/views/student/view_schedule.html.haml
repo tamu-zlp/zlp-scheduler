@@ -19,5 +19,8 @@
                     - else
                         No
     %br
-    = link_to "Edit Schedule", edit_schedule_path(@schedule.id), :class => 'button_link'    
+    -if @cohort.modi.nil? || @cohort.modi?
+        = link_to "Edit Schedule", edit_schedule_path(@schedule.id), :class => 'button_link' 
+    -else
+        
     = link_to "Back to Home", view_terms_path, :class => 'button_link'

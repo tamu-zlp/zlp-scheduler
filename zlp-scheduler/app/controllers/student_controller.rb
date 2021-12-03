@@ -164,6 +164,7 @@ class StudentController < ApplicationController
   def view_schedule
     @schedule = Schedule.find(params[:id])
     @courses = @schedule.courses.order(abbreviated_subject: :asc, course_number: :asc)
+    @cohort = Cohort.find((User.find(session[:user_id])).cohort_id)
     @associations = ScheduleToCourse.where(:schedule_id => @schedule.id)
   end
 
