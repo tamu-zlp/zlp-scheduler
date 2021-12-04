@@ -22,54 +22,45 @@ class AdminController < ApplicationController
     @cohort_names = []
     @cohorts.each do |s|
       @cohort_names.push(s.name)
+      s.chosen_time = nil
+      s.save
     end
   end
   
   def update_term
-    if params[:term][:name]
-      ##updating active term
-      # check for selected cohorts before updating anything
-      @term = Term.find(params[:term][:name])
-      if not params[:Cohorts]
-        flash[:notice] = "Please select at least one cohort."
-        redirect_to new_term_path, flash: {selected_term_id: @term.id} and return
+    ##updating active term
+    # check for selected cohorts before updating anything
+    @term = Term.find(params[:term][:name])
+    if not params[:Cohorts]
+      flash[:notice] = "Please select at least one cohort."
+      redirect_to new_term_path, flash: {selected_term_id: @term.id} and return
+    end
+    Term.update_all active: false
+    @term = Term.find(params[:term][:name])
+    if @term.update_attributes(:active => true)
+      @cohorts = params[:Cohorts]
+      @cohorts.each do |c|
+        add_cohort = Cohort.where(:name => c)
+        @term.cohorts.push(add_cohort)
       end
-      
-      Term.update_all active: false
-      @term = Term.find(params[:term][:name])
-      if @term.update_attributes(:active => true)
-        @cohorts = params[:Cohorts]
-        @cohorts.each do |c|
-          add_cohort = Cohort.where(:name => c)
-          @term.cohorts.push(add_cohort)
-        end
-        @scheduletocourse = ScheduleToCourse.all
-        @scheduletocourse.each do |s|
-          s.destroy
-        end
-        @schedules = Schedule.all
-        @schedules.each do |s|
-          s.destroy
-        end
-        flash[:notice] = 'Term activated!'
-        redirect_to view_term_admin_path
-      else
-        redirect_to new_term_path
+      @scheduletocourse = ScheduleToCourse.all
+      @scheduletocourse.each do |s|
+        s.destroy
       end
-    else
-      ##updating open and close dates
-      @term = Term.find_by active: 1
-      open = DateTime.new(params[:term]['opendate(1i)'].to_i, params[:term]['opendate(2i)'].to_i, params[:term]['opendate(3i)'].to_i, params[:term]['opendate(4i)'].to_i, params[:term]['opendate(5i)'].to_i)
-      close = DateTime.new(params[:term]['closedate(1i)'].to_i, params[:term]['closedate(2i)'].to_i, params[:term]['closedate(3i)'].to_i, params[:term]['closedate(4i)'].to_i, params[:term]['closedate(5i)'].to_i)
+      @schedules = Schedule.all
+      @schedules.each do |s|
+        s.destroy
+      end
+      #@term = Term.find_by active: 1
+      @term.opendate = DateTime.new(2001,2,3,4,5,6,'+03:00')
+      @term.closedate = DateTime.new(2050,2,3,4,5,6,'+03:00')
+      @term.save
       LoadCoursesJob.perform_later @term
       #LoadCoursesJob.set(wait_until: 2.hours.until.open).perform_later(@term)
-      if @term.update_attributes(:opendate => open) && @term.update_attributes(:closedate => close)
-        flash[:notice] = 'Term open dates updated.'
-        redirect_to view_term_admin_path
-      else
-        flash[:notice] = 'Error - please try again.'
-        redirect_to new_term_path
-      end
+      flash[:notice] = 'Term activated!'
+      redirect_to view_term_admin_path
+    else
+      redirect_to new_term_path
     end
   end
   
