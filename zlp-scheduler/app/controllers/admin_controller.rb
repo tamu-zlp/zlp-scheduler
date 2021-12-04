@@ -239,6 +239,7 @@ class AdminController < ApplicationController
           @user.cohort_id = session[:cohort_id]
           @user.uin = params[:user][:uin]
           @user.password='Temp'
+          @user.activate = false
           @user.save!
           flash[:notice] = "A new student has been added."
           redirect_to manage_cohorts_path
