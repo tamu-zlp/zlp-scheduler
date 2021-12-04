@@ -13,10 +13,7 @@ Background: Create Term and Cohort
  And I should see the admin terms page
  And I should see "New Test Term"
  And I should see "Apple"
- And I click "Open"
- And I fill in the open term form
- And I should see the admin terms page
- And I should see "Term open dates updated."
+ And I should see "Term activated!"
  Then I click "Manage Cohorts"
 
 Scenario: Edit first name of a student

@@ -52,8 +52,8 @@ class AdminController < ApplicationController
         s.destroy
       end
       #@term = Term.find_by active: 1
-      @term.opendate = DateTime.new(2001,2,3,4,5,6,'+03:00')
-      @term.closedate = DateTime.new(2050,2,3,4,5,6,'+03:00')
+      @term.opendate = DateTime.now
+      @term.closedate = DateTime.now + 60.days
       @term.save
       LoadCoursesJob.perform_later @term
       #LoadCoursesJob.set(wait_until: 2.hours.until.open).perform_later(@term)
