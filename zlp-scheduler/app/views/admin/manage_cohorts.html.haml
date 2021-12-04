@@ -7,7 +7,8 @@
             - id = c.id
             %input{:type => "checkbox", :id => id, :onchange => "changeHeight(this.id)"}
             %label#manageCohortLabel{:for => id} #{c.name}
-            = link_to 'Delete Current Cohort', delete_cohort_path(c), method: :delete, data: {confirm: 'Are you sure?'}, :id => 'rightButtonCohort'
+            = link_to 'Delete', delete_cohort_path(c), method: :delete, data: {confirm: 'Are you sure?'}, :id => 'rightButtonCohort'
+            = link_to 'Add student',add_student_path(c.id),:id => 'rightButtonCohort'
             %table#resultTable
                 %tr
                     %th#specialTableHeader First Name
