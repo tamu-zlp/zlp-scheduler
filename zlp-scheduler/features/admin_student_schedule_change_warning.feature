@@ -9,10 +9,7 @@ Background: Assume all the term and cohort exists and select the meeting time
   And I should see the admin terms page
   And I should see "New Test Term"
   And I should see "Apple"
-  And I click "Open"
-  And I fill in the open term form
-  And I should see the admin terms page
-  And I should see "Term open dates updated."
+  And I should see "Term activated!"
   When I click "Log out"
   
   Given I am logged in as the student
