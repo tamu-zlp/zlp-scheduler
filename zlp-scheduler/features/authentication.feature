@@ -66,12 +66,16 @@ Scenario: Administrator logout
 
 Scenario: A Student Reset Password Success
   Given I am a registered student
-  And I visit the index page
-  When I click on the forgot password link
+  When I visit the index page
+  And I click on the forgot password link
   And I fill in the password reset form
-  Then I should receive an email
-  When I confirm the reset
-  Then I should see the reset instructions
+  Then I should see the closed page
+  When I am in the active cohort
+  And I click on the log out link
+  And I visit the index page
+  And I click on the forgot password link
+  And I fill in the password reset form
+  Then I should see the terms page
 
 Scenario: A Unregistered Student Reset Password Failed
   Given I am not a registered student
@@ -80,16 +84,6 @@ Scenario: A Unregistered Student Reset Password Failed
   And I fill in the password reset form
   Then I should receive no email
   And I should see the password reset error
-
-Scenario: A Student Reset Password expired
-  Given I am a registered student
-  And I visit the index page
-  When I click on the forgot password link
-  And I fill in the password reset form
-  Then I should receive an email
-  And I wait 2 hours
-  When I confirm the reset
-  Then I should see the password reset has expired
 
 Scenario Outline: Claim Acoout - possible combinations
   Given the following user exist:

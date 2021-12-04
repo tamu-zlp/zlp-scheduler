@@ -5,6 +5,12 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def reset
+    @is_reset = true
+    @user = User.new
+    render 'new'
+  end
+
   def add_cohort
     @cohort = Cohort.new
   end
@@ -112,32 +118,56 @@ class UsersController < ApplicationController
     redirect_to manage_administrators_path
   end
 
+  def handle_reset
+    if !@user.activate?
+      flash[:login_errors] = ['You should claim your account first']
+      redirect_to '/' and return
+    elsif @user.schedules.any? and @user.student? and Cohort.find(@user.cohort_id).modi == false
+      @user.errors.add(:base, 'Student cannot reset password after Admin disabled modification')
+    elsif @user.update_attributes(
+      password: params[:user][:password], activate: true,
+      password_confirmation: params[:user][:password_confirmation])
+      session[:user_id] = @user.id
+      if current_user.admin?
+        redirect_to view_term_admin_path, notice: 'You have reset your password' and return
+      else
+        @user.schedules.each do |s|
+          s.destroy
+          @cohort = Cohort.find(@user.cohort_id)
+          @chhort.flag = 1 if @cohort.chosen_time.present? and @cohort.flag == 0
+          StudentAction.new(user_id: @user.id, action: 1, schedule_name: s.name, schedule_id: s.id).save
+        end
+        redirect_to '/student/view_terms', notice: 'You have reset your password' and return
+      end
+    end
+    render 'new'
+  end
+
   def update_user
-    # check if there is a record for them in users
+    @is_reset = params[:commit] == 'Reset Password'
+    @term = Term.find_by active: 1
+    term.ImportTermList! if @term.nil?
     @user = User.find_by(email: params[:user][:email], uin: params[:user][:uin])
     if @user.nil?
       @user = User.new
+      @user.email = params[:user][:email]
+      @user.uin = params[:user][:uin]
       @user.errors.add(:email, 'not registered or UIN not matched')
-      render 'new'
+    elsif @is_reset
+      return handle_reset
     elsif @user.activate?
       @user.errors.add(:email, 'is already claimed before')
-      render 'new'
-    else
-      @user.update_attributes(password: params[:user][:password], activate: true,
-                              password_confirmation: params[:user][:password_confirmation])
-      if @user.save
-        session[:user_id] = @user.id
-        @term = Term.find_by active: 1
-        term.ImportTermList! if @term.nil?
-        if current_user.admin?
-          redirect_to view_term_admin_path, notice: 'You have claimed your account'
-        else
-          redirect_to '/student/view_terms', notice: 'You have claimed your account'
-        end
+    elsif @user.update_attributes(
+      password: params[:user][:password], activate: true,
+      password_confirmation: params[:user][:password_confirmation])
+      session[:user_id] = @user.id
+      if current_user.admin?
+        redirect_to view_term_admin_path, notice: 'You have claimed your account' and return
       else
-        render 'new'
+        redirect_to '/student/view_terms', notice: 'You have claimed your account' and return
       end
     end
+    render 'new'
   end
 
   private

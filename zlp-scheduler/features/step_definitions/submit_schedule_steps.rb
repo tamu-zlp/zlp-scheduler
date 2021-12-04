@@ -16,7 +16,7 @@ Given(/^Registered student and Create term and courses$/) do
   @cohort = FactoryBot.create(:cohort, :name=>"Apple", :term_id=>@term.id)
   @cohort.save()
 
-  @user = FactoryBot.create(:user, :role=>"student", :cohort_id=>@cohort.id)
+  @user = FactoryBot.create(:user, :role=>"student", :cohort_id=>@cohort.id, :uin=>12345)
   @user.save()
   @student = @user
   

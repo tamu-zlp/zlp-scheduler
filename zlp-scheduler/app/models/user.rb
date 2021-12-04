@@ -23,13 +23,6 @@ class User < ApplicationRecord
     role == 'admin'
   end
 
-  # password_reset email, should expire after sometime.
-  def send_password_reset
-    generate_token(:password_reset_token)
-    update_attributes!(password_reset_sent_at: Time.zone.now)
-    UserMailer.password_reset(self).deliver
-  end
-
   private
 
   # accepts a column name and uses secure random to genearate a random string as token and makes sure token is unique.

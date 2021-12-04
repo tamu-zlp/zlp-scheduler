@@ -70,7 +70,7 @@ Scenario: Added administrator can not reset password without claim account
   And I fill in the add admin form
   And I click on the log out link
   When I click on the forgot password link
-  And I fill in the new user email
+  And I fill in the password reset form
   And I should see information "You should claim your account first"
 
 Scenario: Edit Administrator Cancel Button

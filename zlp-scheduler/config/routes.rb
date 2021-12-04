@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   #get 'users/index'
   
   get '/' => 'sessions#new'
-  get 'signup'  => 'users#new' 
+  get 'signup'  => 'users#new'
+  get 'users/reset' => 'users#reset'
   get 'users/new', to: 'users#new', as: "users"
   post 'users/new', to: 'users#create', as: 'create'
   patch 'users/new', to: 'users#update_user', as: 'update_user'
@@ -13,7 +14,6 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   
-  resources :password_resets 
   get 'admin/manage_cohorts', to: 'admin#manage_cohorts', as: 'manage_cohorts'
   get 'users/add_cohort', to: 'users#add_cohort', as: 'add_cohort'
   get 'download_excel_example', to: 'users#download_excel_example'
@@ -58,8 +58,6 @@ Rails.application.routes.draw do
   get 'users/signout'
 
   get 'users/register'
-
-  get 'users/forgotpwd'
 
   get 'view_terms/index'
   

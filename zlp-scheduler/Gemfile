@@ -60,7 +60,6 @@ group :development, :test do
   gem 'faker'
   gem 'simplecov', :require => false
   gem 'email_spec'
-  gem 'sendgrid-ruby'
   gem 'selenium-webdriver'
   gem 'timecop'
 end
