@@ -71,4 +71,6 @@ Rails.application.routes.draw do
   get 'admin/student_actions', to: 'admin#student_actions', as: 'student_actions'
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  match 'admin/add_student/:cohort_id', to: 'admin#add_student',as: 'add_student', via: [:get, :post]
 end
