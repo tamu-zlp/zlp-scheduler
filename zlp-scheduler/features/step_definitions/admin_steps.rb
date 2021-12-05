@@ -1,4 +1,5 @@
 When /^I fill in the add admin form$/ do
+    @user = User.new(:firstname=>"John", :lastname=>"Doe", :email=>"blah@tamu.edu", :uin=>"1000")
     fill_in "user_firstname", with: "John"
     fill_in "user_lastname", with: "Doe"
     fill_in "user_email", with: "blah@tamu.edu"

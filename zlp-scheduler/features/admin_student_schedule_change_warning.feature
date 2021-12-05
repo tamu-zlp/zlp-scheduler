@@ -53,3 +53,21 @@ Scenario: View schedule change warning after schedule addition
   And I click "Apple"
   Then I should see "One or more students updated their schedule after you selected a time. Please run the algorithm again"
   And I should not see "Find Class Time"
+
+@javascript
+Scenario: A Student with a schedule cannot Reset Password if Admin disabled modification
+  When I click add schedule button
+  And I fill in my courses
+  And I click save schedule button 
+  And I click "Log out"
+
+  Given I am logged in as an admin
+  And I click "Apple"
+  And I click "Disable Student Modification"
+  And I click "Log out"
+
+  Given I am logged in as the student
+  And I click "Log out"
+  And I click on the forgot password link
+  And I fill in the password reset form
+  And I should see information "Student cannot reset password after Admin disabled modification"

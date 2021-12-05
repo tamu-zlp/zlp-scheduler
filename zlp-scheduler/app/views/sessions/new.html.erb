@@ -1,5 +1,5 @@
 <div class= "Sign_Form">
-    <h2 style="color:black;">Login</h2>
+    <h1 style="color:black;">Login</h1>
       <%= form_for(:session, url: login_path) do |f| %> 
         <p>Email Address<br><%= f.email_field :email, :placeholder => "Email", :pattern => ".+@tamu.edu", :title => "Only tamu email id", :size => 30, :class=> "Input_Medium"  %> 
         <p>Password<br><%= f.password_field :password, :placeholder => "Password", :size => 30, :class=> "Input_Medium" %> 
@@ -16,7 +16,6 @@
         <%end%>
     </div>
   
-    <p class="alignleft"> <%=link_to "New User?", '/signup' %></p>
-    <p class="alignright"> <%=link_to "Forgot Password?", new_password_reset_path %></p>
-    
+    <p class="alignleft"> <%=link_to "New User?", 'signup' %></p>
+    <p class="alignright"> <%=link_to "Forgot Password?", '/users/reset' %></p>    
 </div> 
