@@ -47,7 +47,7 @@ When /I want to delete specific student/ do
 end
 
 When /I want to delete specific cohort/ do
-    click_link("Delete Current Cohort", :href => "/cohorts/#{@cohort.id}")
+    click_link("Delete", :href => "/cohorts/#{@cohort.id}")
 end
 
 When /I edit "(.*)" in the page/ do |word| 
