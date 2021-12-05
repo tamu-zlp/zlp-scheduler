@@ -8,10 +8,6 @@ class AdminController < ApplicationController
     @cohorts = @term.cohorts.order(name: :asc)
   end
   
-  def open_semester
-    @term = Term.find_by active: 1;
-  end
-  
   def new_term
     if flash[:selected_term_id]
       @term = Term.find(flash[:selected_term_id])
