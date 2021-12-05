@@ -5,14 +5,11 @@ Background: Create Term and Cohort
  And Registered student and Create term and courses
  And I am logged in as an admin
  And I click "New Term"
- And I fill in the new term form
+ And I select the appropriate term
+ And I click button "Activate"
  And I should see the admin terms page
  And I should see "New Test Term"
  And I should see "Apple"
- And I click "Open"
- And I fill in the open term form
- And I should see the admin terms page
- And I should see "Term open dates updated."
  Then I click "Log out"
  
  Given I am logged in as an admin

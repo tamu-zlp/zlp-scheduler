@@ -100,3 +100,7 @@ end
 Then /I should see my class time/ do 
     expect(page.body.match?(/meeting time/m)).to eq true  
 end
+
+And /I select the appropriate term/ do
+    select("Test Term", from: 'Term:')
+end

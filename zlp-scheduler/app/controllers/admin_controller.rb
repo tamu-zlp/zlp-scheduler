@@ -30,6 +30,7 @@ class AdminController < ApplicationController
       ##updating active term
       # check for selected cohorts before updating anything
       @term = Term.find(params[:term][:name])
+      params[:Cohorts] = Cohort.all
       if not params[:Cohorts]
         flash[:notice] = "Please select at least one cohort."
         redirect_to new_term_path, flash: {selected_term_id: @term.id} and return
@@ -40,7 +41,10 @@ class AdminController < ApplicationController
       if @term.update_attributes(:active => true)
         @cohorts = params[:Cohorts]
         @cohorts.each do |c|
-          add_cohort = Cohort.where(:name => c)
+          add_cohort = c
+          c.chosen_time = nil
+          c.flag = 0
+          #add_cohort = Cohort.where(:name => c)
           @term.cohorts.push(add_cohort)
         end
         @scheduletocourse = ScheduleToCourse.all
@@ -51,16 +55,20 @@ class AdminController < ApplicationController
         @schedules.each do |s|
           s.destroy
         end
+        open = DateTime.yesterday
+        close = DateTime.new(2099,2,3,4,5,6,'+03:00')
+        LoadCoursesJob.perform_later @term
         flash[:notice] = 'Term activated!'
         redirect_to view_term_admin_path
       else
         redirect_to new_term_path
       end
+      
     else
       ##updating open and close dates
       @term = Term.find_by active: 1
-      open = DateTime.new(params[:term]['opendate(1i)'].to_i, params[:term]['opendate(2i)'].to_i, params[:term]['opendate(3i)'].to_i, params[:term]['opendate(4i)'].to_i, params[:term]['opendate(5i)'].to_i)
-      close = DateTime.new(params[:term]['closedate(1i)'].to_i, params[:term]['closedate(2i)'].to_i, params[:term]['closedate(3i)'].to_i, params[:term]['closedate(4i)'].to_i, params[:term]['closedate(5i)'].to_i)
+      open = DateTime.yesterday
+      close = DateTime.new(2050,2,3,4,5,6,'+03:00')
       LoadCoursesJob.perform_later @term
       #LoadCoursesJob.set(wait_until: 2.hours.until.open).perform_later(@term)
       if @term.update_attributes(:opendate => open) && @term.update_attributes(:closedate => close)
