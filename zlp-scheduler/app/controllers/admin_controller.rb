@@ -55,8 +55,10 @@ class AdminController < ApplicationController
         @schedules.each do |s|
           s.destroy
         end
-        open = DateTime.yesterday
-        close = DateTime.new(2099,2,3,4,5,6,'+03:00')
+        open_date = DateTime.yesterday
+        close_date = DateTime.new(2099,2,3,4,5,6,'+03:00')
+        @term.update_attributes(:opendate => open_date)
+        @term.update_attributes(:closedate => close_date)
         LoadCoursesJob.perform_later @term
         flash[:notice] = 'Term activated!'
         redirect_to view_term_admin_path

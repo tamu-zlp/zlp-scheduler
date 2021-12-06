@@ -63,11 +63,3 @@ end
 When /I see the message "(.*)"/ do |text|
     expect(page).to have_content(text)
 end
-
-When /^I accept popup$/ do
-  page.driver.browser.switch_to.alert.accept    
-end
-
-When /^I decline popup$/ do
-  page.driver.browser.switch_to.alert.dismiss
-end
