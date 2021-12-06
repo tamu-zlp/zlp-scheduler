@@ -183,7 +183,8 @@ class StudentController < ApplicationController
     @cur_mand = []
     courses.each do |course|
       @cur_mand.push((associations.find_by course_id: course.id).mandatory == true)
-      @cur_subject.push((@subjects.index { |item| item.subject_code == course.subject.subject_code } || -1) + 1)
+      subj = Subject.find_by(:subject_code => course.subject.subject_code)
+      @cur_subject.push(subj.nil? ? 0 : subj.id)
     end
   end
   
