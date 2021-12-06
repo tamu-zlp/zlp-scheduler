@@ -6,10 +6,13 @@
     = form_for @term do |f|
         %label#cohortLabel{:for => "term_name"} Term:
         = f.collection_select :name, Term.all, :id, :name, {:selected => @term.id}
-        %p#cohortLabel Cohorts in term (hold control to select multiple):
-        = select_tag "Cohorts", options_for_select(@cohort_names), multiple: true, id: 'cohort_select'
+        /%p#cohortLabel Cohorts in term (hold control to select multiple):
+        /= select_tag "Cohorts", options_for_select(@cohort_names), multiple: true, id: 'cohort_select'
+        %br
+        %br
         %br
         %br
         = f.submit "Activate", :class => 'button_link'
         = link_to "Cancel", view_term_admin_path, :class => 'button_link'
         = link_to "Load more terms", load_terms_path, :class => 'button_link'
+        /data: {confirm: 'This will erase previous student records. Are you sure?'},

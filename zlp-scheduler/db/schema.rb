@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(version: 2021_11_24_185356) do
 
   create_table "terms", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.datetime "opendate"
-    t.datetime "closedate"
+    t.datetime "opendate", default: DateTime.yesterday
+    t.datetime "closedate", default: DateTime.new(2050,2,3,4,5,6,'+03:00')
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "term_code"

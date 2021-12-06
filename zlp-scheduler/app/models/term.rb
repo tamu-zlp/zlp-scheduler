@@ -15,11 +15,13 @@ class Term < ApplicationRecord
         Rails.logger.debug "Duplicate Term Detected, Ignoring."
       end
     end
+    Term.update_all opendate: DateTime.yesterday
+    Term.update_all closedate: DateTime.new(2099,2,3,4,5,6,'+03:00')
     active_term = Term.find_by active: 1;
     if active_term.nil?
       Term.all[0].update_attributes(:active => true)
       Term.update_all opendate: DateTime.yesterday
-      Term.update_all closedate: DateTime.yesterday
+      Term.update_all closedate: DateTime.new(2099,2,3,4,5,6,'+03:00')
     end
   end
   

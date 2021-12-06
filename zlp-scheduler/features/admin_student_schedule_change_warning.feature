@@ -1,18 +1,16 @@
 Feature: As an administrator, I want to see a warning when a student makes changes on their schedule after I selected a class time
   
+
 Background: Assume all the term and cohort exists and select the meeting time
   Given The "New Test Term" terms exist 
   And Registered student and Create term and courses
   And I am logged in as an admin
   And I click "New Term"
-  And I fill in the new term form
+  And I select the appropriate term
+  And I click button "Activate"
   And I should see the admin terms page
   And I should see "New Test Term"
   And I should see "Apple"
-  And I click "Open"
-  And I fill in the open term form
-  And I should see the admin terms page
-  And I should see "Term open dates updated."
   When I click "Log out"
   
   Given I am logged in as the student

@@ -5,12 +5,6 @@ Scenario: Admin is redirected to view_term_admin
   When I click the logo
   Then I should see the admin terms page
   
-Scenario: Admin is redirected to view_term_admin from a different page
-  Given I am logged in as an admin
-  When I click "Open"
-  And I click the logo
-  Then I should see the admin terms page
-  
 Scenario: Student should see schedule page when term is open
   Given I am a registered student
   And the current term is open
