@@ -7,10 +7,10 @@ end
 
 Given(/^I am (not )?a registered (student|admin)$/) do |is_not, role|
   if is_not == nil
-    @user = FactoryBot.create(:user, :role=>role, :cohort_id => @cohort.id)
+    @user = FactoryBot.create(:user, :role=>role, :cohort_id => @cohort.id, :uin=>12345)
   else
     # Using build will not save record to db, so the user is not registered
-    @user = FactoryBot.build(:user, :role=>role, :cohort_id => @cohort.id)
+    @user = FactoryBot.build(:user, :role=>role, :cohort_id => @cohort.id, :uin=>12345)
   end
 end
 
@@ -62,16 +62,13 @@ When('I click on the forgot password link') do
   click_link('Forgot Password?')
 end
 
-When('I fill in the sign up form') do
+And('I fill in the password reset form') do
   fill_in "user[uin]", :with => @user.uin
   fill_in "user[email]", :with => @user.email
-  fill_in "user[password_confirmation]", :with => @user.password
-  click_button("Sign up")
-end
-
-And('I fill in the password reset form') do
-  fill_in "email", :with => @user.email
+  fill_in "user[password_confirmation]", :with =>@user.password
+  fill_in "user[password]", :with => @user.password
   click_button("Reset Password")
+  
 end
 
 When('I confirm the reset') do
@@ -89,7 +86,7 @@ When (/^I wait (\d+) (\w+)$/) do |time_amount, time_units|
 end
 
 Then('I should see the password reset error') do
-  expect(page).to have_content("Email is not registered")
+  expect(page).to have_content("Email not registered or UIN not matched")
 end
 
 Then('I should see the password reset has expired') do

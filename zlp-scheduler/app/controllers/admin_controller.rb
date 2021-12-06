@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   
-  before_action :require_admin, only: [:view_term_admin, :open_semester, :new_term, :update_term, :manage_cohorts, :add_cohort, :manage_administrators, :view_result]    
+  before_action :require_admin, only: [:view_term_admin, :open_semester, :new_term, :update_term, :manage_cohorts, :add_cohort, :manage_administrators, :view_result,:add_student]    
   
   
   def view_term_admin
@@ -228,6 +228,37 @@ class AdminController < ApplicationController
   
   def student_actions
     @actions = StudentAction.all.order(created_at: :desc)
+  end
+  
+  def add_student
+    case request.method_symbol    
+      when :get
+        @user=User.new()
+        session[:cohort_id]=params[:cohort_id]
+        @cohort_name=Cohort.find_by(id:params[:cohort_id]).name
+        @cohort_id=params[:cohort_id]
+    
+      when :post
+        if User.find_by(email:params[:user][:email]).nil?
+          @user = User.new()
+          @user.role = 'student'
+          @user.firstname=params[:user][:firstname]
+          
+          @user.lastname=params[:user][:lastname]
+          @user.email=params[:user][:email]
+          @user.cohort_id = session[:cohort_id]
+          @user.uin = params[:user][:uin]
+          @user.password='Temp'
+          @user.activate = false
+          @user.save!
+          flash[:notice] = "A new student has been added."
+          redirect_to manage_cohorts_path
+        else
+          flash[:notice] = "This email address already exists.Please try another email address."
+          redirect_to add_student_path(session[:cohort_id]) 
+        end
+    end
+        
   end
   
 end

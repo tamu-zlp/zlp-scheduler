@@ -1,4 +1,5 @@
 When /^I fill in the add admin form$/ do
+    @user = User.new(:firstname=>"John", :lastname=>"Doe", :email=>"blah@tamu.edu", :uin=>"1000")
     fill_in "user_firstname", with: "John"
     fill_in "user_lastname", with: "Doe"
     fill_in "user_email", with: "blah@tamu.edu"
@@ -46,7 +47,7 @@ When /I want to delete specific student/ do
 end
 
 When /I want to delete specific cohort/ do
-    click_link("Delete Current Cohort", :href => "/cohorts/#{@cohort.id}")
+    click_link("Delete", :href => "/cohorts/#{@cohort.id}")
 end
 
 When /I edit "(.*)" in the page/ do |word| 
@@ -62,4 +63,12 @@ end
 
 When /I see the message "(.*)"/ do |text|
     expect(page).to have_content(text)
+end
+
+When /^I fill in the add student form$/ do
+    fill_in "user_firstname", with: "John"
+    fill_in "user_lastname", with: "Doe"
+    fill_in "user_email", with: "blah@tamu.edu"
+    fill_in "user_uin", with: "1000"
+    click_button("Create")
 end
