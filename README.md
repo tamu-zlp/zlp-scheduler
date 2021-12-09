@@ -26,3 +26,8 @@ The caveat here is the `git subtree` commandwhich will specify to git to push th
 > git remote add heroku #{HEROKU_GIT_REPO}
 > git subtree push --prefix zlp-scheduler heroku master
 ```
+
+After that, you can setup the database
+```
+> heroku run db:create db:migrate db:seed
+```
